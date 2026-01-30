@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cafe Roma — St Albans</title>
+  <meta name="description" content="Welcome to Cafe Roma, your favourite neighbourhood cafe in St Albans. Great coffee, homemade food, and a warm community vibe.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Floating decorative elements -->
+  <div class="floating-decor">
+    <div class="float-circle float-1"></div>
+    <div class="float-circle float-2"></div>
+    <div class="float-circle float-3"></div>
+  </div>
+
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="#hero" class="nav-logo">
+        <span class="logo-cafe">CAFE</span> <span class="logo-roma">ROMA</span>
+      </a>
+      <div class="nav-links" id="navLinks">
+        <a href="#about" class="nav-link">About Us</a>
+        <a href="#experience" class="nav-link">Experience</a>
+        <a href="#app" class="nav-link">The App</a>
+        <a href="#contact" class="nav-link">Contact</a>
+      </div>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero" id="hero">
+    <div class="hero-parallax-bg"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-gradient-orb hero-orb-1"></div>
+    <div class="hero-gradient-orb hero-orb-2"></div>
+    <div class="hero-content">
+      <div class="hero-badge fade-in">
+        <span class="badge-dot"></span>
+        EST. ST ALBANS
+        <span class="badge-dot"></span>
+      </div>
+      <h1 class="hero-title fade-in">
+        <span class="title-line">Welcome to</span>
+        <span class="title-accent-wrap">
+          <span class="title-accent">CAFE ROMA</span>
+          <span class="title-tricolour">
+            <span class="tri-green"></span>
+            <span class="tri-white"></span>
+            <span class="tri-red"></span>
+          </span>
+        </span>
+      </h1>
+      <p class="hero-subtitle fade-in">Your neighbourhood coffee shop on St Peter's Street</p>
+      <div class="hero-cta fade-in">
+        <a href="#about" class="btn btn-primary">
+          <span>Discover More</span>
+          <svg class="btn-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+        <a href="#app" class="btn btn-outline">Try Our App</a>
+      </div>
+      <div class="hero-rating fade-in">
+        <div class="rating-badge">
+          <div class="stars">★★★★★</div>
+          <span>4.5 · 398 reviews on Google</span>
+        </div>
+      </div>
+    </div>
+    <div class="hero-scroll">
+      <div class="scroll-indicator">
+        <span>Scroll</span>
+        <div class="scroll-line"></div>
+      </div>
+    </div>
+    <!-- Wave divider -->
+    <div class="wave-divider wave-hero">
+      <svg viewBox="0 0 1440 120" preserveAspectRatio="none">
+        <path d="M0,60 C360,120 720,0 1080,60 C1260,90 1380,80 1440,60 L1440,120 L0,120 Z" />
+      </svg>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section class="section about" id="about">
+    <div class="section-bg-pattern"></div>
+    <div class="container">
+      <div class="section-header fade-in">
+        <span class="section-tag">
+          <span class="tag-line"></span>
+          Our Story
+          <span class="tag-line"></span>
+        </span>
+        <h2 class="section-title">About <span class="text-gold">Cafe Roma</span></h2>
+        <p class="section-subtitle">A warm corner of St Albans since day one</p>
+      </div>
+      <div class="about-grid">
+        <div class="about-text fade-in">
+          <p class="about-lead">A warm, welcoming neighbourhood cafe nestled in the heart of St Albans.</p>
+          <p>Cafe Roma is more than just a coffee shop — it's a community. Located on the charming St Peter's Street, we've been serving freshly brewed coffee, homemade food, and warm hospitality to locals and visitors alike.</p>
+          <p>Whether you're popping in for your morning espresso, catching up with friends over lunch, or grabbing a bite on the go, you'll always find a friendly face and a warm welcome.</p>
+          <div class="about-features">
+            <div class="feature-item" data-tooltip="Freshly ground and expertly brewed, every time">
+              <div class="feature-icon">☕</div>
+              <div class="feature-text">
+                <span class="feature-label">Artisan Coffee</span>
+                <span class="feature-desc">Freshly brewed daily</span>
+              </div>
+            </div>
+            <div class="feature-item" data-tooltip="Prepared fresh daily in our kitchen">
+              <div class="feature-icon">🍽️</div>
+              <div class="feature-text">
+                <span class="feature-label">Homemade Food</span>
+                <span class="feature-desc">Prepared with love</span>
+              </div>
+            </div>
+            <div class="feature-item" data-tooltip="Prepared with love using quality ingredients">
+              <div class="feature-icon">🥪</div>
+              <div class="feature-text">
+                <span class="feature-label">Fresh Food</span>
+                <span class="feature-desc">Quality ingredients</span>
+              </div>
+            </div>
+            <div class="feature-item" data-tooltip="We're the heart of St Peter's Street">
+              <div class="feature-icon">❤️</div>
+              <div class="feature-text">
+                <span class="feature-label">Community</span>
+                <span class="feature-desc">Heart of St Albans</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="about-image fade-in">
+          <div class="image-frame">
+            <img src="images/interior.jpg" 
+                 alt="Inside Cafe Roma — cosy interior with navy blue walls and warm lighting" loading="lazy">
+            <div class="image-accent"></div>
+            <div class="image-badge">
+              <span>Est.</span>
+              <strong>St Albans</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Wave divider -->
+    <div class="wave-divider wave-about">
+      <svg viewBox="0 0 1440 120" preserveAspectRatio="none">
+        <path d="M0,40 C240,100 480,0 720,60 C960,120 1200,20 1440,80 L1440,120 L0,120 Z" />
+      </svg>
+    </div>
+  </section>
+
+  <!-- Photo Gallery Strip -->
+  <section class="section gallery-strip">
+    <div class="gallery-marquee">
+      <div class="gallery-track">
+        <div class="gallery-item"><img src="images/exterior.jpg" alt="Cafe Roma blue shop front" loading="lazy"></div>
+        <div class="gallery-item"><img src="images/coffee.jpg" alt="Cafe Roma latte art" loading="lazy"></div>
+        <div class="gallery-item"><img src="images/interior.jpg" alt="Cafe Roma cosy interior" loading="lazy"></div>
+        <div class="gallery-item"><img src="images/pastries.jpg" alt="Cafe Roma fresh pastries" loading="lazy"></div>
+        <div class="gallery-item"><img src="images/exterior.jpg" alt="Cafe Roma blue shop front" loading="lazy"></div>
+        <div class="gallery-item"><img src="images/coffee.jpg" alt="Cafe Roma latte art" loading="lazy"></div>
+        <div class="gallery-item"><img src="images/interior.jpg" alt="Cafe Roma cosy interior" loading="lazy"></div>
+        <div class="gallery-item"><img src="images/pastries.jpg" alt="Cafe Roma fresh pastries" loading="lazy"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Experience Section -->
+  <section class="section experience" id="experience">
+    <div class="container">
+      <div class="section-header fade-in">
+        <span class="section-tag">
+          <span class="tag-line"></span>
+          What We Offer
+          <span class="tag-line"></span>
+        </span>
+        <h2 class="section-title">The <span class="text-gold">Experience</span></h2>
+        <p class="section-subtitle">More than coffee — it's a feeling</p>
+      </div>
+      <div class="experience-grid">
+        <div class="exp-card fade-in" data-tooltip="Dine in our cosy cafe and enjoy the atmosphere">
+          <div class="exp-card-glow"></div>
+          <div class="exp-icon-wrap">
+            <div class="exp-icon">🏠</div>
+          </div>
+          <h3>Dine In</h3>
+          <p>Settle into our cosy space with a coffee and something delicious. Stay as long as you like — you're always welcome.</p>
+          <div class="exp-card-line"></div>
+        </div>
+        <div class="exp-card exp-card-featured fade-in" data-tooltip="Grab your favourite drink or snack to go">
+          <div class="exp-card-glow"></div>
+          <div class="exp-icon-wrap">
+            <div class="exp-icon">☕</div>
+          </div>
+          <h3>Takeaway</h3>
+          <p>In a rush? Grab your favourite brew and a bite on the go. We'll have you sorted in no time.</p>
+          <div class="exp-card-line"></div>
+        </div>
+        <div class="exp-card fade-in" data-tooltip="Browse our seasonal selection of drinks and bites">
+          <div class="exp-card-glow"></div>
+          <div class="exp-icon-wrap">
+            <div class="exp-icon">📋</div>
+          </div>
+          <h3>Seasonal Menu</h3>
+          <p>Our menu changes with the seasons, always featuring fresh, locally sourced ingredients alongside your cafe classics.</p>
+          <div class="exp-card-line"></div>
+        </div>
+        <div class="exp-card fade-in" data-tooltip="Host your next meetup or small event with us">
+          <div class="exp-card-glow"></div>
+          <div class="exp-icon-wrap">
+            <div class="exp-icon">🎉</div>
+          </div>
+          <h3>Private Events</h3>
+          <p>Planning a small gathering? Get in touch to see how we can make your event special.</p>
+          <div class="exp-card-line"></div>
+        </div>
+      </div>
+    </div>
+    <!-- Wave divider -->
+    <div class="wave-divider wave-experience">
+      <svg viewBox="0 0 1440 120" preserveAspectRatio="none">
+        <path d="M0,80 C180,20 360,100 540,60 C720,20 900,90 1080,50 C1260,10 1380,70 1440,40 L1440,120 L0,120 Z" />
+      </svg>
+    </div>
+  </section>
+
+  <!-- App / Loyalty Section -->
+  <section class="section app-section" id="app">
+    <div class="app-bg-shapes">
+      <div class="app-shape app-shape-1"></div>
+      <div class="app-shape app-shape-2"></div>
+      <div class="app-shape app-shape-3"></div>
+    </div>
+    <div class="container">
+      <div class="app-grid">
+        <div class="app-content fade-in">
+          <span class="section-tag">
+            <span class="tag-line"></span>
+            Order & Earn
+            <span class="tag-line"></span>
+          </span>
+          <h2 class="section-title">The Cafe Roma <span class="text-gold">App</span></h2>
+          <p class="app-lead">Skip the queue, earn rewards, and enjoy your coffee your way — right from your browser.</p>
+          <div class="app-features">
+            <div class="app-feature">
+              <div class="app-feature-icon">📱</div>
+              <div>
+                <h4>Mobile Ordering</h4>
+                <p>Order ahead and collect when it's ready — no waiting around.</p>
+              </div>
+            </div>
+            <div class="app-feature">
+              <div class="app-feature-icon">⭐</div>
+              <div>
+                <h4>Loyalty Rewards</h4>
+                <p>Earn points with every visit. Your 10th coffee? It's on us.</p>
+              </div>
+            </div>
+            <div class="app-feature">
+              <div class="app-feature-icon">🎁</div>
+              <div>
+                <h4>Exclusive Offers</h4>
+                <p>App members get first dibs on seasonal specials and surprise treats.</p>
+              </div>
+            </div>
+            <div class="app-feature">
+              <div class="app-feature-icon">🕐</div>
+              <div>
+                <h4>Collection Service</h4>
+                <p>Order, pay, collect. It's that simple.</p>
+              </div>
+            </div>
+          </div>
+          <div class="app-cta">
+            <a href="https://koraos.co.uk/cafe-roma/menu" target="_blank" class="btn btn-primary">
+              <span>Open The App</span>
+              <svg class="btn-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+            <span class="app-note">No download needed — works in your browser</span>
+          </div>
+        </div>
+        <div class="app-visual fade-in">
+          <div class="phone-glow"></div>
+          <div class="phone-mockup phone-mockup-screenshot">
+            <div class="phone-notch"></div>
+            <div class="phone-screen phone-screen-img">
+              <img src="images/app-screenshot.jpg" alt="Cafe Roma App — VIP Gold Member loyalty dashboard" loading="lazy">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Wave divider -->
+    <div class="wave-divider wave-app">
+      <svg viewBox="0 0 1440 120" preserveAspectRatio="none">
+        <path d="M0,60 C320,110 640,10 960,70 C1120,100 1320,30 1440,60 L1440,120 L0,120 Z" />
+      </svg>
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+  <section class="section testimonials">
+    <div class="container">
+      <div class="section-header fade-in">
+        <span class="section-tag">
+          <span class="tag-line"></span>
+          What People Say
+          <span class="tag-line"></span>
+        </span>
+        <h2 class="section-title">Our <span class="text-gold">Community</span></h2>
+        <p class="section-subtitle">Real words from real visitors</p>
+      </div>
+      <div class="testimonial-grid fade-in">
+        <div class="testimonial-card">
+          <div class="testimonial-quote">"</div>
+          <div class="testimonial-stars">★★★★★</div>
+          <p>"Small and cosy cafe with good coffee and selection of cakes and sandwiches."</p>
+          <div class="testimonial-footer">
+            <div class="testimonial-avatar">G</div>
+            <span class="testimonial-author">Google Review</span>
+          </div>
+        </div>
+        <div class="testimonial-card testimonial-featured">
+          <div class="testimonial-quote">"</div>
+          <div class="testimonial-stars">★★★★★</div>
+          <p>"Cute hot drinks art, lovely staff, and great quality food and drinks."</p>
+          <div class="testimonial-footer">
+            <div class="testimonial-avatar">G</div>
+            <span class="testimonial-author">Google Review</span>
+          </div>
+        </div>
+        <div class="testimonial-card">
+          <div class="testimonial-quote">"</div>
+          <div class="testimonial-stars">★★★★★</div>
+          <p>"Amazing and the most friendliest service I've ever received from any place."</p>
+          <div class="testimonial-footer">
+            <div class="testimonial-avatar">G</div>
+            <span class="testimonial-author">Google Review</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Wave divider -->
+    <div class="wave-divider wave-testimonials">
+      <svg viewBox="0 0 1440 120" preserveAspectRatio="none">
+        <path d="M0,30 C360,100 720,0 1080,70 C1260,100 1380,50 1440,40 L1440,120 L0,120 Z" />
+      </svg>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section class="section contact" id="contact">
+    <div class="container">
+      <div class="section-header fade-in">
+        <span class="section-tag">
+          <span class="tag-line"></span>
+          Get In Touch
+          <span class="tag-line"></span>
+        </span>
+        <h2 class="section-title">Find <span class="text-gold">Us</span></h2>
+        <p class="section-subtitle">We'd love to see you</p>
+      </div>
+      <div class="contact-grid">
+        <div class="contact-info fade-in">
+          <div class="contact-card">
+            <div class="contact-icon-wrap">
+              <div class="contact-icon">📍</div>
+            </div>
+            <div>
+              <h4>Visit Us</h4>
+              <p>79A St Peter's Street<br>St Albans, AL1 3EG</p>
+            </div>
+          </div>
+          <div class="contact-card">
+            <div class="contact-icon-wrap">
+              <div class="contact-icon">📞</div>
+            </div>
+            <div>
+              <h4>Call Us</h4>
+              <p><a href="tel:07938311828">07938 311828</a></p>
+            </div>
+          </div>
+          <div class="contact-card">
+            <div class="contact-icon-wrap">
+              <div class="contact-icon">🕐</div>
+            </div>
+            <div>
+              <h4>Opening Hours</h4>
+              <p>Mon–Sat: 8:00am – 5:30pm<br>Sunday: 9:00am – 4:00pm</p>
+            </div>
+          </div>
+          <div class="social-links">
+            <h4>Follow Us</h4>
+            <div class="social-icons">
+              <a href="#" class="social-icon" data-tooltip="Follow us on Instagram" aria-label="Instagram">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+              </a>
+              <a href="#" class="social-icon" data-tooltip="Like us on Facebook" aria-label="Facebook">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385h-3.047v-3.47h3.047v-2.642c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953h-1.513c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385c5.738-.9 10.125-5.864 10.125-11.854z"/></svg>
+              </a>
+              <a href="#" class="social-icon" data-tooltip="Follow us on TikTok" aria-label="TikTok">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="contact-map fade-in">
+          <div class="map-frame">
+            <iframe 
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2458.5!2d-0.341!3d51.7536!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4876367e3c8d5a5f%3A0x3c2a7e8f0b1d2c3a!2sCafe%20Roma%20-%20St%20Albans!5e0!3m2!1sen!2suk!4v1706500000000!5m2!1sen!2suk" 
+              width="100%" height="400" style="border:0;" 
+              allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-wave">
+      <svg viewBox="0 0 1440 80" preserveAspectRatio="none">
+        <path d="M0,40 C360,80 720,0 1080,40 C1260,60 1380,30 1440,40 L1440,80 L0,80 Z" />
+      </svg>
+    </div>
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-brand">
+          <span class="logo-cafe">CAFE</span> <span class="logo-roma">ROMA</span>
+          <p>Your neighbourhood coffee shop in the heart of St Albans.</p>
+        </div>
+        <div class="footer-links">
+          <a href="#about">About</a>
+          <a href="#experience">Experience</a>
+          <a href="#app">The App</a>
+          <a href="#contact">Contact</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 Cafe Roma, St Albans. All rights reserved.</p>
+        <p class="powered-by">Powered by <span class="text-gold">KoraOS</span></p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Tooltip Element -->
+  <div class="tooltip" id="tooltip"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>
