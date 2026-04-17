@@ -78,17 +78,18 @@ document.addEventListener('DOMContentLoaded', () => {
   }, { threshold: 0.4, rootMargin: '-80px 0px -40% 0px' });
   sections.forEach(s => activeObserver.observe(s));
 
-  // ---------- Hero parallax (cheap, reduced-motion respected) ----------
+  // ---------- Hero parallax (desktop only; respects reduced-motion) ----------
   const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const heroBg = document.querySelector('.hero-bg');
-  if (heroBg && !prefersReduced) {
+  if (heroBg && !prefersReduced && window.matchMedia('(min-width: 721px)').matches) {
     let parTick = false;
     window.addEventListener('scroll', () => {
       if (parTick) return;
       parTick = true;
       requestAnimationFrame(() => {
-        const y = Math.min(window.pageYOffset, window.innerHeight * 1.4);
-        heroBg.style.transform = `scale(1.08) translate3d(0, ${y * 0.12}px, 0)`;
+        const vh = window.innerHeight;
+        const y = Math.min(window.pageYOffset, vh);
+        heroBg.style.transform = `scale(1.12) translate3d(0, ${y * 0.08}px, 0)`;
         parTick = false;
       });
     }, { passive: true });
