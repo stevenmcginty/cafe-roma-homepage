@@ -78,6 +78,34 @@ document.addEventListener('DOMContentLoaded', () => {
   }, { threshold: 0.4, rootMargin: '-80px 0px -40% 0px' });
   sections.forEach(s => activeObserver.observe(s));
 
+  // ---------- Hero time-of-day atmosphere ----------
+  (function todAtmosphere() {
+    const hero = document.querySelector('.hero');
+    const pillLabel = document.querySelector('#todPill .tod-label');
+    if (!hero) return;
+
+    const phases = [
+      { from: 0,  to: 5,  key: 'night',     label: 'Late Night' },
+      { from: 5,  to: 7,  key: 'dawn',      label: 'Dawn' },
+      { from: 7,  to: 11, key: 'morning',   label: 'Morning' },
+      { from: 11, to: 15, key: 'midday',    label: 'Midday' },
+      { from: 15, to: 18, key: 'afternoon', label: 'Afternoon' },
+      { from: 18, to: 20, key: 'evening',   label: 'Evening' },
+      { from: 20, to: 24, key: 'night',     label: 'Night' },
+    ];
+
+    function apply() {
+      const h = new Date().getHours();
+      const phase = phases.find(p => h >= p.from && h < p.to) || phases[0];
+      hero.className = hero.className.replace(/\btod-\w+\b/g, '').trim() + ' tod-' + phase.key;
+      if (pillLabel) pillLabel.textContent = phase.label;
+    }
+
+    apply();
+    setInterval(apply, 5 * 60 * 1000); // refresh every 5 min
+    document.addEventListener('visibilitychange', () => { if (!document.hidden) apply(); });
+  })();
+
   // ---------- Hero parallax (desktop only; respects reduced-motion) ----------
   const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const heroBg = document.querySelector('.hero-bg');
