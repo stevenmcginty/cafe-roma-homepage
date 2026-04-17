@@ -225,6 +225,14 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
   border-bottom-color: rgba(232, 228, 221, 0.08);
 }
 .nav.scrolled .nav-inner { padding-top: 16px; padding-bottom: 16px; }
+/* When the mobile menu is open, drop backdrop-filter — it creates a
+   containing block that would clip the fixed .nav-links to the nav bar. */
+.nav.menu-open {
+  background: transparent;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  border-bottom-color: transparent;
+}
 .wordmark {
   font-family: var(--font-display);
   font-size: 22px;
@@ -1396,31 +1404,34 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
 
   .nav-links {
     position: fixed;
-    top: 0; right: 0; bottom: 0; left: 0;
+    top: 0; right: 0; left: 0;
     width: 100%;
+    height: 100vh;
+    height: 100dvh;
     background: var(--ink);
     display: flex;
     flex-direction: column;
     align-items: stretch;
-    justify-content: center;
+    justify-content: flex-start;
     gap: 0;
-    padding: 100px 28px 48px;
+    padding: 96px 28px 40px;
     transform: translateX(100%);
     transition: transform 440ms var(--ease);
     z-index: 110;
     overflow-y: auto;
+    overscroll-behavior: contain;
   }
   .nav-links.open { transform: translateX(0); }
 
   .nav-link {
     font-family: var(--font-display);
-    font-size: 26px;
+    font-size: 24px;
     font-weight: 500;
     letter-spacing: -0.005em;
     text-transform: none;
     color: var(--off-white);
     opacity: 1;
-    padding: 20px 4px;
+    padding: 18px 4px;
     text-align: left;
     border-bottom: 1px solid rgba(232, 228, 221, 0.12);
   }
