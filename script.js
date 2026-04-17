@@ -78,6 +78,75 @@ document.addEventListener('DOMContentLoaded', () => {
   }, { threshold: 0.4, rootMargin: '-80px 0px -40% 0px' });
   sections.forEach(s => activeObserver.observe(s));
 
+  // ---------- Verulamium Roman map: tooltip hotspots ----------
+  (function romanMap() {
+    const scene = document.querySelector('.map-scene');
+    const tooltip = document.querySelector('#mapTooltip');
+    if (!scene || !tooltip) return;
+
+    const hotspots = scene.querySelectorAll('.hotspot');
+    const data = {
+      'cafe-roma':       { name: 'Cafe Roma',           latin: 'Caupona Romana',         desc: 'You are here. Serving St Peter\u2019s Street since 1996.' },
+      'cathedral':       { name: 'St Albans Cathedral', latin: 'Abbatia Sancti Albani',  desc: 'Britain\u2019s oldest site of continuous Christian worship. A five-minute walk from the door.' },
+      'clock-tower':     { name: 'The Clock Tower',     latin: 'Turris Horarii',         desc: 'The only remaining medieval town belfry in England, built around 1405.' },
+      'verulamium-park': { name: 'Verulamium Park',     latin: 'Parcus Verulamii',       desc: 'Once the Roman city of Verulamium \u2014 Britain\u2019s third largest. Now green lawns over ancient mosaics.' },
+      'abbey-gateway':   { name: 'Abbey Gateway',       latin: 'Porta Abbatiae',         desc: 'A 14th-century stone gatehouse, surviving relic of the medieval abbey precinct.' },
+      'roman-theatre':   { name: 'Roman Theatre',       latin: 'Theatrum Verulamii',     desc: 'The only visible Roman theatre of its kind in Britain, built around 140 AD.' },
+      'river-ver':       { name: 'River Ver',           latin: 'Flumen Ver',             desc: 'The chalk stream that gave the Roman city of Verulamium its name.' }
+    };
+
+    const elH = tooltip.querySelector('h4');
+    const elL = tooltip.querySelector('.latin');
+    const elP = tooltip.querySelector('p');
+
+    function show(id, e) {
+      const d = data[id];
+      if (!d) return;
+      elH.textContent = d.name;
+      elL.textContent = d.latin;
+      elP.textContent = d.desc;
+      tooltip.classList.add('visible');
+      tooltip.setAttribute('aria-hidden', 'false');
+      position(e);
+    }
+    function hide() {
+      tooltip.classList.remove('visible');
+      tooltip.setAttribute('aria-hidden', 'true');
+    }
+    function position(e) {
+      const rect = scene.getBoundingClientRect();
+      let x, y;
+      if (e.touches && e.touches[0]) {
+        x = e.touches[0].clientX - rect.left;
+        y = e.touches[0].clientY - rect.top;
+      } else {
+        x = e.clientX - rect.left;
+        y = e.clientY - rect.top;
+      }
+      // Clamp so tooltip stays inside the scene
+      const tw = tooltip.offsetWidth;
+      x = Math.max(tw / 2 + 12, Math.min(rect.width - tw / 2 - 12, x));
+      y = Math.max(tooltip.offsetHeight + 20, y);
+      tooltip.style.left = x + 'px';
+      tooltip.style.top = y + 'px';
+    }
+
+    hotspots.forEach(h => {
+      const id = h.dataset.id;
+      if (!id) return;
+      h.addEventListener('mouseenter', (e) => show(id, e));
+      h.addEventListener('mousemove', position);
+      h.addEventListener('mouseleave', hide);
+      h.addEventListener('touchstart', (e) => show(id, e), { passive: true });
+    });
+    // Hide on touch outside
+    scene.addEventListener('touchstart', (e) => {
+      if (!e.target.closest('.hotspot')) hide();
+    }, { passive: true });
+    // Hide on scroll
+    window.addEventListener('scroll', hide, { passive: true });
+  })();
+
   // ---------- Hero time-of-day atmosphere ----------
   (function todAtmosphere() {
     const hero = document.querySelector('.hero');

@@ -189,6 +189,338 @@
   </section>
 
   <!-- =========================================================
+       Verulamium — Roman-themed interactive map of St Albans
+       ========================================================= -->
+  <section class="section verulamium" id="map">
+    <div class="container">
+      <div class="section-header">
+        <span class="eyebrow reveal">In Verulamium</span>
+        <h2 class="section-title reveal delay-1">Our corner of <span class="text-gold-deep">St Albans</span></h2>
+        <p class="section-subtitle reveal delay-2">Cafe Roma sits on St Peter's Street — in what was once Britain's third-largest Roman city. Explore the neighbourhood.</p>
+      </div>
+
+      <div class="map-wrap reveal delay-2">
+        <div class="map-scene">
+          <svg class="roman-map" viewBox="0 0 1200 700" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Illustrated map of St Albans with landmarks">
+            <defs>
+              <filter id="parchmentNoise" x="0" y="0" width="100%" height="100%">
+                <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="7"/>
+                <feColorMatrix values="0 0 0 0 0.55  0 0 0 0 0.4  0 0 0 0 0.22  0 0 0 0.08 0"/>
+              </filter>
+              <radialGradient id="parchmentShade" cx="50%" cy="50%" r="65%">
+                <stop offset="0%" stop-color="#f5e9cc"/>
+                <stop offset="100%" stop-color="#d9c59a"/>
+              </radialGradient>
+              <symbol id="column" viewBox="0 0 20 60">
+                <rect x="2" y="0" width="16" height="4" fill="#b8946a"/>
+                <rect x="4" y="4" width="12" height="50" fill="#e8d2a6"/>
+                <rect x="4" y="4" width="2" height="50" fill="#b8946a" opacity="0.6"/>
+                <rect x="14" y="4" width="2" height="50" fill="#b8946a" opacity="0.6"/>
+                <rect x="0" y="54" width="20" height="6" fill="#b8946a"/>
+              </symbol>
+              <symbol id="centurion" viewBox="0 0 30 54">
+                <path d="M15 2 Q20 -4 25 -8" stroke="#a02c2c" stroke-width="3" fill="none" stroke-linecap="round"/>
+                <ellipse cx="15" cy="10" rx="5" ry="6" fill="#3d2817"/>
+                <rect x="11" y="6" width="8" height="2" fill="#a8893f"/>
+                <path d="M10 14 L20 14 L22 36 L8 36 Z" fill="#7a1a1a"/>
+                <rect x="11" y="36" width="3" height="12" fill="#3d2817"/>
+                <rect x="16" y="36" width="3" height="12" fill="#3d2817"/>
+                <line x1="24" y1="6" x2="24" y2="46" stroke="#6b4423" stroke-width="1.5"/>
+                <polygon points="22.5,3 25.5,3 24,0" fill="#8a8a8a"/>
+              </symbol>
+              <symbol id="cloudShape" viewBox="0 0 80 30">
+                <ellipse cx="20" cy="20" rx="18" ry="10" fill="#faf6ef" opacity="0.8"/>
+                <ellipse cx="40" cy="16" rx="22" ry="12" fill="#faf6ef" opacity="0.8"/>
+                <ellipse cx="60" cy="20" rx="16" ry="9" fill="#faf6ef" opacity="0.8"/>
+              </symbol>
+            </defs>
+
+            <!-- Parchment base -->
+            <rect x="0" y="0" width="1200" height="700" fill="url(#parchmentShade)"/>
+            <rect x="0" y="0" width="1200" height="700" fill="#8b6f3a" filter="url(#parchmentNoise)" opacity="0.35"/>
+
+            <!-- Decorative double-line border -->
+            <rect x="22" y="22" width="1156" height="656" fill="none" stroke="#6b4423" stroke-width="2" stroke-opacity="0.45"/>
+            <rect x="32" y="32" width="1136" height="636" fill="none" stroke="#6b4423" stroke-width="0.6" stroke-opacity="0.35"/>
+
+            <!-- Cartouche title (top-left) -->
+            <g transform="translate(60, 56)">
+              <text font-family="Playfair Display, serif" font-size="26" font-style="italic" fill="#5a3e20">Tabula Sancti Albani</text>
+              <text y="22" font-family="Inter, sans-serif" font-size="11" fill="#8b5e3c" letter-spacing="3.5">A MAP OF ST ALBANS · MMXXVI</text>
+            </g>
+
+            <!-- Compass rose (top-right) -->
+            <g transform="translate(1088, 110)">
+              <circle r="44" fill="#f5e9cc" stroke="#6b4423" stroke-width="1"/>
+              <circle r="34" fill="none" stroke="#6b4423" stroke-width="0.4" stroke-dasharray="1 2" opacity="0.7"/>
+              <polygon points="0,-32 -7,0 7,0" fill="#6b4423"/>
+              <polygon points="0,32 -7,0 7,0" fill="#c9a55a" opacity="0.6"/>
+              <line x1="-32" y1="0" x2="32" y2="0" stroke="#6b4423" stroke-width="0.4" opacity="0.5"/>
+              <text y="-36" text-anchor="middle" font-family="Playfair Display" font-size="13" font-weight="700" fill="#5a3e20">N</text>
+              <text y="46" text-anchor="middle" font-family="Playfair Display" font-size="10" fill="#8b5e3c">S</text>
+              <text x="-38" y="4" text-anchor="end" font-family="Playfair Display" font-size="10" fill="#8b5e3c">W</text>
+              <text x="38" y="4" text-anchor="start" font-family="Playfair Display" font-size="10" fill="#8b5e3c">E</text>
+            </g>
+
+            <!-- Drifting clouds -->
+            <g class="map-clouds">
+              <use href="#cloudShape" x="-60" y="70" width="90" height="30" class="cloud cloud-1"/>
+              <use href="#cloudShape" x="-120" y="110" width="70" height="24" class="cloud cloud-2"/>
+              <use href="#cloudShape" x="-200" y="60" width="100" height="34" class="cloud cloud-3"/>
+            </g>
+
+            <!-- Verulamium Park (green region) -->
+            <g class="hotspot landmark" data-id="verulamium-park">
+              <path d="M60 330 Q100 315 200 320 L300 330 L320 440 L290 560 L180 620 L90 600 L50 490 Z"
+                    fill="#a9bd7c" opacity="0.55" stroke="#6b8749" stroke-width="1.2"/>
+              <!-- grass texture dots -->
+              <circle cx="110" cy="400" r="1.5" fill="#6b8749" opacity="0.6"/>
+              <circle cx="140" cy="440" r="1.5" fill="#6b8749" opacity="0.6"/>
+              <circle cx="180" cy="380" r="1.5" fill="#6b8749" opacity="0.6"/>
+              <circle cx="220" cy="420" r="1.5" fill="#6b8749" opacity="0.6"/>
+              <circle cx="250" cy="480" r="1.5" fill="#6b8749" opacity="0.6"/>
+              <circle cx="130" cy="510" r="1.5" fill="#6b8749" opacity="0.6"/>
+              <circle cx="200" cy="540" r="1.5" fill="#6b8749" opacity="0.6"/>
+              <text x="175" y="385" text-anchor="middle" font-family="Playfair Display" font-size="20" font-style="italic" fill="#3f5a2b" pointer-events="none">Verulamium</text>
+              <text x="175" y="402" text-anchor="middle" font-family="Inter" font-size="9" fill="#5a7a4a" letter-spacing="2.5" pointer-events="none">ROMAN CITY · PARK</text>
+            </g>
+
+            <!-- River Ver -->
+            <g class="hotspot landmark" data-id="river-ver">
+              <path d="M40 380 Q130 470 210 530 Q280 580 340 620 Q400 640 470 660"
+                    fill="none" stroke="#5c8498" stroke-width="10" stroke-linecap="round" opacity="0.75"/>
+              <path d="M40 380 Q130 470 210 530 Q280 580 340 620 Q400 640 470 660"
+                    fill="none" stroke="#9cc0d2" stroke-width="5" stroke-linecap="round" opacity="0.8" pointer-events="none"/>
+              <text x="260" y="570" font-family="Playfair Display" font-size="14" font-style="italic" fill="#2f5f74" transform="rotate(-22 260 570)" pointer-events="none">Flumen Ver</text>
+            </g>
+
+            <!-- Roman Theatre ruins -->
+            <g class="hotspot landmark" data-id="roman-theatre">
+              <!-- stepped base -->
+              <path d="M110 485 L265 485 L258 500 L117 500 Z" fill="#b8946a" stroke="#6b4423" stroke-width="1"/>
+              <path d="M115 500 L260 500 L253 512 L122 512 Z" fill="#a07a50" stroke="#6b4423" stroke-width="1" opacity="0.9"/>
+              <!-- columns -->
+              <use href="#column" x="128" y="430" width="18" height="55"/>
+              <use href="#column" x="164" y="430" width="18" height="55"/>
+              <use href="#column" x="200" y="430" width="18" height="55"/>
+              <use href="#column" x="236" y="430" width="18" height="55"/>
+              <!-- rubble/broken -->
+              <circle cx="250" cy="495" r="2" fill="#8b5e3c"/>
+              <circle cx="115" cy="505" r="1.5" fill="#8b5e3c"/>
+              <text x="188" y="538" text-anchor="middle" font-family="Playfair Display" font-size="13" font-style="italic" fill="#5a3e20" pointer-events="none">Theatrum</text>
+              <text x="188" y="552" text-anchor="middle" font-family="Inter" font-size="8" fill="#8b5e3c" letter-spacing="2" pointer-events="none">ROMAN THEATRE</text>
+            </g>
+
+            <!-- St Peter's Street (main vertical) -->
+            <path class="street" d="M600 60 L600 670" stroke="#dfc89d" stroke-width="22" stroke-linecap="round"/>
+            <path d="M600 70 L600 660" stroke="#8b7355" stroke-width="0.5" stroke-dasharray="6 8" opacity="0.45" pointer-events="none"/>
+
+            <!-- High Street (horizontal) -->
+            <path class="street" d="M305 440 L955 440" stroke="#dfc89d" stroke-width="16" stroke-linecap="round"/>
+            <path d="M320 440 L945 440" stroke="#8b7355" stroke-width="0.4" stroke-dasharray="5 7" opacity="0.4" pointer-events="none"/>
+
+            <!-- Holywell Hill (curves south-east) -->
+            <path class="street" d="M600 440 Q790 500 950 570 Q1060 625 1160 660"
+                  stroke="#dfc89d" stroke-width="14" stroke-linecap="round" fill="none"/>
+
+            <!-- Chequer Street (small) -->
+            <path class="street" d="M600 275 L855 275" stroke="#dfc89d" stroke-width="10" stroke-linecap="round" opacity="0.7"/>
+
+            <!-- St Albans Cathedral -->
+            <g class="hotspot landmark" data-id="cathedral">
+              <!-- tower -->
+              <rect x="410" y="85" width="34" height="80" fill="#d8bf8e" stroke="#6b4423" stroke-width="1.2"/>
+              <polygon points="407,85 427,55 447,85" fill="#8b5e3c"/>
+              <line x1="427" y1="52" x2="427" y2="40" stroke="#5a3e20" stroke-width="2"/>
+              <line x1="420" y1="46" x2="434" y2="46" stroke="#5a3e20" stroke-width="2"/>
+              <rect x="418" y="110" width="18" height="10" fill="#6b4423"/>
+              <!-- main body -->
+              <rect x="370" y="165" width="120" height="100" fill="#e3cc9c" stroke="#6b4423" stroke-width="1.5"/>
+              <polygon points="370,165 430,135 490,165" fill="#8b5e3c"/>
+              <!-- arched windows -->
+              <path d="M390 210 L390 195 Q400 183 410 195 L410 210 Z" fill="#c9a55a" stroke="#6b4423" stroke-width="0.6"/>
+              <path d="M425 210 L425 195 Q435 183 445 195 L445 210 Z" fill="#c9a55a" stroke="#6b4423" stroke-width="0.6"/>
+              <path d="M460 210 L460 195 Q470 183 480 195 L480 210 Z" fill="#c9a55a" stroke="#6b4423" stroke-width="0.6"/>
+              <!-- rose window -->
+              <circle cx="430" cy="240" r="9" fill="#c9a55a" stroke="#6b4423" stroke-width="0.6"/>
+              <!-- door -->
+              <path d="M418 265 L418 248 Q430 235 442 248 L442 265 Z" fill="#6b4423"/>
+              <text x="430" y="290" text-anchor="middle" font-family="Playfair Display" font-size="15" font-style="italic" fill="#5a3e20" pointer-events="none">Abbatia</text>
+              <text x="430" y="305" text-anchor="middle" font-family="Inter" font-size="8.5" fill="#8b5e3c" letter-spacing="1.8" pointer-events="none">ST ALBANS CATHEDRAL</text>
+            </g>
+
+            <!-- Abbey Gateway -->
+            <g class="hotspot landmark" data-id="abbey-gateway">
+              <rect x="410" y="345" width="64" height="70" fill="#d8bf8e" stroke="#6b4423" stroke-width="1.2"/>
+              <rect x="404" y="340" width="76" height="10" fill="#6b4423"/>
+              <path d="M430 415 L430 380 Q442 365 454 380 L454 415 Z" fill="#6b4423"/>
+              <rect x="417" y="360" width="8" height="8" fill="#6b4423"/>
+              <rect x="459" y="360" width="8" height="8" fill="#6b4423"/>
+              <!-- crenellations -->
+              <rect x="410" y="336" width="6" height="6" fill="#6b4423"/>
+              <rect x="422" y="336" width="6" height="6" fill="#6b4423"/>
+              <rect x="434" y="336" width="6" height="6" fill="#6b4423"/>
+              <rect x="446" y="336" width="6" height="6" fill="#6b4423"/>
+              <rect x="458" y="336" width="6" height="6" fill="#6b4423"/>
+              <rect x="470" y="336" width="6" height="6" fill="#6b4423"/>
+              <text x="442" y="432" text-anchor="middle" font-family="Playfair Display" font-size="12" font-style="italic" fill="#5a3e20" pointer-events="none">Porta Abbatiae</text>
+            </g>
+
+            <!-- Clock Tower -->
+            <g class="hotspot landmark" data-id="clock-tower">
+              <rect x="830" y="155" width="48" height="165" fill="#d8bf8e" stroke="#6b4423" stroke-width="1.4"/>
+              <rect x="822" y="155" width="64" height="12" fill="#6b4423"/>
+              <!-- clock face -->
+              <circle cx="854" cy="210" r="15" fill="#faf6ef" stroke="#6b4423" stroke-width="1.4"/>
+              <circle cx="854" cy="210" r="11" fill="none" stroke="#6b4423" stroke-width="0.4"/>
+              <line x1="854" y1="210" x2="854" y2="200" stroke="#3d2817" stroke-width="1.8" stroke-linecap="round"/>
+              <line x1="854" y1="210" x2="862" y2="214" stroke="#3d2817" stroke-width="1.3" stroke-linecap="round"/>
+              <circle cx="854" cy="210" r="1.5" fill="#3d2817"/>
+              <!-- windows -->
+              <rect x="846" y="240" width="16" height="22" fill="#6b4423"/>
+              <line x1="854" y1="240" x2="854" y2="262" stroke="#d8bf8e" stroke-width="0.8"/>
+              <line x1="846" y1="251" x2="862" y2="251" stroke="#d8bf8e" stroke-width="0.8"/>
+              <!-- roof -->
+              <polygon points="822,155 854,118 886,155" fill="#8b5e3c"/>
+              <rect x="849" y="92" width="10" height="28" fill="#8b5e3c"/>
+              <circle cx="854" cy="88" r="3.5" fill="#c9a55a"/>
+              <!-- door -->
+              <path d="M846 320 L846 298 Q854 288 862 298 L862 320 Z" fill="#6b4423"/>
+              <!-- crenellations -->
+              <rect x="830" y="148" width="5" height="6" fill="#6b4423"/>
+              <rect x="840" y="148" width="5" height="6" fill="#6b4423"/>
+              <rect x="850" y="148" width="5" height="6" fill="#6b4423"/>
+              <rect x="860" y="148" width="5" height="6" fill="#6b4423"/>
+              <rect x="870" y="148" width="5" height="6" fill="#6b4423"/>
+              <text x="854" y="345" text-anchor="middle" font-family="Playfair Display" font-size="14" font-style="italic" fill="#5a3e20" pointer-events="none">Turris Horarii</text>
+              <text x="854" y="360" text-anchor="middle" font-family="Inter" font-size="8.5" fill="#8b5e3c" letter-spacing="1.8" pointer-events="none">CLOCK TOWER</text>
+            </g>
+
+            <!-- Moving elements (on top of streets, under Cafe Roma) -->
+            <g class="moving-centurion">
+              <use href="#centurion" x="-15" y="-52" width="30" height="54"/>
+            </g>
+
+            <g class="moving-cart">
+              <!-- horse -->
+              <ellipse cx="-32" cy="-3" rx="14" ry="7" fill="#8b5e3c"/>
+              <rect x="-44" y="-8" width="8" height="12" fill="#8b5e3c"/>
+              <path d="M-44 -10 L-42 -14 L-40 -10" stroke="#6b4423" stroke-width="1" fill="#8b5e3c"/>
+              <line x1="-38" y1="4" x2="-38" y2="10" stroke="#3d2817" stroke-width="1.2"/>
+              <line x1="-28" y1="4" x2="-28" y2="10" stroke="#3d2817" stroke-width="1.2"/>
+              <!-- reins -->
+              <line x1="-18" y1="-2" x2="-12" y2="-4" stroke="#3d2817" stroke-width="1"/>
+              <!-- cart -->
+              <rect x="-12" y="-12" width="28" height="14" fill="#6b4423" stroke="#3d2817" stroke-width="0.8"/>
+              <rect x="-10" y="-14" width="24" height="4" fill="#8b5e3c"/>
+              <circle cx="-6" cy="6" r="5" fill="#3d2817" stroke="#a8893f" stroke-width="0.8"/>
+              <circle cx="-6" cy="6" r="2" fill="#a8893f"/>
+              <circle cx="10" cy="6" r="5" fill="#3d2817" stroke="#a8893f" stroke-width="0.8"/>
+              <circle cx="10" cy="6" r="2" fill="#a8893f"/>
+            </g>
+
+            <!-- Birds V-formation -->
+            <g class="map-birds">
+              <path d="M0 0 Q3 -2 6 0 M6 0 Q9 -2 12 0" stroke="#5a3e20" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+              <path d="M-10 4 Q-7 2 -4 4 M-4 4 Q-1 2 2 4" stroke="#5a3e20" stroke-width="1.1" fill="none" stroke-linecap="round" opacity="0.85"/>
+              <path d="M8 4 Q11 2 14 4 M14 4 Q17 2 20 4" stroke="#5a3e20" stroke-width="1.1" fill="none" stroke-linecap="round" opacity="0.85"/>
+            </g>
+
+            <!-- ═══ CAFE ROMA ═══ centerpiece -->
+            <g class="hotspot landmark cafe-roma" data-id="cafe-roma">
+              <!-- pulsing glow rings -->
+              <circle cx="600" cy="400" r="52" fill="none" stroke="#c9a55a" stroke-width="2" class="pulse-ring"/>
+              <circle cx="600" cy="400" r="38" fill="none" stroke="#c9a55a" stroke-width="2" class="pulse-ring pulse-ring-2"/>
+              <circle cx="600" cy="400" r="30" fill="#c9a55a" opacity="0.18" class="pulse-fill"/>
+
+              <!-- building shadow -->
+              <ellipse cx="600" cy="425" rx="32" ry="5" fill="#6b4423" opacity="0.2"/>
+
+              <!-- roof -->
+              <polygon points="570,370 600,342 630,370" fill="#8b5e3c"/>
+              <polygon points="570,370 600,342 630,370" fill="none" stroke="#5a3e20" stroke-width="0.6"/>
+              <!-- building body -->
+              <rect x="570" y="370" width="60" height="55" fill="#faf6ef" stroke="#c9a55a" stroke-width="2"/>
+              <!-- awning band -->
+              <rect x="568" y="366" width="64" height="6" fill="#a8893f"/>
+              <!-- left window -->
+              <rect x="576" y="378" width="12" height="12" fill="#b8d4e5" stroke="#6b4423" stroke-width="0.8"/>
+              <line x1="582" y1="378" x2="582" y2="390" stroke="#6b4423" stroke-width="0.4"/>
+              <line x1="576" y1="384" x2="588" y2="384" stroke="#6b4423" stroke-width="0.4"/>
+              <!-- right window -->
+              <rect x="612" y="378" width="12" height="12" fill="#b8d4e5" stroke="#6b4423" stroke-width="0.8"/>
+              <line x1="618" y1="378" x2="618" y2="390" stroke="#6b4423" stroke-width="0.4"/>
+              <line x1="612" y1="384" x2="624" y2="384" stroke="#6b4423" stroke-width="0.4"/>
+              <!-- door -->
+              <path d="M594 425 L594 400 Q600 394 606 400 L606 425 Z" fill="#6b4423"/>
+              <circle cx="603" cy="412" r="0.8" fill="#c9a55a"/>
+
+              <!-- flag pole -->
+              <line x1="600" y1="342" x2="600" y2="308" stroke="#3d2817" stroke-width="1.6"/>
+              <circle cx="600" cy="307" r="1.5" fill="#c9a55a"/>
+              <!-- tricolour flag -->
+              <g class="wave-flag">
+                <rect x="600" y="312" width="9" height="6" fill="#007042"/>
+                <rect x="609" y="312" width="9" height="6" fill="#f1f2f1" stroke="#d0c9a0" stroke-width="0.3"/>
+                <rect x="618" y="312" width="9" height="6" fill="#bc2a2a"/>
+              </g>
+
+              <!-- coffee cup above door -->
+              <g transform="translate(600, 358)">
+                <rect x="-7" y="-5" width="14" height="11" rx="1.2" fill="#faf6ef" stroke="#6b4423" stroke-width="0.8"/>
+                <ellipse cx="0" cy="-5" rx="7" ry="1.2" fill="#3d2817"/>
+                <path d="M7 -2 Q11 -2 11 2 Q11 6 7 6" fill="none" stroke="#6b4423" stroke-width="0.8"/>
+              </g>
+
+              <!-- rising steam -->
+              <g class="steam" transform="translate(600, 350)">
+                <path class="steam-1" d="M-4 0 Q-6 -6 -3 -12 Q0 -18 -3 -24" stroke="#faf6ef" stroke-width="2" fill="none" stroke-linecap="round"/>
+                <path class="steam-2" d="M2 0 Q5 -6 2 -14 Q-1 -20 2 -26" stroke="#faf6ef" stroke-width="2" fill="none" stroke-linecap="round"/>
+                <path class="steam-3" d="M6 0 Q9 -8 6 -14 Q3 -20 6 -24" stroke="#faf6ef" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+              </g>
+
+              <!-- "Cafe Roma" label scroll -->
+              <g transform="translate(600, 462)">
+                <rect x="-62" y="-16" width="124" height="32" fill="#faf6ef" stroke="#c9a55a" stroke-width="1.2" rx="2"/>
+                <text text-anchor="middle" y="-1" font-family="Playfair Display" font-size="18" font-weight="600" fill="#5a3e20">Cafe Roma</text>
+                <text text-anchor="middle" y="12" font-family="Inter" font-size="7.5" fill="#a8893f" letter-spacing="3">YOU ARE HERE</text>
+              </g>
+            </g>
+
+            <!-- Street labels -->
+            <text x="594" y="150" font-family="Playfair Display" font-size="10" font-style="italic" fill="#8b5e3c" transform="rotate(-90 594 150)" pointer-events="none" opacity="0.75" letter-spacing="1.5">ST PETER'S STREET</text>
+            <text x="750" y="430" text-anchor="middle" font-family="Playfair Display" font-size="10" font-style="italic" fill="#8b5e3c" pointer-events="none" opacity="0.75" letter-spacing="1.5">HIGH STREET</text>
+            <text x="970" y="560" font-family="Playfair Display" font-size="10" font-style="italic" fill="#8b5e3c" transform="rotate(24 970 560)" pointer-events="none" opacity="0.75" letter-spacing="1.5">HOLYWELL HILL</text>
+
+            <!-- Legend / Hint -->
+            <g transform="translate(940, 615)">
+              <rect x="0" y="0" width="220" height="52" fill="#faf6ef" stroke="#6b4423" stroke-width="0.8" rx="2" opacity="0.95"/>
+              <circle cx="22" cy="26" r="5" fill="#c9a55a"/>
+              <circle cx="22" cy="26" r="5" fill="none" stroke="#c9a55a" stroke-width="1" opacity="0.5" class="legend-pulse"/>
+              <text x="40" y="22" font-family="Playfair Display" font-size="13" font-style="italic" fill="#5a3e20">Hover the landmarks</text>
+              <text x="40" y="38" font-family="Inter" font-size="8.5" fill="#8b5e3c" letter-spacing="2.2">EXPLORE THE NEIGHBOURHOOD</text>
+            </g>
+
+            <!-- corner flourishes -->
+            <g stroke="#6b4423" stroke-width="0.8" fill="none" opacity="0.5">
+              <path d="M40 40 Q60 40 60 60"/>
+              <path d="M1160 40 Q1140 40 1140 60"/>
+              <path d="M40 660 Q60 660 60 640"/>
+              <path d="M1160 660 Q1140 660 1140 640"/>
+            </g>
+          </svg>
+
+          <div class="map-tooltip" id="mapTooltip" role="tooltip" aria-hidden="true">
+            <h4></h4>
+            <span class="latin"></span>
+            <p></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================
        Experience
        ========================================================= -->
   <section class="section section-dark" id="experience">

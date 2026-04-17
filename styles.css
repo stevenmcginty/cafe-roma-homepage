@@ -708,6 +708,232 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
   100% { transform: translateX(calc(-50% - 12px)); }
 }
 
+/* Verulamium — Roman interactive map
+   ========================================================================== */
+.verulamium {
+  background: #e8d7b0;
+  background-image:
+    radial-gradient(ellipse at 50% 0%, rgba(245, 233, 204, 0.9) 0%, transparent 60%),
+    radial-gradient(ellipse at 50% 100%, rgba(201, 165, 90, 0.18) 0%, transparent 55%);
+  padding: clamp(80px, 10vw, 120px) 0;
+  color: #5a3e20;
+  overflow: hidden;
+}
+.verulamium .section-title { color: #3d2817; }
+.verulamium .section-subtitle { color: #8b5e3c; }
+.verulamium .eyebrow { color: #8b5e3c; }
+
+.map-wrap {
+  position: relative;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 var(--pad);
+}
+.map-scene {
+  position: relative;
+  border-radius: 4px;
+  overflow: hidden;
+  box-shadow:
+    0 40px 80px -40px rgba(107, 68, 35, 0.4),
+    inset 0 0 100px rgba(107, 68, 35, 0.08);
+  background: #e8d7b0;
+}
+.roman-map {
+  display: block;
+  width: 100%;
+  height: auto;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* Landmark hotspots */
+.roman-map .hotspot {
+  cursor: pointer;
+  transition: filter 260ms ease, transform 320ms var(--ease);
+  transform-origin: center center;
+  transform-box: fill-box;
+}
+.roman-map .hotspot:hover { filter: brightness(1.08) drop-shadow(0 4px 8px rgba(107, 68, 35, 0.3)); }
+.roman-map .street { pointer-events: none; }
+
+/* Cafe Roma pulse */
+@keyframes romaPulse {
+  0%   { transform: scale(1);   opacity: 0.5; }
+  70%  { transform: scale(2.1); opacity: 0; }
+  100% { opacity: 0; }
+}
+.pulse-ring {
+  transform-origin: 600px 400px;
+  transform-box: view-box;
+  animation: romaPulse 2.6s ease-out infinite;
+}
+.pulse-ring-2 { animation-delay: 1.3s; }
+
+@keyframes romaFillPulse {
+  0%, 100% { opacity: 0.12; }
+  50%      { opacity: 0.28; }
+}
+.pulse-fill {
+  animation: romaFillPulse 2.6s ease-in-out infinite;
+}
+
+/* Steam */
+@keyframes steamRise {
+  0%   { opacity: 0; transform: translate(0, 4px); }
+  25%  { opacity: 0.9; }
+  90%  { opacity: 0.2; transform: translate(0, -16px); }
+  100% { opacity: 0; transform: translate(0, -22px); }
+}
+.steam .steam-1 { animation: steamRise 2.8s ease-out infinite; }
+.steam .steam-2 { animation: steamRise 2.8s ease-out infinite 0.8s; }
+.steam .steam-3 { animation: steamRise 2.8s ease-out infinite 1.6s; }
+
+/* Clouds drift */
+@keyframes driftCloud {
+  from { transform: translateX(0); }
+  to   { transform: translateX(1420px); }
+}
+.cloud-1 { animation: driftCloud 90s linear infinite; }
+.cloud-2 { animation: driftCloud 120s linear infinite -40s; }
+.cloud-3 { animation: driftCloud 75s linear infinite -25s; }
+
+/* Birds V crossing */
+@keyframes birdsCross {
+  0%   { transform: translate(-40px, 220px) scale(1); opacity: 0; }
+  8%   { opacity: 1; }
+  92%  { opacity: 1; }
+  100% { transform: translate(1260px, 170px) scale(1.05); opacity: 0; }
+}
+.map-birds {
+  animation: birdsCross 24s linear infinite 3s;
+  transform-origin: 0 0;
+}
+
+/* Flag wave */
+@keyframes flagWave {
+  0%, 100% { transform: translate(0, 0) skewX(0); }
+  25%      { transform: translate(0.5px, -0.3px) skewX(-4deg); }
+  50%      { transform: translate(1px, 0) skewX(0); }
+  75%      { transform: translate(0.5px, 0.3px) skewX(3deg); }
+}
+.wave-flag {
+  animation: flagWave 1.8s ease-in-out infinite;
+  transform-origin: 600px 315px;
+  transform-box: view-box;
+}
+
+/* Centurion marching along High Street */
+@keyframes centurionMarch {
+  0%   { transform: translate(300px, 440px); opacity: 0; }
+  4%   { opacity: 1; }
+  96%  { opacity: 1; }
+  100% { transform: translate(970px, 440px); opacity: 0; }
+}
+@keyframes centurionStep {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-1.2px); }
+}
+.moving-centurion {
+  animation: centurionMarch 38s linear infinite;
+}
+.moving-centurion > use {
+  animation: centurionStep 0.55s ease-in-out infinite;
+}
+
+/* Cart rolling down St Peter's Street */
+@keyframes cartRoll {
+  0%   { transform: translate(600px, 90px); opacity: 0; }
+  5%   { opacity: 1; }
+  95%  { opacity: 1; }
+  100% { transform: translate(600px, 660px); opacity: 0; }
+}
+.moving-cart {
+  animation: cartRoll 52s linear infinite 8s;
+}
+
+/* Legend pulse */
+@keyframes legendPulse {
+  0%, 100% { r: 5; opacity: 0.5; }
+  50%      { r: 9; opacity: 0; }
+}
+.legend-pulse { animation: legendPulse 1.8s ease-out infinite; }
+
+/* Tooltip
+   ========================================================================== */
+.map-tooltip {
+  position: absolute;
+  pointer-events: none;
+  background: var(--ink);
+  color: var(--off-white);
+  padding: 16px 20px;
+  border-radius: 3px;
+  min-width: 240px;
+  max-width: 320px;
+  border: 1px solid rgba(201, 165, 90, 0.35);
+  box-shadow: 0 24px 48px -16px rgba(11, 20, 38, 0.55);
+  opacity: 0;
+  transform: translate(-50%, calc(-100% - 14px)) scale(0.96);
+  transition: opacity 200ms ease, transform 260ms var(--ease);
+  z-index: 5;
+}
+.map-tooltip.visible {
+  opacity: 1;
+  transform: translate(-50%, calc(-100% - 14px)) scale(1);
+}
+.map-tooltip h4 {
+  font-family: var(--font-display);
+  font-size: 19px;
+  margin-bottom: 2px;
+  color: var(--off-white);
+  letter-spacing: -0.005em;
+}
+.map-tooltip .latin {
+  display: block;
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 10px;
+  font-style: italic;
+}
+.map-tooltip p {
+  font-size: 13px;
+  line-height: 1.6;
+  color: rgba(232, 228, 221, 0.82);
+  margin: 0;
+}
+.map-tooltip::after {
+  content: '';
+  position: absolute;
+  bottom: -6px;
+  left: 50%;
+  transform: translateX(-50%) rotate(45deg);
+  width: 12px;
+  height: 12px;
+  background: var(--ink);
+  border-right: 1px solid rgba(201, 165, 90, 0.35);
+  border-bottom: 1px solid rgba(201, 165, 90, 0.35);
+}
+
+@media (max-width: 720px) {
+  .roman-map { max-height: 560px; }
+  .map-tooltip {
+    min-width: 200px;
+    max-width: 260px;
+    padding: 12px 14px;
+  }
+  .map-tooltip h4 { font-size: 16px; }
+  .map-tooltip p { font-size: 12px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cloud-1, .cloud-2, .cloud-3,
+  .map-birds, .moving-centurion, .moving-cart,
+  .wave-flag, .steam path, .pulse-ring, .pulse-fill, .legend-pulse {
+    animation: none !important;
+  }
+}
+
 /* Experience
    ========================================================================== */
 .experience-grid {
