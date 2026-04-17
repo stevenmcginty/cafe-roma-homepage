@@ -109,6 +109,8 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
 .section {
   position: relative;
   padding: clamp(80px, 12vw, 140px) 0;
+  background: var(--cream);
+  color: var(--charcoal);
 }
 .section-dark {
   background: var(--ink);
