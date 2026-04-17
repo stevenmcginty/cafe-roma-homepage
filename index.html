@@ -16,6 +16,18 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
+
+  <!-- =========================================================
+       Analytics — GA4 + Microsoft Clarity
+       Consent-gated: scripts only load after the user accepts.
+       Replace placeholder IDs once accounts are created.
+       ========================================================= -->
+  <script>
+    window.CAFE_ROMA_ANALYTICS = {
+      GA4_ID: 'G-XXXXXXXXXX',          // <- paste GA4 Measurement ID here
+      CLARITY_ID: 'XXXXXXXXXX'          // <- paste Clarity Project ID here
+    };
+  </script>
 </head>
 <body>
 
@@ -848,6 +860,23 @@
     </div>
   </footer>
 
+  <!-- =========================================================
+       Cookie consent banner
+       ========================================================= -->
+  <div class="cookie-banner" id="cookieBanner" role="dialog" aria-live="polite" aria-label="Cookie consent" hidden>
+    <div class="cookie-banner-inner">
+      <p>
+        We use cookies to understand how people find and use our site — no ads, no selling data. You can accept, decline, or
+        <a href="#" class="cookie-link">read more</a>.
+      </p>
+      <div class="cookie-actions">
+        <button type="button" class="btn btn-outline cookie-decline" id="cookieDecline">Decline</button>
+        <button type="button" class="btn btn-primary cookie-accept" id="cookieAccept">Accept</button>
+      </div>
+    </div>
+  </div>
+
   <script src="script.js"></script>
+  <script src="analytics.js"></script>
 </body>
 </html>
