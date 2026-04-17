@@ -36,15 +36,23 @@
 /* Reset
    ========================================================================== */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
 body {
   font-family: var(--font-body);
   font-size: 17px;
   line-height: 1.65;
   color: var(--charcoal);
-  background: var(--cream);
+  background: var(--ink);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  width: 100%;
+  max-width: 100%;
   overflow-x: hidden;
 }
 img, svg { display: block; max-width: 100%; }
@@ -221,20 +229,19 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
   font-weight: 600;
   letter-spacing: 0.01em;
   color: var(--off-white);
-  display: inline-flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 2px;
+  display: inline-block;
   line-height: 1;
 }
 .wordmark-text {
   display: block;
   letter-spacing: 0.02em;
+  white-space: nowrap;
 }
 .wordmark-flourish {
   display: block;
   width: 100%;
-  height: 8px;
+  height: 7px;
+  margin-top: 3px;
   opacity: 0.9;
   transition: transform 420ms var(--ease), opacity 220ms ease;
 }
@@ -525,7 +532,7 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
 }
 .about-image .tri {
   position: absolute;
-  top: 24px; right: -14px;
+  top: 24px; right: 0;
   display: flex;
   flex-direction: column;
   gap: 4px;
@@ -821,6 +828,15 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
   color: var(--off-white);
 }
 .contact-item a:hover { color: var(--gold); }
+.contact-item .hours-note {
+  margin-top: 12px;
+  font-size: 12px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--gold);
+  padding-top: 12px;
+  border-top: 1px solid rgba(201, 165, 90, 0.2);
+}
 
 .social {
   display: flex;
@@ -904,24 +920,58 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
   .map-frame, .map-frame iframe { min-height: 360px; }
 }
 
+/* Mobile Sign In button shown only inside the slide-in menu */
+.mobile-signin { display: none; }
+
 @media (max-width: 720px) {
-  .nav-links {
-    position: fixed;
-    inset: 0;
-    background: var(--ink);
-    flex-direction: column;
-    justify-content: center;
-    gap: 36px;
-    font-size: 18px;
-    transform: translateX(100%);
-    transition: transform 420ms var(--ease);
-  }
-  .nav-links.open { transform: translateX(0); }
-  .nav-link { font-size: 16px; letter-spacing: 0.12em; }
+  /* Nav: mobile full-screen menu */
   .nav-cta { display: none; }
-  .nav-toggle { display: inline-block; z-index: 110; }
+  .nav-toggle { display: inline-block; z-index: 120; }
   .nav-toggle.active { color: var(--off-white); }
 
+  .nav-links {
+    position: fixed;
+    top: 0; right: 0; bottom: 0; left: 0;
+    width: 100%;
+    background: var(--ink);
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: center;
+    gap: 0;
+    padding: 100px 28px 48px;
+    transform: translateX(100%);
+    transition: transform 440ms var(--ease);
+    z-index: 110;
+    overflow-y: auto;
+  }
+  .nav-links.open { transform: translateX(0); }
+
+  .nav-link {
+    font-family: var(--font-display);
+    font-size: 26px;
+    font-weight: 500;
+    letter-spacing: -0.005em;
+    text-transform: none;
+    color: var(--off-white);
+    opacity: 1;
+    padding: 20px 4px;
+    text-align: left;
+    border-bottom: 1px solid rgba(232, 228, 221, 0.12);
+  }
+  .nav-link::after { display: none; }
+  .nav-link:hover, .nav-link:active, .nav-link.active { color: var(--gold); }
+  .nav-link:last-of-type { border-bottom: none; }
+
+  .mobile-signin {
+    display: inline-flex;
+    align-self: flex-start;
+    margin-top: 28px;
+    padding: 16px 28px;
+    font-size: 13px;
+  }
+
+  /* Experience: vertical stack, no right-edge border */
   .experience-grid {
     grid-template-columns: 1fr;
     border-left: none;
@@ -940,6 +990,7 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height
   .footer-inner { grid-template-columns: 1fr; text-align: left; }
   .footer-bottom { flex-direction: column; gap: 8px; }
   .about-image .est-chip { left: 16px; bottom: -20px; padding: 16px 22px; }
+  .about-image .tri { right: 8px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
