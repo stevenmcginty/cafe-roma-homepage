@@ -572,7 +572,7 @@
      to FALLBACK_MENU below so the page never looks broken.
      -------------------------------------------------------------- */
 
-  const MENU_API = null; // e.g. 'https://koraos.co.uk/api/cafe-roma/menu/public'
+  const MENU_API = 'https://koraos.co.uk/api/menu?businessId=cafe-roma';
 
   const FALLBACK_MENU = {
     updatedAt: new Date().toISOString(),
@@ -668,15 +668,49 @@
     ]
   };
 
-  async function loadMenu() {
-    if (!MENU_API) {
-      // No API configured yet — render the fallback as if it came from the server.
-      return FALLBACK_MENU;
+  // KoraOS returns { products, tables, profile }; the page expects the spec
+  // shape { updatedAt, currency, categories: [...] }. Group products by
+  // their `category` string and map priceEatIn → item.price.
+  function transformKoraosMenu(data) {
+    if (Array.isArray(data && data.categories)) return data; // already in spec shape
+    const products = Array.isArray(data && data.products) ? data.products : [];
+    if (!products.length) return null;
+
+    const groups = new Map();
+    for (const p of products) {
+      if (p.isSoldOut) continue;
+      const cat = (p.category || 'Menu').trim();
+      if (!groups.has(cat)) groups.set(cat, []);
+      groups.get(cat).push({
+        name: p.name,
+        price: Number(p.priceEatIn) || 0
+      });
     }
+
+    const slug = s => s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') || 'menu';
+    const categories = Array.from(groups.entries())
+      .filter(([, items]) => items.length > 0)
+      .map(([name, items]) => ({ id: slug(name), name, items }));
+
+    return {
+      updatedAt: new Date().toISOString(),
+      currency: 'GBP',
+      categories
+    };
+  }
+
+  async function loadMenu() {
+    if (!MENU_API) return FALLBACK_MENU;
     try {
-      const res = await fetch(MENU_API, { credentials: 'omit' });
+      const ctrl = new AbortController();
+      const timer = setTimeout(() => ctrl.abort(), 4000);
+      const res = await fetch(MENU_API, { credentials: 'omit', signal: ctrl.signal });
+      clearTimeout(timer);
       if (!res.ok) throw new Error('HTTP ' + res.status);
-      return await res.json();
+      const raw = await res.json();
+      const transformed = transformKoraosMenu(raw);
+      if (!transformed || !transformed.categories.length) throw new Error('empty menu');
+      return transformed;
     } catch (err) {
       console.warn('[menu] live fetch failed — using fallback:', err);
       return FALLBACK_MENU;
