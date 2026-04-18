@@ -668,6 +668,34 @@
     ]
   };
 
+  // Priority order for categories on the public menu. First keyword that
+  // matches the category name (case-insensitive) wins. Unknown categories
+  // fall to the end, then alphabetical.
+  const CATEGORY_PRIORITY = [
+    'coffee', 'espresso',
+    'hot drink', 'other',
+    'tea',
+    'iced', 'cold', 'frappe', 'smoothie', 'milkshake', 'juice',
+    'breakfast', 'brunch',
+    'lunch', 'sandwich', 'panini', 'toastie', 'wrap', 'salad',
+    'cake', 'pastry', 'bakery', 'cookie',
+    'extra', 'side'
+  ];
+  function categoryRank(name) {
+    const n = (name || '').toLowerCase().trim();
+    for (let i = 0; i < CATEGORY_PRIORITY.length; i++) {
+      if (n.includes(CATEGORY_PRIORITY[i])) return i;
+    }
+    return 999;
+  }
+  // Light title-casing so shouty DB values (e.g. "CAKES") read nicely.
+  function prettify(s) {
+    return String(s || '')
+      .toLowerCase()
+      .replace(/\b([a-z])/g, (_, c) => c.toUpperCase())
+      .replace(/\s+&\s+/g, ' & ');
+  }
+
   // KoraOS returns { products, tables, profile }; the page expects the spec
   // shape { updatedAt, currency, categories: [...] }. Group products by
   // their `category` string and map priceEatIn → item.price.
@@ -682,7 +710,7 @@
       const cat = (p.category || 'Menu').trim();
       if (!groups.has(cat)) groups.set(cat, []);
       groups.get(cat).push({
-        name: p.name,
+        name: prettify(p.name),
         price: Number(p.priceEatIn) || 0
       });
     }
@@ -690,7 +718,18 @@
     const slug = s => s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') || 'menu';
     const categories = Array.from(groups.entries())
       .filter(([, items]) => items.length > 0)
-      .map(([name, items]) => ({ id: slug(name), name, items }));
+      .map(([name, items]) => ({
+        id: slug(name),
+        name: prettify(name),
+        rawName: name,
+        items: items.slice().sort((a, b) => a.name.localeCompare(b.name))
+      }))
+      .sort((a, b) => {
+        const ra = categoryRank(a.rawName);
+        const rb = categoryRank(b.rawName);
+        return ra !== rb ? ra - rb : a.name.localeCompare(b.name);
+      })
+      .map(({ rawName, ...rest }) => rest);
 
     return {
       updatedAt: new Date().toISOString(),
@@ -830,7 +869,9 @@
       lastUpdated.textContent = text;
     }
 
-    // Observe sections to sync the active chip
+    // Observe sections to sync the active chip. Centre it horizontally in
+    // the chip nav WITHOUT calling scrollIntoView — on iOS Safari that
+    // bubbles up to the page and fights the user's own scroll.
     const io = new IntersectionObserver(entries => {
       entries.forEach(e => {
         if (e.isIntersecting) {
@@ -838,9 +879,11 @@
           document.querySelectorAll('.cat-chip').forEach(c => {
             c.classList.toggle('active', c.dataset.target === id);
           });
-          // Scroll the active chip into view in the sticky bar
           const active = catNavInner.querySelector('.cat-chip.active');
-          if (active) active.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+          if (active) {
+            const left = active.offsetLeft - (catNavInner.clientWidth - active.offsetWidth) / 2;
+            catNavInner.scrollTo({ left, behavior: 'smooth' });
+          }
         }
       });
     }, { rootMargin: '-40% 0px -50% 0px' });
