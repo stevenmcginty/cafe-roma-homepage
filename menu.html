@@ -246,6 +246,56 @@
     .item-name .diet.vg { color: #2e6b4a; border-color: rgba(46, 107, 74, 0.35); }
     .item-name .diet.gf { color: #8b5e3c; border-color: rgba(139, 94, 60, 0.35); }
 
+    /* Allergen badge — small italic "A" in gold next to items that contain
+       at least one of the 20 generic allergen groups. Tap-to-toggle, with
+       the contains-line slipping in below the description. */
+    .item-name .allergen-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-left: 8px;
+      width: 18px; height: 18px;
+      border-radius: 999px;
+      border: 1px solid rgba(201, 165, 90, 0.55);
+      color: var(--gold-deep);
+      background: rgba(201, 165, 90, 0.08);
+      font-family: var(--font-display);
+      font-style: italic;
+      font-weight: 600;
+      font-size: 11px;
+      line-height: 1;
+      cursor: pointer;
+      vertical-align: middle;
+      user-select: none;
+      transition: all 160ms var(--ease);
+    }
+    .item-name .allergen-badge:hover,
+    .item-name .allergen-badge.is-open {
+      background: var(--gold);
+      color: var(--ink);
+      border-color: var(--gold);
+    }
+    .item-contains {
+      margin-top: 6px;
+      font-family: var(--font-display);
+      font-style: italic;
+      font-size: 12.5px;
+      color: var(--gold-deep);
+      letter-spacing: 0.01em;
+      line-height: 1.5;
+    }
+    .item-contains[hidden] { display: none; }
+    .item-contains-label {
+      font-family: var(--font-body);
+      font-style: normal;
+      font-size: 9.5px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-right: 6px;
+    }
+
     .item-price {
       font-family: var(--font-display);
       font-style: italic;
@@ -937,6 +987,17 @@
     };
   }
 
+  // Detect which allergen categories an item contains. Mirror of
+  // detectAllergens() in utils/allergenParser.ts. Returns a list of
+  // category labels for display ("Gluten", "Dairy", "Nuts").
+  function detectAllergens(item) {
+    const text = _itemText(item);
+    if (!text.trim()) return [];
+    return ALLERGEN_CATEGORIES
+      .filter(cat => cat.keywords.some(k => _hasKeyword(text, k)))
+      .map(cat => cat.label);
+  }
+
   // ============================================================
   //  Filter state — persists in localStorage across visits.
   // ============================================================
@@ -1252,6 +1313,33 @@
           nameEl.appendChild(b);
         }
 
+        // Allergen badge — only when at least one of the 20 generic groups
+        // is detected. Tap toggles the contains-line under the description.
+        const detected = detectAllergens(item);
+        let containsEl = null;
+        if (detected.length > 0) {
+          const badge = document.createElement('button');
+          badge.type = 'button';
+          badge.className = 'allergen-badge';
+          badge.setAttribute('aria-label', `Contains ${detected.join(', ')}`);
+          badge.setAttribute('aria-expanded', 'false');
+          badge.textContent = 'A';
+          badge.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const open = containsEl.hasAttribute('hidden');
+            if (open) {
+              containsEl.removeAttribute('hidden');
+              badge.classList.add('is-open');
+              badge.setAttribute('aria-expanded', 'true');
+            } else {
+              containsEl.setAttribute('hidden', '');
+              badge.classList.remove('is-open');
+              badge.setAttribute('aria-expanded', 'false');
+            }
+          });
+          nameEl.appendChild(badge);
+        }
+
         const priceEl = document.createElement('div');
         priceEl.className = 'item-price';
         if (item.prices && item.prices.length) {
@@ -1270,6 +1358,14 @@
           desc.className = 'item-desc';
           desc.textContent = item.desc;
           el.appendChild(desc);
+        }
+        if (detected.length > 0) {
+          containsEl = document.createElement('p');
+          containsEl.className = 'item-contains';
+          containsEl.setAttribute('hidden', '');
+          containsEl.innerHTML =
+            `<span class="item-contains-label">Contains</span>${detected.join(', ')}`;
+          el.appendChild(containsEl);
         }
         itemsEl.appendChild(el);
       });
