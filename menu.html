@@ -389,6 +389,192 @@
       font-style: italic;
     }
 
+    /* ---- Allergen filter strip (sits above category pills) ---- */
+    .allergen-strip {
+      background: var(--cream);
+      border-bottom: 1px solid var(--rule);
+    }
+    .allergen-inner {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 18px var(--pad);
+    }
+    .allergen-toggle {
+      appearance: none;
+      width: 100%;
+      background: transparent;
+      border: 1px solid var(--rule);
+      border-radius: 999px;
+      padding: 11px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      cursor: pointer;
+      font-family: var(--font-body);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--muted);
+      transition: all 200ms var(--ease);
+    }
+    .allergen-toggle:hover {
+      color: var(--ink);
+      border-color: rgba(11, 20, 38, 0.25);
+    }
+    .allergen-toggle .dot {
+      width: 6px; height: 6px; border-radius: 999px;
+      background: var(--gold);
+      display: none;
+    }
+    .allergen-toggle.is-active .dot { display: inline-block; }
+    .allergen-toggle.is-active { color: var(--ink); border-color: rgba(11, 20, 38, 0.3); }
+    .allergen-toggle .chev {
+      width: 12px; height: 12px; opacity: 0.6;
+    }
+
+    .allergen-panel {
+      margin-top: 14px;
+      background: #fffaf0;
+      border: 1px solid rgba(201, 165, 90, 0.35);
+      border-radius: 18px;
+      padding: 18px 20px 20px;
+      animation: aFade 220ms var(--ease);
+    }
+    @keyframes aFade {
+      from { opacity: 0; transform: translateY(-4px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .allergen-panel-head {
+      display: flex; align-items: baseline; justify-content: space-between; gap: 12px;
+      margin-bottom: 12px;
+    }
+    .allergen-panel-head .eyebrow {
+      color: var(--gold-deep);
+      font-family: var(--font-body);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+    }
+    .allergen-panel-head .byline {
+      font-family: var(--font-display);
+      font-style: italic;
+      font-size: 14px;
+      color: var(--muted);
+    }
+    .allergen-input {
+      width: 100%;
+      background: transparent;
+      border: none;
+      border-bottom: 1px solid rgba(201, 165, 90, 0.5);
+      outline: none;
+      padding: 8px 2px;
+      font-family: var(--font-body);
+      font-size: 15px;
+      color: var(--ink);
+      transition: border-color 160ms var(--ease);
+    }
+    .allergen-input:focus { border-bottom-color: var(--gold-deep); }
+    .allergen-input::placeholder { color: rgba(11, 20, 38, 0.35); font-style: italic; }
+
+    .allergen-quick {
+      display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px;
+    }
+    .allergen-chip {
+      appearance: none; cursor: pointer;
+      padding: 7px 14px;
+      border-radius: 999px;
+      background: transparent;
+      border: 1px solid var(--rule);
+      color: var(--muted);
+      font-family: var(--font-body);
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      transition: all 160ms var(--ease);
+      display: inline-flex; align-items: center; gap: 6px;
+    }
+    .allergen-chip:hover { color: var(--ink); border-color: rgba(11, 20, 38, 0.25); }
+    .allergen-chip.is-on {
+      background: var(--ink); color: var(--off-white); border-color: var(--ink);
+    }
+
+    .allergen-terms { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
+    .allergen-term {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 4px 4px 4px 12px;
+      border-radius: 999px;
+      background: rgba(201, 165, 90, 0.15);
+      border: 1px solid rgba(201, 165, 90, 0.45);
+      color: var(--ink);
+      font-family: var(--font-body);
+      font-size: 12px;
+      font-weight: 500;
+    }
+    .allergen-term button {
+      appearance: none; border: none; cursor: pointer;
+      width: 18px; height: 18px; border-radius: 999px;
+      background: rgba(11, 20, 38, 0.08);
+      color: var(--muted);
+      font-size: 13px; line-height: 1; padding: 0;
+      display: inline-flex; align-items: center; justify-content: center;
+    }
+
+    .allergen-status {
+      margin-top: 16px;
+      padding-top: 14px;
+      border-top: 1px solid rgba(201, 165, 90, 0.3);
+      display: flex; align-items: center; justify-content: space-between; gap: 12px;
+    }
+    .allergen-status .count {
+      font-family: var(--font-body);
+      font-size: 12.5px;
+      color: var(--muted);
+    }
+    .allergen-status .count strong { color: var(--ink); font-weight: 600; }
+    .allergen-status button.clear {
+      appearance: none; border: none; background: transparent; cursor: pointer;
+      font-family: var(--font-body);
+      font-size: 12px; font-weight: 600;
+      color: var(--gold-deep);
+      text-decoration: underline;
+      padding: 4px;
+    }
+
+    /* When a category has zero matching items it collapses; status card surfaces */
+    .cat.is-empty { display: none; }
+    .allergen-empty {
+      margin: 24px auto;
+      max-width: 480px;
+      text-align: center;
+      padding: 28px 24px;
+      border: 1px dashed var(--rule);
+      border-radius: 18px;
+    }
+    .allergen-empty h3 {
+      font-family: var(--font-display);
+      font-size: 22px;
+      margin-bottom: 8px;
+    }
+    .allergen-empty p {
+      font-family: var(--font-body);
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .allergen-disclaimer {
+      margin-top: 12px;
+      font-family: var(--font-body);
+      font-size: 11px;
+      font-style: italic;
+      color: var(--muted-2);
+      text-align: center;
+      letter-spacing: 0.04em;
+    }
+
     /* ---- Responsive ---- */
     @media (max-width: 760px) {
       .items { grid-template-columns: 1fr; gap: 22px; }
@@ -396,6 +582,8 @@
       .cat-header { flex-direction: column; align-items: flex-start; gap: 6px; }
       .cat-header .cat-note { font-size: 10.5px; }
       .menu-hero .meta-row { font-size: 10px; gap: 14px; padding: 10px 16px; }
+      .allergen-quick { gap: 6px; }
+      .allergen-chip { font-size: 11px; padding: 6px 12px; }
     }
   </style>
 </head>
@@ -457,6 +645,53 @@
       </div>
     </div>
   </section>
+
+  <!-- =========================================================
+       Allergen filter — reverse search, "tell us what to avoid".
+       Same UX as the customer app (KoraOS), styled to the cream
+       trattoria palette.
+       ========================================================= -->
+  <div class="allergen-strip">
+    <div class="allergen-inner">
+      <button type="button" class="allergen-toggle" id="allergenToggle" aria-expanded="false" aria-controls="allergenPanel">
+        <span class="dot" aria-hidden="true"></span>
+        <span id="allergenToggleLabel">·  Allergens — tap to set  ·</span>
+        <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+
+      <div class="allergen-panel" id="allergenPanel" hidden>
+        <div class="allergen-panel-head">
+          <span class="eyebrow">Eat Safely</span>
+          <span class="byline">tell us what to avoid</span>
+        </div>
+
+        <input
+          type="text"
+          class="allergen-input"
+          id="allergenInput"
+          placeholder="peanuts, sesame, garlic, alcohol…"
+          autocomplete="off"
+          autocapitalize="off"
+          spellcheck="false"
+        />
+
+        <div class="allergen-quick" id="allergenQuick">
+          <!-- populated by script -->
+        </div>
+
+        <div class="allergen-terms" id="allergenTerms"></div>
+
+        <div class="allergen-status" id="allergenStatus" hidden>
+          <span class="count"><strong id="allergenSafeCount">0</strong> of <strong id="allergenTotalCount">0</strong> items match</span>
+          <button type="button" class="clear" id="allergenClear">Clear</button>
+        </div>
+
+        <p class="allergen-disclaimer">
+          Filter is based on item descriptions — please confirm with our team at the counter if you have a serious allergy.
+        </p>
+      </div>
+    </div>
+  </div>
 
   <!-- =========================================================
        Sticky category pills
@@ -571,6 +806,158 @@
      If the fetch fails (CORS, 404, auth still on), we fall back
      to FALLBACK_MENU below so the page never looks broken.
      -------------------------------------------------------------- */
+
+  // ============================================================
+  //  Allergen parser — mirror of utils/allergenParser.ts in the
+  //  KoraOS repo. Same word-boundary regex matching, all-occurrence
+  //  iteration, chain negation, compound-deflectors and 20-category
+  //  taxonomy. When that file changes, update this mirror.
+  // ============================================================
+  const ALLERGEN_CATEGORIES = [
+    { id: 'gluten',     label: 'Gluten',         keywords: ['gluten','wheat','barley','rye','oats','oat','spelt','kamut','semolina','durum','farro','bulgur','couscous','breadcrumb','breadcrumbs','malt'] },
+    { id: 'dairy',      label: 'Milk',           keywords: ['milk','dairy','lactose','cream','butter','cheese','whey','casein','yoghurt','yogurt','ghee','curd','mozzarella','parmesan','cheddar','feta','ricotta','mascarpone','gorgonzola','brie','camembert','halloumi','paneer'] },
+    { id: 'eggs',       label: 'Eggs',           keywords: ['egg','eggs','albumen','mayonnaise','mayo','meringue'] },
+    { id: 'nuts',       label: 'Nuts',           keywords: ['nut','nuts','almond','almonds','hazelnut','hazelnuts','walnut','walnuts','cashew','cashews','pecan','pecans','pistachio','pistachios','macadamia','macadamias','brazil nut','brazil nuts','peanut','peanuts','praline','marzipan','nougat','nut butter','almond butter','peanut butter','frangipane'] },
+    { id: 'soy',        label: 'Soy',            keywords: ['soy','soya','soybean','soybeans','tofu','edamame','tempeh','miso','tamari'] },
+    { id: 'fish',       label: 'Fish',           keywords: ['fish','cod','salmon','tuna','haddock','mackerel','sardine','sardines','anchovy','anchovies','trout','sea bass','pollock','plaice','fish sauce','worcestershire'] },
+    { id: 'crustaceans',label: 'Crustaceans',    keywords: ['crustacean','crustaceans','prawn','prawns','shrimp','shrimps','crab','crabs','lobster','lobsters','crayfish','langoustine','langoustines'] },
+    { id: 'molluscs',   label: 'Molluscs',       keywords: ['mollusc','molluscs','mussel','mussels','clam','clams','oyster','oysters','scallop','scallops','squid','octopus','cuttlefish','whelk','whelks','snail','snails'] },
+    { id: 'sesame',     label: 'Sesame',         keywords: ['sesame','tahini','gomashio'] },
+    { id: 'celery',     label: 'Celery',         keywords: ['celery','celeriac'] },
+    { id: 'mustard',    label: 'Mustard',        keywords: ['mustard','dijon','wholegrain mustard'] },
+    { id: 'sulphites',  label: 'Sulphites',      keywords: ['sulphite','sulphites','sulfite','sulfites','sulphur dioxide','sulfur dioxide','so2','e220','e221','e222','e223','e224','e226','e227','e228'] },
+    { id: 'lupin',      label: 'Lupin',          keywords: ['lupin','lupine','lupin flour'] },
+    { id: 'pork',       label: 'Pork',           keywords: ['pork','ham','bacon','pancetta','guanciale','prosciutto','chorizo','salami','mortadella','speck','parma ham','sausage','sausages','lardo'] },
+    { id: 'beef',       label: 'Beef',           keywords: ['beef','steak','mince','minced beef','brisket','oxtail','veal','bresaola','beef stock'] },
+    { id: 'poultry',    label: 'Poultry',        keywords: ['chicken','turkey','duck','goose','quail','poultry','chicken stock'] },
+    { id: 'alcohol',    label: 'Alcohol',        keywords: ['alcohol','wine','beer','lager','cider','rum','vodka','gin','whisky','whiskey','bourbon','brandy','cognac','liqueur','liquor','amaretto','kahlua','marsala','sherry','vermouth','prosecco','champagne','sake'] },
+    { id: 'caffeine',   label: 'Caffeine',       keywords: ['caffeine','coffee','espresso','cappuccino','latte','mocha','americano','macchiato','matcha','green tea','black tea','guarana','cocoa','chocolate','cola'] },
+    { id: 'alliums',    label: 'Garlic & Onion', keywords: ['garlic','onion','onions','shallot','shallots','leek','leeks','chive','chives','spring onion','spring onions','scallion','scallions'] },
+    { id: 'citrus',     label: 'Citrus',         keywords: ['citrus','lemon','lime','orange','grapefruit','mandarin','tangerine','clementine','yuzu','bergamot','lemon zest','orange zest'] },
+  ];
+  const QUICK_CATEGORY_IDS = ['gluten','dairy','eggs','nuts','soy'];
+
+  const COMPOUND_DEFLECTORS = {
+    milk:   ['soy','soya','almond','oat','coconut','rice','cashew','hazelnut','hemp','pea','plant'],
+    butter: ['peanut','almond','cashew','shea','apple','nut','sun','seed'],
+    cream:  ['coconut'],
+  };
+
+  function _stripDiacritics(s) { return s.normalize('NFD').replace(/[̀-ͯ]/g, ''); }
+  function _normalise(s) { return _stripDiacritics(String(s).toLowerCase()).replace(/\s+/g, ' '); }
+  function _escapeRegex(s) { return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); }
+
+  function _kwRe(kw) {
+    const k = _escapeRegex(_normalise(kw));
+    return new RegExp(`(^|[^a-z0-9])(${k})(?:es|s)?(?=$|[^a-z0-9])`, 'gi');
+  }
+
+  function _isNegated(text, start, len) {
+    const after = text.slice(start + len, start + len + 12);
+    if (/^[\s-]?free\b/.test(after)) return true;
+    const before = text.slice(Math.max(0, start - 80), start);
+    const NEG = '(?:free\\s+(?:from|of)|without|no|absent\\s+of|excludes?|excluding|sans)';
+    const CHAIN = '(?:[a-z]+\\s+(?:and|or)\\s+|[a-z]+\\s*,\\s*)';
+    return new RegExp(`(?:^|[^a-z])${NEG}\\s+(?:${CHAIN})*$`).test(before);
+  }
+
+  function _hasKeyword(text, kw) {
+    const re = _kwRe(kw);
+    const def = COMPOUND_DEFLECTORS[_normalise(kw)];
+    let m;
+    while ((m = re.exec(text)) !== null) {
+      const bodyStart = m.index + m[1].length;
+      const fullEnd = m.index + m[0].length;
+      const len = fullEnd - bodyStart;
+      if (def) {
+        const lookback = text.slice(Math.max(0, bodyStart - 16), bodyStart);
+        const isCompound = def.some(d =>
+          new RegExp(`(?:^|[^a-z])${_escapeRegex(d)}\\s+$`).test(lookback)
+        );
+        if (isCompound) continue;
+      }
+      if (!_isNegated(text, bodyStart, len)) return true;
+    }
+    return false;
+  }
+
+  function _itemText(item) {
+    const sources = item.ingredientSources;
+    if (Array.isArray(sources) && sources.length) {
+      return _normalise(
+        sources.map(s => `${s.allergenInfo || ''} ${(s.ingredients || []).join(' ')}`).join(' ')
+      );
+    }
+    return _normalise(`${item.name || ''} ${item.desc || ''}`);
+  }
+
+  function resolveTermToCategoryId(term) {
+    const raw = _normalise(term).trim();
+    if (raw.length < 2) return null;
+    const cands = new Set([raw]);
+    if (raw.endsWith('es') && raw.length > 3) cands.add(raw.slice(0, -2));
+    if (raw.endsWith('s')  && raw.length > 2) cands.add(raw.slice(0, -1));
+    for (const cat of ALLERGEN_CATEGORIES) {
+      const idLower = cat.id.toLowerCase();
+      const labelLower = _normalise(cat.label);
+      for (const c of cands) {
+        if (c === idLower || c === labelLower) return cat.id;
+        if (cat.keywords.some(k => {
+          const kn = _normalise(k);
+          return kn === c || (kn.endsWith('s') && kn.slice(0, -1) === c);
+        })) return cat.id;
+      }
+    }
+    return null;
+  }
+
+  function buildAllergenFilter(terms, activeCategoryIds) {
+    const cleaned = (terms || []).map(t => _normalise(t).trim()).filter(Boolean);
+    const resolved = new Set(activeCategoryIds || []);
+    const raw = [];
+    for (const t of cleaned) {
+      const id = resolveTermToCategoryId(t);
+      if (id) resolved.add(id); else raw.push(t);
+    }
+    const hasFilter = resolved.size > 0 || raw.length > 0;
+    return function isUnsafe(item) {
+      if (!hasFilter) return false;
+      const text = _itemText(item);
+      if (!text.trim()) return false;
+      if (resolved.size > 0) {
+        for (const cat of ALLERGEN_CATEGORIES) {
+          if (!resolved.has(cat.id)) continue;
+          if (cat.keywords.some(k => _hasKeyword(text, k))) return true;
+        }
+      }
+      for (const t of raw) {
+        if (_hasKeyword(text, t)) return true;
+      }
+      return false;
+    };
+  }
+
+  // ============================================================
+  //  Filter state — persists in localStorage across visits.
+  // ============================================================
+  const ALLERGEN_STORE_KEY = 'caferoma:allergenFilter';
+  let allergenState = { terms: [], categoryIds: [] };
+  try {
+    const raw = localStorage.getItem(ALLERGEN_STORE_KEY);
+    if (raw) {
+      const parsed = JSON.parse(raw);
+      allergenState.terms = Array.isArray(parsed.terms) ? parsed.terms : [];
+      allergenState.categoryIds = Array.isArray(parsed.categoryIds) ? parsed.categoryIds : [];
+    }
+  } catch { /* ignore corrupt cache */ }
+
+  function saveAllergenState() {
+    try { localStorage.setItem(ALLERGEN_STORE_KEY, JSON.stringify(allergenState)); }
+    catch { /* private mode etc. */ }
+  }
+
+  // Cached menu data so we can re-render after filter changes without refetching.
+  let LAST_MENU_DATA = null;
 
   const MENU_API = 'https://koraos.co.uk/api/menu?businessId=cafe-roma';
 
@@ -711,7 +1098,9 @@
       if (!groups.has(cat)) groups.set(cat, []);
       groups.get(cat).push({
         name: prettify(p.name),
-        price: Number(p.priceEatIn) || 0
+        desc: p.description || '',
+        price: Number(p.priceEatIn) || 0,
+        ingredientSources: Array.isArray(p.ingredientSources) ? p.ingredientSources : undefined
       });
     }
 
@@ -762,6 +1151,8 @@
   }
 
   function renderMenu(data) {
+    LAST_MENU_DATA = data;
+
     const root = document.getElementById('menuRoot');
     const catNavInner = document.getElementById('catNavInner');
     const lastUpdated = document.getElementById('lastUpdated');
@@ -769,8 +1160,43 @@
     const ctaBlock = document.getElementById('ctaBlock');
     const priceNote = document.getElementById('priceNote');
 
+    // Apply allergen filter — keep categories with at least one safe item.
+    const isUnsafe = buildAllergenFilter(allergenState.terms, allergenState.categoryIds);
+    let totalItems = 0;
+    let safeItems = 0;
+    const filteredCategories = data.categories.map(cat => {
+      const items = cat.items.filter(item => {
+        totalItems++;
+        const safe = !isUnsafe(item);
+        if (safe) safeItems++;
+        return safe;
+      });
+      return { ...cat, items };
+    }).filter(cat => cat.items.length > 0);
+
+    updateAllergenStatus(safeItems, totalItems);
+
     // Remove loading card
     root.innerHTML = '';
+
+    // Empty state when filter hides everything
+    if (filteredCategories.length === 0) {
+      const empty = document.createElement('div');
+      empty.className = 'allergen-empty';
+      empty.innerHTML = `
+        <h3>Nothing matches right now</h3>
+        <p>None of today's items pass your current filter. Loosen a chip or remove a typed term — or speak to our team at the counter, we'll happily talk through options.</p>
+      `;
+      root.appendChild(empty);
+      catNavInner.innerHTML = '';
+      dietLegend.style.display = 'none';
+      ctaBlock.style.display = '';
+      priceNote.style.display = '';
+      return;
+    }
+
+    // Use the filtered categories for the rest of the render
+    data = { ...data, categories: filteredCategories };
 
     // Category chips
     catNavInner.innerHTML = '';
@@ -893,8 +1319,148 @@
     });
   }
 
+  // ============================================================
+  //  Allergen filter UI controller
+  // ============================================================
+  function updateAllergenToggleLabel() {
+    const toggle = document.getElementById('allergenToggle');
+    const label = document.getElementById('allergenToggleLabel');
+    const active = allergenState.terms.length + allergenState.categoryIds.length > 0;
+    toggle.classList.toggle('is-active', active);
+    if (!active) {
+      label.textContent = '·  Allergens — tap to set  ·';
+      return;
+    }
+    const parts = [];
+    for (const id of allergenState.categoryIds) {
+      const cat = ALLERGEN_CATEGORIES.find(c => c.id === id);
+      if (cat) parts.push(cat.label.toUpperCase());
+    }
+    for (const t of allergenState.terms) parts.push(t.toUpperCase());
+    const shown = parts.slice(0, 3).join(', ') + (parts.length > 3 ? '…' : '');
+    label.textContent = `·  Filtering: ${shown}  ·`;
+  }
+
+  function updateAllergenStatus(safe, total) {
+    const status = document.getElementById('allergenStatus');
+    const safeEl = document.getElementById('allergenSafeCount');
+    const totalEl = document.getElementById('allergenTotalCount');
+    const active = allergenState.terms.length + allergenState.categoryIds.length > 0;
+    if (!active || total === 0) { status.hidden = true; return; }
+    status.hidden = false;
+    safeEl.textContent = String(safe);
+    totalEl.textContent = String(total);
+  }
+
+  function renderAllergenChips() {
+    const quick = document.getElementById('allergenQuick');
+    quick.innerHTML = '';
+    QUICK_CATEGORY_IDS.forEach(id => {
+      const cat = ALLERGEN_CATEGORIES.find(c => c.id === id);
+      if (!cat) return;
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'allergen-chip' + (allergenState.categoryIds.includes(id) ? ' is-on' : '');
+      btn.textContent = cat.label;
+      btn.addEventListener('click', () => {
+        const set = new Set(allergenState.categoryIds);
+        if (set.has(id)) set.delete(id); else set.add(id);
+        allergenState.categoryIds = Array.from(set);
+        saveAllergenState();
+        renderAllergenChips();
+        renderAllergenTerms();
+        updateAllergenToggleLabel();
+        if (LAST_MENU_DATA) renderMenu(LAST_MENU_DATA);
+      });
+      quick.appendChild(btn);
+    });
+  }
+
+  function renderAllergenTerms() {
+    const terms = document.getElementById('allergenTerms');
+    terms.innerHTML = '';
+    allergenState.terms.forEach(t => {
+      const pill = document.createElement('span');
+      pill.className = 'allergen-term';
+      pill.textContent = t;
+      const close = document.createElement('button');
+      close.type = 'button';
+      close.setAttribute('aria-label', `Remove ${t}`);
+      close.textContent = '×';
+      close.addEventListener('click', () => {
+        allergenState.terms = allergenState.terms.filter(x => x !== t);
+        saveAllergenState();
+        renderAllergenTerms();
+        updateAllergenToggleLabel();
+        if (LAST_MENU_DATA) renderMenu(LAST_MENU_DATA);
+      });
+      pill.appendChild(close);
+      terms.appendChild(pill);
+    });
+  }
+
+  function commitAllergenTerm(raw) {
+    const cleaned = String(raw || '').trim().toLowerCase();
+    if (!cleaned) return;
+    if (allergenState.terms.includes(cleaned)) return;
+    allergenState.terms.push(cleaned);
+    saveAllergenState();
+    renderAllergenTerms();
+    updateAllergenToggleLabel();
+    if (LAST_MENU_DATA) renderMenu(LAST_MENU_DATA);
+  }
+
+  function bindAllergenUI() {
+    const toggle = document.getElementById('allergenToggle');
+    const panel = document.getElementById('allergenPanel');
+    const input = document.getElementById('allergenInput');
+    const clear = document.getElementById('allergenClear');
+
+    toggle.addEventListener('click', () => {
+      const open = panel.hidden;
+      panel.hidden = !open;
+      toggle.setAttribute('aria-expanded', String(open));
+      if (open) setTimeout(() => input.focus(), 80);
+    });
+
+    input.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ',') {
+        e.preventDefault();
+        commitAllergenTerm(input.value);
+        input.value = '';
+      } else if (e.key === 'Backspace' && input.value === '' && allergenState.terms.length > 0) {
+        allergenState.terms.pop();
+        saveAllergenState();
+        renderAllergenTerms();
+        updateAllergenToggleLabel();
+        if (LAST_MENU_DATA) renderMenu(LAST_MENU_DATA);
+      }
+    });
+    input.addEventListener('blur', () => {
+      if (input.value.trim()) {
+        commitAllergenTerm(input.value);
+        input.value = '';
+      }
+    });
+
+    clear.addEventListener('click', () => {
+      allergenState = { terms: [], categoryIds: [] };
+      saveAllergenState();
+      input.value = '';
+      renderAllergenChips();
+      renderAllergenTerms();
+      updateAllergenToggleLabel();
+      if (LAST_MENU_DATA) renderMenu(LAST_MENU_DATA);
+    });
+
+    renderAllergenChips();
+    renderAllergenTerms();
+    updateAllergenToggleLabel();
+  }
+
   // Nav + sticky-shadow behaviour (reuses marketing-site script.js logic in miniature)
   document.addEventListener('DOMContentLoaded', async () => {
+    bindAllergenUI();
     const nav = document.getElementById('nav');
     const catNav = document.getElementById('catNav');
     const onScroll = () => {
