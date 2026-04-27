@@ -246,54 +246,97 @@
     .item-name .diet.vg { color: #2e6b4a; border-color: rgba(46, 107, 74, 0.35); }
     .item-name .diet.gf { color: #8b5e3c; border-color: rgba(139, 94, 60, 0.35); }
 
-    /* Allergen badge — small italic "A" in gold next to items that contain
-       at least one of the 20 generic allergen groups. Tap-to-toggle, with
-       the contains-line slipping in below the description. */
-    .item-name .allergen-badge {
+    /* Allergen chips — match the in-app KoraOS customer menu UX exactly:
+       a row of emoji circles per detected allergen (gluten, dairy, nuts,
+       eggs, etc.) with "Contains allergens" label, tap to expand the
+       full ingredient list. */
+    .allergen-chips {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 6px;
+      margin-top: 8px;
+      padding: 0;
+      background: none;
+      border: none;
+      cursor: pointer;
+      text-align: left;
+      font-family: inherit;
+    }
+    .allergen-chips .a-chip {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      margin-left: 8px;
-      width: 18px; height: 18px;
+      width: 24px; height: 24px;
       border-radius: 999px;
-      border: 1px solid rgba(201, 165, 90, 0.55);
-      color: var(--gold-deep);
-      background: rgba(201, 165, 90, 0.08);
-      font-family: var(--font-display);
-      font-style: italic;
-      font-weight: 600;
-      font-size: 11px;
+      background: rgba(201, 165, 90, 0.18);
+      border: 1px solid rgba(201, 165, 90, 0.35);
+      font-size: 13px;
       line-height: 1;
-      cursor: pointer;
-      vertical-align: middle;
-      user-select: none;
-      transition: all 160ms var(--ease);
     }
-    .item-name .allergen-badge:hover,
-    .item-name .allergen-badge.is-open {
-      background: var(--gold);
-      color: var(--ink);
-      border-color: var(--gold);
-    }
-    .item-contains {
-      margin-top: 6px;
-      font-family: var(--font-display);
-      font-style: italic;
-      font-size: 12.5px;
-      color: var(--gold-deep);
-      letter-spacing: 0.01em;
-      line-height: 1.5;
-    }
-    .item-contains[hidden] { display: none; }
-    .item-contains-label {
+    .allergen-chips .a-more {
       font-family: var(--font-body);
-      font-style: normal;
-      font-size: 9.5px;
+      font-size: 10px;
       font-weight: 700;
-      letter-spacing: 0.18em;
+      color: var(--muted);
+      letter-spacing: 0.04em;
+    }
+    .allergen-chips .a-label {
+      font-family: var(--font-body);
+      font-size: 10.5px;
+      font-weight: 600;
+      letter-spacing: 0.14em;
       text-transform: uppercase;
       color: var(--muted);
-      margin-right: 6px;
+      margin-left: 6px;
+    }
+    .allergen-chips:hover .a-label { color: var(--ink); }
+
+    /* Expandable ingredients panel — what KoraOS shows in
+       ProductIngredientsModal, inlined here for the public page. */
+    .item-ingredients {
+      margin-top: 14px;
+      padding: 14px 16px;
+      background: rgba(201, 165, 90, 0.07);
+      border: 1px solid rgba(201, 165, 90, 0.3);
+      border-radius: 14px;
+      animation: aFade 220ms var(--ease);
+    }
+    .item-ingredients[hidden] { display: none; }
+    .item-ingredients-head {
+      font-family: var(--font-body);
+      font-size: 9.5px;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold-deep);
+      margin-bottom: 8px;
+    }
+    .item-ingredients-allergens {
+      font-family: var(--font-display);
+      font-style: italic;
+      font-size: 13.5px;
+      color: var(--ink);
+      margin-bottom: 12px;
+      line-height: 1.55;
+    }
+    .item-ingredients-list {
+      font-family: var(--font-body);
+      font-size: 12.5px;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+    .item-ingredients-list b,
+    .item-ingredients-list strong {
+      color: var(--ink);
+      font-weight: 700;
+    }
+    .item-ingredients-note {
+      margin-top: 10px;
+      font-family: var(--font-display);
+      font-style: italic;
+      font-size: 11.5px;
+      color: var(--muted-2);
     }
 
     .item-price {
@@ -864,26 +907,26 @@
   //  taxonomy. When that file changes, update this mirror.
   // ============================================================
   const ALLERGEN_CATEGORIES = [
-    { id: 'gluten',     label: 'Gluten',         keywords: ['gluten','wheat','barley','rye','oats','oat','spelt','kamut','semolina','durum','farro','bulgur','couscous','breadcrumb','breadcrumbs','malt'] },
-    { id: 'dairy',      label: 'Milk',           keywords: ['milk','dairy','lactose','cream','butter','cheese','whey','casein','yoghurt','yogurt','ghee','curd','mozzarella','parmesan','cheddar','feta','ricotta','mascarpone','gorgonzola','brie','camembert','halloumi','paneer'] },
-    { id: 'eggs',       label: 'Eggs',           keywords: ['egg','eggs','albumen','mayonnaise','mayo','meringue'] },
-    { id: 'nuts',       label: 'Nuts',           keywords: ['nut','nuts','almond','almonds','hazelnut','hazelnuts','walnut','walnuts','cashew','cashews','pecan','pecans','pistachio','pistachios','macadamia','macadamias','brazil nut','brazil nuts','peanut','peanuts','praline','marzipan','nougat','nut butter','almond butter','peanut butter','frangipane'] },
-    { id: 'soy',        label: 'Soy',            keywords: ['soy','soya','soybean','soybeans','tofu','edamame','tempeh','miso','tamari'] },
-    { id: 'fish',       label: 'Fish',           keywords: ['fish','cod','salmon','tuna','haddock','mackerel','sardine','sardines','anchovy','anchovies','trout','sea bass','pollock','plaice','fish sauce','worcestershire'] },
-    { id: 'crustaceans',label: 'Crustaceans',    keywords: ['crustacean','crustaceans','prawn','prawns','shrimp','shrimps','crab','crabs','lobster','lobsters','crayfish','langoustine','langoustines'] },
-    { id: 'molluscs',   label: 'Molluscs',       keywords: ['mollusc','molluscs','mussel','mussels','clam','clams','oyster','oysters','scallop','scallops','squid','octopus','cuttlefish','whelk','whelks','snail','snails'] },
-    { id: 'sesame',     label: 'Sesame',         keywords: ['sesame','tahini','gomashio'] },
-    { id: 'celery',     label: 'Celery',         keywords: ['celery','celeriac'] },
-    { id: 'mustard',    label: 'Mustard',        keywords: ['mustard','dijon','wholegrain mustard'] },
-    { id: 'sulphites',  label: 'Sulphites',      keywords: ['sulphite','sulphites','sulfite','sulfites','sulphur dioxide','sulfur dioxide','so2','e220','e221','e222','e223','e224','e226','e227','e228'] },
-    { id: 'lupin',      label: 'Lupin',          keywords: ['lupin','lupine','lupin flour'] },
-    { id: 'pork',       label: 'Pork',           keywords: ['pork','ham','bacon','pancetta','guanciale','prosciutto','chorizo','salami','mortadella','speck','parma ham','sausage','sausages','lardo'] },
-    { id: 'beef',       label: 'Beef',           keywords: ['beef','steak','mince','minced beef','brisket','oxtail','veal','bresaola','beef stock'] },
-    { id: 'poultry',    label: 'Poultry',        keywords: ['chicken','turkey','duck','goose','quail','poultry','chicken stock'] },
-    { id: 'alcohol',    label: 'Alcohol',        keywords: ['alcohol','wine','beer','lager','cider','rum','vodka','gin','whisky','whiskey','bourbon','brandy','cognac','liqueur','liquor','amaretto','kahlua','marsala','sherry','vermouth','prosecco','champagne','sake'] },
-    { id: 'caffeine',   label: 'Caffeine',       keywords: ['caffeine','coffee','espresso','cappuccino','latte','mocha','americano','macchiato','matcha','green tea','black tea','guarana','cocoa','chocolate','cola'] },
-    { id: 'alliums',    label: 'Garlic & Onion', keywords: ['garlic','onion','onions','shallot','shallots','leek','leeks','chive','chives','spring onion','spring onions','scallion','scallions'] },
-    { id: 'citrus',     label: 'Citrus',         keywords: ['citrus','lemon','lime','orange','grapefruit','mandarin','tangerine','clementine','yuzu','bergamot','lemon zest','orange zest'] },
+    { id: 'gluten',     label: 'Gluten',         emoji: '🌾', keywords: ['gluten','wheat','barley','rye','oats','oat','spelt','kamut','semolina','durum','farro','bulgur','couscous','breadcrumb','breadcrumbs','malt'] },
+    { id: 'dairy',      label: 'Milk',           emoji: '🥛', keywords: ['milk','dairy','lactose','cream','butter','cheese','whey','casein','yoghurt','yogurt','ghee','curd','mozzarella','parmesan','cheddar','feta','ricotta','mascarpone','gorgonzola','brie','camembert','halloumi','paneer'] },
+    { id: 'eggs',       label: 'Eggs',           emoji: '🥚', keywords: ['egg','eggs','albumen','mayonnaise','mayo','meringue'] },
+    { id: 'nuts',       label: 'Nuts',           emoji: '🥜', keywords: ['nut','nuts','almond','almonds','hazelnut','hazelnuts','walnut','walnuts','cashew','cashews','pecan','pecans','pistachio','pistachios','macadamia','macadamias','brazil nut','brazil nuts','peanut','peanuts','praline','marzipan','nougat','nut butter','almond butter','peanut butter','frangipane'] },
+    { id: 'soy',        label: 'Soy',            emoji: '🫘', keywords: ['soy','soya','soybean','soybeans','tofu','edamame','tempeh','miso','tamari'] },
+    { id: 'fish',       label: 'Fish',           emoji: '🐟', keywords: ['fish','cod','salmon','tuna','haddock','mackerel','sardine','sardines','anchovy','anchovies','trout','sea bass','pollock','plaice','fish sauce','worcestershire'] },
+    { id: 'crustaceans',label: 'Crustaceans',    emoji: '🦐', keywords: ['crustacean','crustaceans','prawn','prawns','shrimp','shrimps','crab','crabs','lobster','lobsters','crayfish','langoustine','langoustines'] },
+    { id: 'molluscs',   label: 'Molluscs',       emoji: '🦪', keywords: ['mollusc','molluscs','mussel','mussels','clam','clams','oyster','oysters','scallop','scallops','squid','octopus','cuttlefish','whelk','whelks','snail','snails'] },
+    { id: 'sesame',     label: 'Sesame',         emoji: '⬡',  keywords: ['sesame','tahini','gomashio'] },
+    { id: 'celery',     label: 'Celery',         emoji: '🌿', keywords: ['celery','celeriac'] },
+    { id: 'mustard',    label: 'Mustard',        emoji: '🟡', keywords: ['mustard','dijon','wholegrain mustard'] },
+    { id: 'sulphites',  label: 'Sulphites',      emoji: '🍷', keywords: ['sulphite','sulphites','sulfite','sulfites','sulphur dioxide','sulfur dioxide','so2','e220','e221','e222','e223','e224','e226','e227','e228'] },
+    { id: 'lupin',      label: 'Lupin',          emoji: '🌸', keywords: ['lupin','lupine','lupin flour'] },
+    { id: 'pork',       label: 'Pork',           emoji: '🐖', keywords: ['pork','ham','bacon','pancetta','guanciale','prosciutto','chorizo','salami','mortadella','speck','parma ham','sausage','sausages','lardo'] },
+    { id: 'beef',       label: 'Beef',           emoji: '🐄', keywords: ['beef','steak','mince','minced beef','brisket','oxtail','veal','bresaola','beef stock'] },
+    { id: 'poultry',    label: 'Poultry',        emoji: '🍗', keywords: ['chicken','turkey','duck','goose','quail','poultry','chicken stock'] },
+    { id: 'alcohol',    label: 'Alcohol',        emoji: '🍷', keywords: ['alcohol','wine','beer','lager','cider','rum','vodka','gin','whisky','whiskey','bourbon','brandy','cognac','liqueur','liquor','amaretto','kahlua','marsala','sherry','vermouth','prosecco','champagne','sake'] },
+    { id: 'caffeine',   label: 'Caffeine',       emoji: '☕', keywords: ['caffeine','coffee','espresso','cappuccino','latte','mocha','americano','macchiato','matcha','green tea','black tea','guarana','cocoa','chocolate','cola'] },
+    { id: 'alliums',    label: 'Garlic & Onion', emoji: '🧄', keywords: ['garlic','onion','onions','shallot','shallots','leek','leeks','chive','chives','spring onion','spring onions','scallion','scallions'] },
+    { id: 'citrus',     label: 'Citrus',         emoji: '🍋', keywords: ['citrus','lemon','lime','orange','grapefruit','mandarin','tangerine','clementine','yuzu','bergamot','lemon zest','orange zest'] },
   ];
   const QUICK_CATEGORY_IDS = ['gluten','dairy','eggs','nuts','soy'];
 
@@ -988,14 +1031,45 @@
   }
 
   // Detect which allergen categories an item contains. Mirror of
-  // detectAllergens() in utils/allergenParser.ts. Returns a list of
-  // category labels for display ("Gluten", "Dairy", "Nuts").
+  // detectAllergens() in utils/allergenParser.ts. Returns the full
+  // category objects ({id, label, emoji}) so the renderer can display
+  // the same emoji chips the in-app KoraOS customer menu shows.
   function detectAllergens(item) {
     const text = _itemText(item);
     if (!text.trim()) return [];
-    return ALLERGEN_CATEGORIES
-      .filter(cat => cat.keywords.some(k => _hasKeyword(text, k)))
-      .map(cat => cat.label);
+    return ALLERGEN_CATEGORIES.filter(cat =>
+      cat.keywords.some(k => _hasKeyword(text, k))
+    );
+  }
+
+  // Pull the human-readable ingredient text. Tries the rich Firestore
+  // ingredientSources first; falls back to name + description otherwise.
+  // Returns { ingredients: string[], allergenInfo: string } so the
+  // expandable panel can show ingredients in BOLD just like KoraOS does.
+  function getIngredientDisplay(item) {
+    if (Array.isArray(item.ingredientSources) && item.ingredientSources.length) {
+      const ingredients = [];
+      const allergenInfos = [];
+      for (const s of item.ingredientSources) {
+        if (Array.isArray(s.ingredients)) ingredients.push(...s.ingredients);
+        if (s.allergenInfo) allergenInfos.push(s.allergenInfo);
+      }
+      return { ingredients, allergenInfo: allergenInfos.join(' ') };
+    }
+    return { ingredients: [], allergenInfo: '' };
+  }
+
+  // Bold-wrap ingredient text where any of our 20 generic allergen
+  // keywords appears (matching the "see ingredients in BOLD" allergen
+  // statement convention used by UK manufacturers).
+  function boldIngredients(line) {
+    let out = String(line || '');
+    // Build a single regex from every keyword across every category.
+    const all = ALLERGEN_CATEGORIES.flatMap(c => c.keywords);
+    const pattern = all.map(k => k.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('|');
+    if (!pattern) return out;
+    const re = new RegExp('\\b(' + pattern + ')(s|es)?\\b', 'gi');
+    return out.replace(re, '<b>$&</b>');
   }
 
   // ============================================================
@@ -1313,33 +1387,6 @@
           nameEl.appendChild(b);
         }
 
-        // Allergen badge — only when at least one of the 20 generic groups
-        // is detected. Tap toggles the contains-line under the description.
-        const detected = detectAllergens(item);
-        let containsEl = null;
-        if (detected.length > 0) {
-          const badge = document.createElement('button');
-          badge.type = 'button';
-          badge.className = 'allergen-badge';
-          badge.setAttribute('aria-label', `Contains ${detected.join(', ')}`);
-          badge.setAttribute('aria-expanded', 'false');
-          badge.textContent = 'A';
-          badge.addEventListener('click', (e) => {
-            e.stopPropagation();
-            const open = containsEl.hasAttribute('hidden');
-            if (open) {
-              containsEl.removeAttribute('hidden');
-              badge.classList.add('is-open');
-              badge.setAttribute('aria-expanded', 'true');
-            } else {
-              containsEl.setAttribute('hidden', '');
-              badge.classList.remove('is-open');
-              badge.setAttribute('aria-expanded', 'false');
-            }
-          });
-          nameEl.appendChild(badge);
-        }
-
         const priceEl = document.createElement('div');
         priceEl.className = 'item-price';
         if (item.prices && item.prices.length) {
@@ -1359,14 +1406,77 @@
           desc.textContent = item.desc;
           el.appendChild(desc);
         }
+
+        // Allergen chips — match KoraOS in-app menu UX exactly: row of
+        // emoji circles, "Contains allergens" label, tap to expand the
+        // full ingredient list (with allergen keywords in BOLD).
+        const detected = detectAllergens(item);
         if (detected.length > 0) {
-          containsEl = document.createElement('p');
-          containsEl.className = 'item-contains';
-          containsEl.setAttribute('hidden', '');
-          containsEl.innerHTML =
-            `<span class="item-contains-label">Contains</span>${detected.join(', ')}`;
-          el.appendChild(containsEl);
+          const chipsBtn = document.createElement('button');
+          chipsBtn.type = 'button';
+          chipsBtn.className = 'allergen-chips';
+          chipsBtn.setAttribute('aria-label',
+            `${detected.length} allergen${detected.length === 1 ? '' : 's'} — tap for ingredients`);
+          chipsBtn.setAttribute('aria-expanded', 'false');
+
+          detected.slice(0, 4).forEach(cat => {
+            const chip = document.createElement('span');
+            chip.className = 'a-chip';
+            chip.title = cat.label;
+            chip.textContent = cat.emoji;
+            chipsBtn.appendChild(chip);
+          });
+          if (detected.length > 4) {
+            const more = document.createElement('span');
+            more.className = 'a-more';
+            more.textContent = `+${detected.length - 4}`;
+            chipsBtn.appendChild(more);
+          }
+          const lbl = document.createElement('span');
+          lbl.className = 'a-label';
+          lbl.textContent = 'Contains allergens';
+          chipsBtn.appendChild(lbl);
+
+          el.appendChild(chipsBtn);
+
+          // Expandable ingredients panel — same data the
+          // ProductIngredientsModal shows in the in-app menu.
+          const display = getIngredientDisplay(item);
+          const panel = document.createElement('div');
+          panel.className = 'item-ingredients';
+          panel.setAttribute('hidden', '');
+
+          let panelHTML = '<div class="item-ingredients-head">Ingredients & allergens</div>';
+          if (display.allergenInfo) {
+            panelHTML += `<div class="item-ingredients-allergens">${display.allergenInfo
+              .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')}</div>`;
+          }
+          if (display.ingredients.length > 0) {
+            const escaped = display.ingredients
+              .map(i => String(i).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'))
+              .join(', ');
+            panelHTML += `<div class="item-ingredients-list">${boldIngredients(escaped)}</div>`;
+          } else {
+            panelHTML += `<div class="item-ingredients-list">${detected.map(c =>
+              `<b>${c.label}</b>`).join(' · ')}</div>`;
+            panelHTML += `<div class="item-ingredients-note">Detected from item description — please confirm at the counter for serious allergies.</div>`;
+          }
+          panel.innerHTML = panelHTML;
+          el.appendChild(panel);
+
+          chipsBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const open = panel.hasAttribute('hidden');
+            if (open) {
+              panel.removeAttribute('hidden');
+              chipsBtn.setAttribute('aria-expanded', 'true');
+            } else {
+              panel.setAttribute('hidden', '');
+              chipsBtn.setAttribute('aria-expanded', 'false');
+            }
+          });
         }
+
         itemsEl.appendChild(el);
       });
       section.appendChild(itemsEl);
