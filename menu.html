@@ -14,7 +14,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter+Tight:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..700;1,6..96,400..700&family=Inter+Tight:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
   <script>document.documentElement.classList.add('js');</script>
   <style>
@@ -684,18 +684,25 @@
        "Blue Hour Trattoria" overrides
        The menu stays cream on purpose — it is the paper card laid on
        the dark table. These rules bring it onto the new type stack.
-       Instrument Serif ships a single weight, so every display
-       heading must sit at 400 or the browser synth-bolds it.
+       Bodoni Moda is variable 400–700; --w-display (600) is the
+       display voice. Its opsz axis thickens the hairlines at small
+       sizes on its own, which is what keeps item names legible.
        ============================================================== */
     .menu-hero h1,
     .cat-header h2,
     .cat-header h2 .serif-italic,
     .item-name,
-    .item-price,
     .menu-cta-block h2,
     .menu-cta-block h2 .serif-italic,
     .status-card h3,
-    .allergen-empty h3 { font-weight: 400; }
+    .allergen-empty h3 { font-weight: var(--w-display); }
+
+    .item-price,
+    .allergen-panel-head .byline,
+    .item-ingredients-allergens,
+    .item-ingredients-note { font-weight: var(--w-lead); }
+
+    .item-name, .item-price, .cat-header h2 { font-optical-sizing: auto; }
 
     /* ---- Hero: left-aligned, cinematic, matches the homepage ---- */
     .menu-hero {

@@ -54,9 +54,15 @@
   --tri-white: #f1f2f1;
   --tri-red:   #bc2a2a;
 
-  --font-display: 'Instrument Serif', 'Playfair Display', Georgia, 'Times New Roman', serif;
+  --font-display: 'Bodoni Moda', Didot, Georgia, 'Times New Roman', serif;
   --font-body:    'Inter Tight', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   --font-mono:    'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  /* Bodoni Moda is variable 400–700. 600 is the display voice; 500 is the
+     softer voice for leads and pull-quotes. Both are real instances, never
+     synthesised. The opsz axis thickens hairlines at small sizes on its own. */
+  --w-display: 600;
+  --w-lead:    500;
 
   --max-w: 1280px;
   --pad:   clamp(20px, 4.2vw, 44px);
@@ -97,7 +103,8 @@ ul, ol { list-style: none; }
 
 h1, h2, h3, h4 {
   font-family: var(--font-display);
-  font-weight: 400;             /* Instrument Serif ships one weight — never synth-bold it */
+  font-weight: var(--w-display);
+  font-optical-sizing: auto;
   line-height: 1.02;
   letter-spacing: -0.018em;
 }
@@ -395,7 +402,7 @@ h1, h2, h3, h4 {
 .wordmark {
   font-family: var(--font-display);
   font-size: 25px;
-  font-weight: 400;
+  font-weight: var(--w-display);
   color: var(--cream);
   display: inline-block;
   line-height: 1;
@@ -798,6 +805,7 @@ h1, h2, h3, h4 {
 .story-body p:last-of-type { margin-bottom: 0; }
 .story-body .lede {
   font-family: var(--font-display);
+  font-weight: var(--w-lead);
   font-size: clamp(23px, 2.5vw, 31px);
   line-height: 1.28;
   color: var(--cream);
@@ -811,6 +819,7 @@ h1, h2, h3, h4 {
 /* Drop cap on the first body paragraph */
 .story-body .dropcap::first-letter {
   font-family: var(--font-display);
+  font-weight: var(--w-display);
   font-size: 3.5em;
   line-height: 0.78;
   float: left;
@@ -907,6 +916,7 @@ h1, h2, h3, h4 {
 }
 .est-chip .year {
   font-family: var(--font-display);
+  font-weight: var(--w-display);
   font-size: 34px;
   line-height: 1;
   color: var(--ink);
@@ -948,6 +958,7 @@ h1, h2, h3, h4 {
 }
 .stat .v {
   font-family: var(--font-display);
+  font-weight: var(--w-display);
   font-size: clamp(38px, 5.2vw, 64px);
   line-height: 0.9;
   color: var(--gold-soft);
@@ -1295,6 +1306,7 @@ h1, h2, h3, h4 {
 .step:last-child { border-bottom: none; padding-bottom: 0; }
 .step .n {
   font-family: var(--font-display);
+  font-weight: var(--w-display);
   font-size: clamp(38px, 4vw, 52px);
   line-height: 0.86;
   color: var(--gold-deep);
@@ -1378,6 +1390,7 @@ h1, h2, h3, h4 {
 .loyalty-panel .sec-title .serif-italic { color: var(--gold-deep); }
 .loyalty-lead {
   font-family: var(--font-display);
+  font-weight: var(--w-lead);
   font-size: clamp(21px, 2vw, 27px);
   line-height: 1.34;
   color: var(--ink);
@@ -1474,6 +1487,7 @@ h1, h2, h3, h4 {
 .quote .stars { color: var(--gold); letter-spacing: 3px; font-size: 13px; }
 .quote blockquote {
   font-family: var(--font-display);
+  font-weight: var(--w-lead);
   font-style: italic;
   font-size: clamp(20px, 1.9vw, 26px);
   line-height: 1.35;
@@ -1629,6 +1643,7 @@ h1, h2, h3, h4 {
   bottom: -0.28em;
   transform: translateX(-50%);
   font-family: var(--font-display);
+  font-weight: var(--w-display);
   font-size: clamp(84px, 20vw, 280px);
   line-height: 1;
   color: var(--off-white);
@@ -1834,6 +1849,7 @@ h1, h2, h3, h4 {
 
   .nav-link {
     font-family: var(--font-display);
+    font-weight: var(--w-display);
     font-size: 30px;
     letter-spacing: -0.02em;
     text-transform: none;

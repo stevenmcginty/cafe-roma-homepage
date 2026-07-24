@@ -1,6 +1,6 @@
 # Analytics — how to switch it on
 
-Everything is already wired. All that's missing are two IDs and one dashboard toggle.
+Everything is wired and GA4 is live. The one remaining job is a dashboard toggle.
 **One file to edit: `analytics.js`, the `CONFIG` block at the top.**
 
 ---
@@ -30,48 +30,32 @@ Optional: on the same tab, enable **Speed Insights**, then set
 
 ---
 
-## 2. Google Analytics 4 — the full picture (10 minutes)
+## 2. Google Analytics 4 — DONE ✅
 
-1. Go to <https://analytics.google.com> → **Admin** → **Create** → **Property**
-2. Name it "Cafe Roma", timezone **United Kingdom**, currency **GBP**
-3. Create a **Web** data stream for `https://caferoma.app`
-4. Copy the **Measurement ID** — it looks like `G-ABC1234XYZ`
-5. In `analytics.js`, replace:
+Live and collecting.
 
-   ```js
-   GA4_ID: 'G-XXXXXXXXXX',
-   ```
-
-   with your real ID.
+- Property: **Cafe Roma** · stream **website** · `https://caferoma.app`
+- Measurement ID: **`G-RSD4FTLCTB`** (set in `analytics.js`)
 
 GA4 gives you acquisition channels, returning vs new visitors, engagement time,
 and all the custom events listed below.
 
----
+Note it can take up to 24–48 hours for the standard GA4 reports to populate.
+To confirm it's working straight away use **Reports → Realtime**: open
+caferoma.app on your phone, accept the cookie banner, and you should appear
+within about 30 seconds.
 
-## 3. Microsoft Clarity — watch real sessions (5 minutes, free, no limits)
+### Deliberately not using Microsoft Clarity
 
-This is the one that answers "what are people *actually* doing on my site" —
-it records anonymised sessions and builds heatmaps.
-
-1. Go to <https://clarity.microsoft.com> → sign in with a Microsoft account
-2. **New project** → name "Cafe Roma", site URL `caferoma.app`
-3. Copy the **Project ID** (a short string like `q7x3k9abcd`)
-4. In `analytics.js`, replace:
-
-   ```js
-   CLARITY_ID: 'XXXXXXXXXX',
-   ```
-
-   with your real ID.
+Session recording was considered and dropped at Steve's request. If you ever
+want heatmaps instead, GA4 has no equivalent — you'd need a third-party tool.
 
 ---
 
 ## What gets tracked
 
-GA4 and Clarity only load **after** a visitor accepts the cookie banner.
-Vercel is cookieless and always on. The banner only appears once at least one of
-GA4 / Clarity has a real ID — while both are placeholders, visitors see no banner.
+GA4 only loads **after** a visitor accepts the cookie banner.
+Vercel is cookieless and always on. The banner appears because GA4 has a real ID.
 
 Custom events fired on both pages:
 
@@ -97,7 +81,6 @@ Custom events fired on both pages:
 
 - **"Who's coming and where from"** → Vercel Analytics tab, or GA4 →
   *Reports → Acquisition → Traffic acquisition*
-- **"What are they doing"** → Clarity → *Recordings* and *Heatmaps*
 - **"Is it turning into business"** → GA4 → *Reports → Engagement → Events*,
   and watch `click_order_online`, `click_phone`, `click_directions`
 

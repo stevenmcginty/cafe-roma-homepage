@@ -1,7 +1,7 @@
 /* ==========================================================================
    CAFE ROMA — analytics
 
-   THREE providers, one file. Edit CONFIG below — nothing else.
+   TWO providers, one file. Edit CONFIG below — nothing else.
 
    1. Vercel Web Analytics  — cookieless, no ID needed, works the moment you
                               flick it on in the Vercel dashboard. Gives you
@@ -10,11 +10,8 @@
                               personal data), which is why you get numbers even
                               from people who ignore the banner.
    2. Google Analytics 4    — full audience + acquisition reporting.
-                              Needs a Measurement ID (G-XXXXXXXXXX).
-                              CONSENT-GATED.
-   3. Microsoft Clarity     — free session recordings + heatmaps: literally
-                              watch how people use the site.
-                              Needs a Project ID. CONSENT-GATED.
+                              CONSENT-GATED: gtag.js sets cookies, so it only
+                              loads after the visitor accepts the banner.
 
    Setup instructions: see ANALYTICS.md in this folder.
    ========================================================================== */
@@ -26,11 +23,8 @@
      CONFIG — the only bit you need to change
      ====================================================================== */
   const CONFIG = Object.assign({
-    // Paste your Google Analytics 4 Measurement ID here (looks like G-ABC123XYZ)
-    GA4_ID: 'G-XXXXXXXXXX',
-
-    // Paste your Microsoft Clarity Project ID here (looks like abcd1234ef)
-    CLARITY_ID: 'XXXXXXXXXX',
+    // Google Analytics 4 — property "Cafe Roma", stream "website".
+    GA4_ID: 'G-RSD4FTLCTB',
 
     // Vercel Web Analytics — leave true. Enable it once in the Vercel
     // dashboard: Project → Analytics → Enable Web Analytics.
@@ -103,25 +97,12 @@
     return true;
   }
 
-  // --- Microsoft Clarity (consent-gated) ----------------------------------
-  function loadClarity(id) {
-    if (isPlaceholder(id)) return false;
-    (function (c, l, a, r, i, t, y) {
-      c[a] = c[a] || function () { (c[a].q = c[a].q || []).push(arguments); };
-      t = l.createElement(r); t.async = 1;
-      t.src = 'https://www.clarity.ms/tag/' + i;
-      y = l.getElementsByTagName(r)[0]; y.parentNode.insertBefore(t, y);
-    })(window, document, 'clarity', 'script', id);
-    return true;
-  }
-
   /* ======================================================================
      Unified event tracking — fans out to whichever providers are live
      ====================================================================== */
   function track(name, params) {
     const data = params || {};
     try { if (typeof window.gtag === 'function') window.gtag('event', name, data); } catch (e) {}
-    try { if (typeof window.clarity === 'function') window.clarity('event', name); } catch (e) {}
     try { if (typeof window.va === 'function') window.va('event', { name: name, data: data }); } catch (e) {}
   }
   window.crTrack = track;   // available to the rest of the site
@@ -232,7 +213,6 @@
 
   function enableConsented() {
     loadGA4(CONFIG.GA4_ID);
-    loadClarity(CONFIG.CLARITY_ID);
   }
 
   function accept()  { save('accepted'); hideBanner(); enableConsented(); track('consent', { choice: 'accepted' }); }
@@ -245,8 +225,8 @@
   if (prior === 'accepted') {
     enableConsented();
   } else if (prior !== 'declined') {
-    // Nothing to consent to if both IDs are still placeholders — don't nag.
-    if (!isPlaceholder(CONFIG.GA4_ID) || !isPlaceholder(CONFIG.CLARITY_ID)) showBanner();
+    // Nothing to consent to while GA4 is still a placeholder — don't nag.
+    if (!isPlaceholder(CONFIG.GA4_ID)) showBanner();
   }
 
   wireEvents();
