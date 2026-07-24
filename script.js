@@ -1,197 +1,447 @@
 /* ==========================================================================
    CAFE ROMA — interactions
-   Nav, reveal-on-scroll, mobile menu, active-section highlight, hero parallax
+   "Blue Hour Trattoria"
+
+   Nav · mobile menu · scroll reveal · headline clip-reveal · scroll progress
+   live open/closed status · time-of-day hero · live "A Day at Roma" timeline
+   count-ups · magnetic CTAs · mobile action dock
    ========================================================================== */
 
-document.addEventListener('DOMContentLoaded', () => {
+(function () {
+  'use strict';
 
-  // ---------- Reveal on scroll ----------
-  const reveals = document.querySelectorAll('.reveal');
-  if ('IntersectionObserver' in window) {
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('in');
-          io.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
-    reveals.forEach(el => io.observe(el));
-  } else {
-    reveals.forEach(el => el.classList.add('in'));
-  }
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+  const $  = (s, c) => (c || document).querySelector(s);
+  const $$ = (s, c) => Array.prototype.slice.call((c || document).querySelectorAll(s));
 
-  // ---------- Nav: solid-on-scroll ----------
-  const nav = document.getElementById('nav');
-  let ticking = false;
-  const onScroll = () => {
-    if (window.pageYOffset > 60) nav.classList.add('scrolled');
-    else nav.classList.remove('scrolled');
-    ticking = false;
+  /* ------------------------------------------------------------------
+     Opening hours — single source of truth.
+     Keyed by JS day index (0 = Sunday). [openMinutes, closeMinutes]
+     ------------------------------------------------------------------ */
+  const HOURS = {
+    0: [7 * 60 + 30, 16 * 60 + 30],   // Sunday
+    1: [6 * 60 + 30, 17 * 60 + 30],   // Monday
+    2: [6 * 60 + 30, 17 * 60 + 30],
+    3: [6 * 60 + 30, 17 * 60 + 30],
+    4: [6 * 60 + 30, 17 * 60 + 30],
+    5: [6 * 60 + 30, 17 * 60 + 30],   // Friday
+    6: [7 * 60,      17 * 60 + 30]    // Saturday
   };
-  window.addEventListener('scroll', () => {
-    if (!ticking) { requestAnimationFrame(onScroll); ticking = true; }
-  }, { passive: true });
-  onScroll();
+  const DAY_NAMES = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
-  // ---------- Mobile menu ----------
-  const toggle = document.getElementById('navToggle');
-  const links = document.getElementById('navLinks');
-  toggle.addEventListener('click', () => {
-    const open = links.classList.toggle('open');
-    toggle.classList.toggle('active', open);
-    nav.classList.toggle('menu-open', open);
-    toggle.setAttribute('aria-expanded', String(open));
-    document.body.style.overflow = open ? 'hidden' : '';
-  });
-  links.querySelectorAll('.nav-link').forEach(a => {
-    a.addEventListener('click', () => {
-      links.classList.remove('open');
-      toggle.classList.remove('active');
-      nav.classList.remove('menu-open');
-      toggle.setAttribute('aria-expanded', 'false');
-      document.body.style.overflow = '';
-    });
-  });
+  /* Shop-local time. Pinned to Europe/London so the status is still correct
+     for someone browsing from another timezone. Falls back to device time. */
+  function shopNow() {
+    try {
+      const parts = {};
+      new Intl.DateTimeFormat('en-GB', {
+        timeZone: 'Europe/London',
+        weekday: 'short', hour: '2-digit', minute: '2-digit', hour12: false
+      }).formatToParts(new Date()).forEach(p => { parts[p.type] = p.value; });
 
-  // ---------- Smooth anchor scroll with nav offset ----------
-  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', (e) => {
-      const href = anchor.getAttribute('href');
-      if (href.length <= 1) return;
-      const target = document.querySelector(href);
-      if (!target) return;
-      e.preventDefault();
-      const top = target.getBoundingClientRect().top + window.pageYOffset - 68;
-      window.scrollTo({ top, behavior: 'smooth' });
-    });
-  });
-
-  // ---------- Active nav link on scroll ----------
-  const sections = document.querySelectorAll('section[id]');
-  const navLinks = document.querySelectorAll('.nav-link');
-  const activeObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        const id = entry.target.id;
-        navLinks.forEach(l => l.classList.toggle('active', l.getAttribute('href') === `#${id}`));
-      }
-    });
-  }, { threshold: 0.4, rootMargin: '-80px 0px -40% 0px' });
-  sections.forEach(s => activeObserver.observe(s));
-
-  // ---------- Verulamium Roman map: tooltip hotspots ----------
-  (function romanMap() {
-    const scene = document.querySelector('.map-scene');
-    const tooltip = document.querySelector('#mapTooltip');
-    if (!scene || !tooltip) return;
-
-    const hotspots = scene.querySelectorAll('.hotspot');
-    const data = {
-      'cafe-roma':       { name: 'Cafe Roma',           latin: 'Caupona Romana',         desc: 'You are here. Serving St Peter\u2019s Street since 1996.' },
-      'cathedral':       { name: 'St Albans Cathedral', latin: 'Abbatia Sancti Albani',  desc: 'Britain\u2019s oldest site of continuous Christian worship. A five-minute walk from the door.' },
-      'clock-tower':     { name: 'The Clock Tower',     latin: 'Turris Horarii',         desc: 'The only remaining medieval town belfry in England, built around 1405.' },
-      'verulamium-park': { name: 'Verulamium Park',     latin: 'Parcus Verulamii',       desc: 'Once the Roman city of Verulamium \u2014 Britain\u2019s third largest. Now green lawns over ancient mosaics.' },
-      'abbey-gateway':   { name: 'Abbey Gateway',       latin: 'Porta Abbatiae',         desc: 'A 14th-century stone gatehouse, surviving relic of the medieval abbey precinct.' },
-      'roman-theatre':   { name: 'Roman Theatre',       latin: 'Theatrum Verulamii',     desc: 'The only visible Roman theatre of its kind in Britain, built around 140 AD.' },
-      'river-ver':       { name: 'River Ver',           latin: 'Flumen Ver',             desc: 'The chalk stream that gave the Roman city of Verulamium its name.' }
-    };
-
-    const elH = tooltip.querySelector('h4');
-    const elL = tooltip.querySelector('.latin');
-    const elP = tooltip.querySelector('p');
-
-    function show(id, e) {
-      const d = data[id];
-      if (!d) return;
-      elH.textContent = d.name;
-      elL.textContent = d.latin;
-      elP.textContent = d.desc;
-      tooltip.classList.add('visible');
-      tooltip.setAttribute('aria-hidden', 'false');
-      position(e);
+      const map = { Sun: 0, Mon: 1, Tue: 2, Wed: 3, Thu: 4, Fri: 5, Sat: 6 };
+      const day = map[parts.weekday];
+      const hour = parseInt(parts.hour, 10) % 24;
+      const minute = parseInt(parts.minute, 10);
+      if (day === undefined || isNaN(hour) || isNaN(minute)) throw new Error('bad parts');
+      return { day: day, hour: hour, mins: hour * 60 + minute };
+    } catch (e) {
+      const d = new Date();
+      return { day: d.getDay(), hour: d.getHours(), mins: d.getHours() * 60 + d.getMinutes() };
     }
-    function hide() {
-      tooltip.classList.remove('visible');
-      tooltip.setAttribute('aria-hidden', 'true');
-    }
-    function position(e) {
-      const rect = scene.getBoundingClientRect();
-      let x, y;
-      if (e.touches && e.touches[0]) {
-        x = e.touches[0].clientX - rect.left;
-        y = e.touches[0].clientY - rect.top;
-      } else {
-        x = e.clientX - rect.left;
-        y = e.clientY - rect.top;
-      }
-      // Clamp so tooltip stays inside the scene
-      const tw = tooltip.offsetWidth;
-      x = Math.max(tw / 2 + 12, Math.min(rect.width - tw / 2 - 12, x));
-      y = Math.max(tooltip.offsetHeight + 20, y);
-      tooltip.style.left = x + 'px';
-      tooltip.style.top = y + 'px';
-    }
-
-    hotspots.forEach(h => {
-      const id = h.dataset.id;
-      if (!id) return;
-      h.addEventListener('mouseenter', (e) => show(id, e));
-      h.addEventListener('mousemove', position);
-      h.addEventListener('mouseleave', hide);
-      h.addEventListener('touchstart', (e) => show(id, e), { passive: true });
-    });
-    // Hide on touch outside
-    scene.addEventListener('touchstart', (e) => {
-      if (!e.target.closest('.hotspot')) hide();
-    }, { passive: true });
-    // Hide on scroll
-    window.addEventListener('scroll', hide, { passive: true });
-  })();
-
-  // ---------- Hero time-of-day atmosphere ----------
-  (function todAtmosphere() {
-    const hero = document.querySelector('.hero');
-    const pillLabel = document.querySelector('#todPill .tod-label');
-    if (!hero) return;
-
-    const phases = [
-      { from: 0,  to: 5,  key: 'night',     label: 'Late Night' },
-      { from: 5,  to: 7,  key: 'dawn',      label: 'Dawn' },
-      { from: 7,  to: 11, key: 'morning',   label: 'Morning' },
-      { from: 11, to: 15, key: 'midday',    label: 'Midday' },
-      { from: 15, to: 18, key: 'afternoon', label: 'Afternoon' },
-      { from: 18, to: 20, key: 'evening',   label: 'Evening' },
-      { from: 20, to: 24, key: 'night',     label: 'Night' },
-    ];
-
-    function apply() {
-      const h = new Date().getHours();
-      const phase = phases.find(p => h >= p.from && h < p.to) || phases[0];
-      hero.className = hero.className.replace(/\btod-\w+\b/g, '').trim() + ' tod-' + phase.key;
-      if (pillLabel) pillLabel.textContent = phase.label;
-    }
-
-    apply();
-    setInterval(apply, 5 * 60 * 1000); // refresh every 5 min
-    document.addEventListener('visibilitychange', () => { if (!document.hidden) apply(); });
-  })();
-
-  // ---------- Hero parallax (desktop only; respects reduced-motion) ----------
-  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const heroBg = document.querySelector('.hero-bg');
-  if (heroBg && !prefersReduced && window.matchMedia('(min-width: 721px)').matches) {
-    let parTick = false;
-    window.addEventListener('scroll', () => {
-      if (parTick) return;
-      parTick = true;
-      requestAnimationFrame(() => {
-        const vh = window.innerHeight;
-        const y = Math.min(window.pageYOffset, vh);
-        heroBg.style.transform = `scale(1.12) translate3d(0, ${y * 0.08}px, 0)`;
-        parTick = false;
-      });
-    }, { passive: true });
   }
 
-});
+  const hhmm = m => String(Math.floor(m / 60)).padStart(2, '0') + ':' + String(m % 60).padStart(2, '0');
+  function humanDuration(m) {
+    if (m < 60) return m + ' min';
+    const h = Math.floor(m / 60), r = m % 60;
+    return r ? h + 'h ' + r + 'm' : h + 'h';
+  }
+
+  function openStatus() {
+    const now = shopNow();
+    const today = HOURS[now.day];
+
+    if (today && now.mins >= today[0] && now.mins < today[1]) {
+      const left = today[1] - now.mins;
+      return {
+        open: true,
+        short: left <= 45 ? 'Closing soon' : 'Open now',
+        state: left <= 45 ? 'Closing soon' : 'Open now',
+        detail: 'Closes ' + hhmm(today[1]) + ' · in ' + humanDuration(left)
+      };
+    }
+    if (today && now.mins < today[0]) {
+      return {
+        open: false, short: 'Closed',
+        state: 'Closed right now',
+        detail: 'Opens ' + hhmm(today[0]) + ' · in ' + humanDuration(today[0] - now.mins)
+      };
+    }
+    // After closing — find the next day we open.
+    for (let i = 1; i <= 7; i++) {
+      const d = (now.day + i) % 7;
+      const h = HOURS[d];
+      if (h) {
+        return {
+          open: false, short: 'Closed',
+          state: 'Closed for today',
+          detail: 'Opens ' + (i === 1 ? 'tomorrow' : DAY_NAMES[d]) + ' at ' + hhmm(h[0])
+        };
+      }
+    }
+    return { open: false, short: 'Closed', state: 'Closed', detail: '' };
+  }
+
+  document.addEventListener('DOMContentLoaded', function () {
+
+    /* ================================================================
+       Scroll reveal
+       ================================================================ */
+    const reveals = $$('.reveal');
+    if ('IntersectionObserver' in window && !reduced) {
+      const io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('in');
+            io.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
+      reveals.forEach(el => io.observe(el));
+    } else {
+      reveals.forEach(el => el.classList.add('in'));
+    }
+
+    /* ================================================================
+       Hero headline clip-reveal
+       ================================================================ */
+    const rises = $$('[data-rise]');
+    if (reduced) {
+      rises.forEach(el => el.classList.add('in'));
+    } else {
+      rises.forEach(function (el, i) {
+        setTimeout(function () { el.classList.add('in'); }, 140 + i * 130);
+      });
+    }
+
+    /* ================================================================
+       Nav — solid on scroll, scroll progress hairline
+       ================================================================ */
+    const nav = $('#nav');
+    const progress = $('#scrollProgress');
+    const dock = $('#dock');
+    let ticking = false;
+
+    function onScroll() {
+      const y = window.pageYOffset || document.documentElement.scrollTop;
+
+      if (nav) nav.classList.toggle('scrolled', y > 50);
+
+      if (progress) {
+        const max = document.documentElement.scrollHeight - window.innerHeight;
+        progress.style.transform = 'scaleX(' + (max > 0 ? Math.min(1, y / max) : 0) + ')';
+      }
+
+      if (dock) dock.classList.toggle('up', y > window.innerHeight * 0.55);
+
+      ticking = false;
+    }
+    window.addEventListener('scroll', function () {
+      if (!ticking) { requestAnimationFrame(onScroll); ticking = true; }
+    }, { passive: true });
+    window.addEventListener('resize', onScroll, { passive: true });
+    onScroll();
+
+    /* ================================================================
+       Mobile menu
+       ================================================================ */
+    const toggle = $('#navToggle');
+    const links = $('#navLinks');
+    if (toggle && links) {
+      toggle.addEventListener('click', function () {
+        const open = links.classList.toggle('open');
+        toggle.classList.toggle('active', open);
+        if (nav) nav.classList.toggle('menu-open', open);
+        toggle.setAttribute('aria-expanded', String(open));
+        document.body.style.overflow = open ? 'hidden' : '';
+        if (dock) dock.style.visibility = open ? 'hidden' : '';
+      });
+      $$('.nav-link', links).forEach(function (a) {
+        a.addEventListener('click', function () {
+          links.classList.remove('open');
+          toggle.classList.remove('active');
+          if (nav) nav.classList.remove('menu-open');
+          toggle.setAttribute('aria-expanded', 'false');
+          document.body.style.overflow = '';
+          if (dock) dock.style.visibility = '';
+        });
+      });
+      // Escape closes it
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && links.classList.contains('open')) toggle.click();
+      });
+    }
+
+    /* ================================================================
+       Smooth anchor scroll with nav offset
+       ================================================================ */
+    $$('a[href^="#"]').forEach(function (anchor) {
+      anchor.addEventListener('click', function (e) {
+        const href = anchor.getAttribute('href');
+        if (!href || href.length <= 1) return;
+        const target = document.querySelector(href);
+        if (!target) return;
+        e.preventDefault();
+        const top = target.getBoundingClientRect().top + window.pageYOffset - 64;
+        window.scrollTo({ top: top, behavior: reduced ? 'auto' : 'smooth' });
+      });
+    });
+
+    /* ================================================================
+       Active nav link
+       ================================================================ */
+    const navLinks = $$('.nav-link');
+    // Only meaningful when the nav actually points at in-page anchors. On the
+    // menu page every link is index.html#… so the observer would just strip
+    // .active off "Menu".
+    const hasHashNav = navLinks.some(l => (l.getAttribute('href') || '').charAt(0) === '#');
+    if (hasHashNav && 'IntersectionObserver' in window) {
+      const activeObserver = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            const id = entry.target.id;
+            navLinks.forEach(function (l) {
+              l.classList.toggle('active', l.getAttribute('href') === '#' + id);
+            });
+          }
+        });
+      }, { threshold: 0.35, rootMargin: '-80px 0px -40% 0px' });
+      $$('section[id]').forEach(s => activeObserver.observe(s));
+    }
+
+    /* ================================================================
+       Live open / closed status
+       Feeds the nav chip, the hero rail, and today's row in the hours table.
+       ================================================================ */
+    (function liveStatus() {
+      const navStatus  = $('#navStatus');
+      const navText    = navStatus ? $('.nav-status-text', navStatus) : null;
+      const statusCell = $('#statusCell');
+      const openState  = $('#openState');
+      const openDetail = $('#openDetail');
+      const hoursRows  = $$('#hoursTable .hours-row');
+
+      function paint() {
+        const s = openStatus();
+
+        if (navStatus && navText) {
+          navStatus.classList.toggle('is-open', s.open);
+          navText.textContent = s.short;
+          navStatus.setAttribute('title', s.detail);
+        }
+        if (statusCell) statusCell.classList.toggle('is-open', s.open);
+        if (openState)  openState.textContent = s.state;
+        if (openDetail) openDetail.textContent = s.detail || ' ';
+
+        const today = shopNow().day;
+        hoursRows.forEach(function (row) {
+          row.classList.toggle('today', Number(row.dataset.day) === today);
+        });
+
+        // Expose for analytics + anything else that wants it.
+        window.CAFE_ROMA_STATUS = s;
+      }
+
+      paint();
+      setInterval(paint, 30000);
+      document.addEventListener('visibilitychange', function () { if (!document.hidden) paint(); });
+    })();
+
+    /* ================================================================
+       Hero time-of-day atmosphere
+       ================================================================ */
+    (function todAtmosphere() {
+      const hero = $('.hero');
+      const pillLabel = $('#todPill .tod-label');
+      if (!hero) return;
+
+      const phases = [
+        { from: 0,  to: 5,  key: 'night',     label: 'Late night' },
+        { from: 5,  to: 7,  key: 'dawn',      label: 'Dawn · first pot on' },
+        { from: 7,  to: 11, key: 'morning',   label: 'Flat white weather' },
+        { from: 11, to: 15, key: 'midday',    label: 'Midday · lunch on' },
+        { from: 15, to: 18, key: 'afternoon', label: 'Cake o’clock' },
+        { from: 18, to: 20, key: 'evening',   label: 'Evening' },
+        { from: 20, to: 24, key: 'night',     label: 'Night' }
+      ];
+
+      function apply() {
+        const h = shopNow().hour;
+        const phase = phases.find(p => h >= p.from && h < p.to) || phases[0];
+        hero.className = hero.className.replace(/\btod-\w+\b/g, '').replace(/\s+/g, ' ').trim() + ' tod-' + phase.key;
+        if (pillLabel) pillLabel.textContent = phase.label;
+      }
+
+      apply();
+      setInterval(apply, 5 * 60 * 1000);
+      document.addEventListener('visibilitychange', function () { if (!document.hidden) apply(); });
+    })();
+
+    /* ================================================================
+       A Day at Roma — light the slot matching the real St Albans clock
+       ================================================================ */
+    (function dayTimeline() {
+      const rail  = $('#dayRail');
+      const badge = $('#dayNow');
+      const label = $('#dayNowText');
+      if (!rail) return;
+
+      const slots = $$('.day-slot', rail);
+      let centredOnce = false;
+
+      function paint() {
+        const now = shopNow();
+        const status = openStatus();
+        let current = null;
+
+        slots.forEach(function (slot) {
+          const from = Number(slot.dataset.from);
+          const to   = Number(slot.dataset.to);
+          // Only light a slot while we're actually trading.
+          const on = status.open && now.mins >= from && now.mins < to;
+          slot.classList.toggle('now', on);
+          if (on) current = slot;
+        });
+
+        rail.classList.toggle('has-now', !!current);
+
+        if (badge && label) {
+          badge.classList.toggle('is-open', !!current);
+          if (current) {
+            const h3 = $('h3', current);
+            label.textContent = 'Right now · ' + (h3 ? h3.textContent : '');
+          } else {
+            label.textContent = status.detail
+              ? status.short + ' · ' + status.detail.toLowerCase()
+              : status.short;
+          }
+        }
+
+        // Bring the live slot into view once — mostly for phones, where the
+        // rail is one slot wide.
+        if (current && !centredOnce) {
+          centredOnce = true;
+          if (rail.scrollWidth > rail.clientWidth + 4) {
+            const left = current.offsetLeft - rail.offsetLeft
+                       - (rail.clientWidth - current.offsetWidth) / 2;
+            rail.scrollTo({ left: Math.max(0, left), behavior: reduced ? 'auto' : 'smooth' });
+          }
+        }
+      }
+
+      paint();
+      setInterval(paint, 60000);
+      document.addEventListener('visibilitychange', function () { if (!document.hidden) paint(); });
+    })();
+
+    /* ================================================================
+       Order steps — light the one nearest the middle of the viewport
+       ================================================================ */
+    if ('IntersectionObserver' in window && !reduced) {
+      const steps = $$('[data-step]');
+      if (steps.length) {
+        const stepObs = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            entry.target.classList.toggle('lit', entry.isIntersecting);
+          });
+        }, { rootMargin: '-42% 0px -42% 0px' });
+        steps.forEach(s => stepObs.observe(s));
+      }
+    }
+
+    /* ================================================================
+       Count-ups
+       ================================================================ */
+    (function counters() {
+      const nodes = $$('[data-count]');
+      if (!nodes.length) return;
+
+      function render(el, value) {
+        const dec = Number(el.dataset.decimals || 0);
+        el.textContent = value.toFixed(dec) + (el.dataset.suffix || '');
+      }
+      function run(el) {
+        const target = Number(el.dataset.count);
+        if (isNaN(target)) return;
+        if (reduced) { render(el, target); return; }
+
+        const dur = 1400;
+        const start = performance.now();
+        (function tick(now) {
+          const t = Math.min(1, (now - start) / dur);
+          const eased = 1 - Math.pow(1 - t, 3);
+          render(el, target * eased);
+          if (t < 1) requestAnimationFrame(tick);
+          else render(el, target);
+        })(start);
+      }
+
+      if ('IntersectionObserver' in window) {
+        const io = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) { run(entry.target); io.unobserve(entry.target); }
+          });
+        }, { threshold: 0.5 });
+        nodes.forEach(n => io.observe(n));
+      } else {
+        nodes.forEach(n => render(n, Number(n.dataset.count)));
+      }
+    })();
+
+    /* ================================================================
+       Magnetic CTAs (desktop only)
+       ================================================================ */
+    if (finePointer && !reduced) {
+      const magnets = $$('[data-magnetic]').map(function (el) {
+        return { el: el, x: 0, y: 0, tx: 0, ty: 0 };
+      });
+
+      if (magnets.length) {
+        let pointerX = 0, pointerY = 0, running = false;
+
+        window.addEventListener('mousemove', function (e) {
+          pointerX = e.clientX; pointerY = e.clientY;
+          if (!running) { running = true; requestAnimationFrame(loop); }
+        }, { passive: true });
+
+        function loop() {
+          let moving = false;
+          magnets.forEach(function (m) {
+            const r = m.el.getBoundingClientRect();
+            const cx = r.left + r.width / 2;
+            const cy = r.top + r.height / 2;
+            const dx = pointerX - cx;
+            const dy = pointerY - cy;
+            const dist = Math.hypot(dx, dy);
+            const radius = Math.max(r.width, 130);
+
+            if (dist < radius) { m.tx = dx * 0.22; m.ty = dy * 0.3; }
+            else { m.tx = 0; m.ty = 0; }
+
+            m.x += (m.tx - m.x) * 0.14;
+            m.y += (m.ty - m.y) * 0.14;
+
+            if (Math.abs(m.x) > 0.05 || Math.abs(m.y) > 0.05) moving = true;
+            m.el.style.transform = 'translate3d(' + m.x.toFixed(2) + 'px,' + m.y.toFixed(2) + 'px,0)';
+          });
+
+          if (moving) requestAnimationFrame(loop);
+          else { running = false; magnets.forEach(m => { m.el.style.transform = ''; }); }
+        }
+      }
+    }
+
+  });
+})();
