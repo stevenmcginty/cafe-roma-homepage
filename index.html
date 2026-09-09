@@ -86,6 +86,7 @@
         <a class="nav-link" href="#order">Order</a>
         <a class="nav-link" href="#app">Loyalty</a>
         <a class="nav-link" href="#contact">Visit</a>
+        <a class="nav-link" href="#careers">Careers</a>
         <a href="https://koraos.co.uk/cafe-roma" target="_blank" rel="noopener" class="btn btn-primary mobile-signin">
           <span>Sign In to Loyalty</span>
           <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
@@ -685,6 +686,80 @@
   </section>
 
   <!-- =========================================================
+       08 — Careers
+       ========================================================= -->
+  <section class="sec sec-ink" id="careers">
+    <div class="container">
+      <div class="careers-grid">
+        <div class="careers-intro">
+          <div class="sec-head" style="margin-bottom: 0;">
+            <span class="sec-mark reveal"><span class="num">08</span><span class="line"></span>Careers</span>
+            <h2 class="sec-title reveal delay-1">Work <span class="serif-italic">with us</span></h2>
+            <p class="sec-lead reveal delay-2">We're a small, friendly team on St Peter's Street and we're always happy to hear from good people — baristas, kitchen, front of house. Send us your CV or a short note and we'll be in touch.</p>
+          </div>
+          <ul class="careers-points reveal delay-2">
+            <li>Full and part-time hours</li>
+            <li>Early starts, evenings free</li>
+            <li>Free coffee, obviously</li>
+          </ul>
+        </div>
+
+        <form class="careers-form reveal delay-1" id="careersForm" action="https://formsubmit.co/stevenmcginty@gmail.com" method="post" enctype="multipart/form-data" novalidate>
+          <!-- FormSubmit settings: emails the form straight to the address above -->
+          <input type="hidden" name="_subject" value="Job application — Cafe Roma" />
+          <input type="hidden" name="_template" value="table" />
+          <input type="hidden" name="_captcha" value="false" />
+          <input type="hidden" name="_next" value="https://caferoma.app/?applied=1#careers" />
+          <div class="field-row">
+            <label class="field">
+              <span class="field-label">Full name</span>
+              <input type="text" name="name" autocomplete="name" required maxlength="120" />
+            </label>
+            <label class="field">
+              <span class="field-label">Email address</span>
+              <input type="email" name="email" autocomplete="email" required maxlength="200" inputmode="email" />
+            </label>
+          </div>
+          <div class="field-row">
+            <label class="field">
+              <span class="field-label">Phone number</span>
+              <input type="tel" name="phone" autocomplete="tel" maxlength="40" inputmode="tel" />
+            </label>
+            <label class="field">
+              <span class="field-label">Mobile number</span>
+              <input type="tel" name="mobile" autocomplete="tel" maxlength="40" inputmode="tel" />
+            </label>
+          </div>
+          <label class="field">
+            <span class="field-label">Cover note <em>optional</em></span>
+            <textarea name="note" rows="4" maxlength="4000" placeholder="A few lines about you, what you're looking for, and when you can start."></textarea>
+          </label>
+          <div class="field">
+            <span class="field-label">CV <em>PDF or Word, up to 5 MB</em></span>
+            <label class="file-pick" for="careersCv">
+              <input type="file" name="cv" id="careersCv" accept=".pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document" />
+              <span class="file-btn">Choose file</span>
+              <span class="file-name" id="careersCvName">No file chosen</span>
+            </label>
+          </div>
+
+          <!-- Honeypot: hidden from people, filled by bots -->
+          <div class="hp" aria-hidden="true"><label>Website<input type="text" name="_honey" tabindex="-1" autocomplete="off" /></label></div>
+
+          <div class="careers-actions">
+            <button type="submit" class="btn btn-primary" id="careersSubmit">
+              <span>Send application</span>
+              <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+            </button>
+            <p class="careers-status" id="careersStatus" role="status" aria-live="polite"></p>
+          </div>
+          <p class="careers-fine">We only use your details to get back to you about working here.</p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================
        Footer
        ========================================================= -->
   <footer class="footer">
@@ -712,6 +787,7 @@
         <a href="#order">Order</a>
         <a href="#app">Loyalty</a>
         <a href="#contact">Visit</a>
+        <a href="#careers">Careers</a>
       </nav>
     </div>
     <div class="footer-bottom">

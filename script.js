@@ -443,5 +443,66 @@
       }
     }
 
+    /* ------------------------------------------------------------------
+       Careers form — checks the fields, then posts to FormSubmit, which
+       emails the cafe. FormSubmit redirects back to /?applied=1#careers.
+       ------------------------------------------------------------------ */
+    const careersForm = $('#careersForm');
+    if (careersForm) {
+      const status = $('#careersStatus');
+      const submit = $('#careersSubmit');
+      const cvInput = $('#careersCv');
+      const cvName = $('#careersCvName');
+      const MAX_CV = 5 * 1024 * 1024;
+
+      const say = (msg, kind) => {
+        status.textContent = msg;
+        status.className = 'careers-status' + (kind ? ' ' + kind : '');
+      };
+
+      // Back from FormSubmit after a successful send
+      if (/[?&]applied=1/.test(location.search)) {
+        careersForm.classList.add('sent');
+        say('Thank you. We have your application and we will be in touch soon.', 'ok');
+        try { history.replaceState(null, '', location.pathname + '#careers'); } catch (e) { /* ignore */ }
+        careersForm.scrollIntoView({ block: 'center' });
+        if (window.gtag) gtag('event', 'careers_apply');
+      }
+
+      if (cvInput) {
+        cvInput.addEventListener('change', function () {
+          const f = cvInput.files && cvInput.files[0];
+          if (!f) { cvName.textContent = 'No file chosen'; cvName.classList.remove('has-file'); return; }
+          cvName.textContent = f.name;
+          cvName.classList.add('has-file');
+          if (f.size > MAX_CV) say('That file is over 5 MB. Please choose a smaller one.', 'err');
+          else say('', '');
+        });
+      }
+
+      careersForm.addEventListener('submit', function (e) {
+        const name = careersForm.name.value.trim();
+        const email = careersForm.email.value.trim();
+        const phone = careersForm.phone.value.trim();
+        const mobile = careersForm.mobile.value.trim();
+        const note = careersForm.note.value.trim();
+        const cv = cvInput && cvInput.files && cvInput.files[0];
+
+        let err = '';
+        if (!name) err = 'Please tell us your name.';
+        else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) err = 'Please enter a valid email address.';
+        else if (!phone && !mobile) err = 'Please give us a phone or mobile number.';
+        else if (!note && !cv) err = 'Please attach a CV or write a short note.';
+        else if (cv && cv.size > MAX_CV) err = 'That file is over 5 MB. Please choose a smaller one.';
+
+        if (err) { e.preventDefault(); say(err, 'err'); return; }
+
+        submit.disabled = true;
+        say('Sending…', '');
+        // Native submit continues: FormSubmit emails the cafe, then sends the
+        // applicant back to /?applied=1#careers where the thank-you shows.
+      });
+    }
+
   });
 })();

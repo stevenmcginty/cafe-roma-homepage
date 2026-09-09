@@ -1627,6 +1627,163 @@ h1, h2, h3, h4 {
   z-index: 2;
 }
 
+/* Careers
+   ========================================================================== */
+.careers-grid {
+  display: grid;
+  grid-template-columns: minmax(300px, 0.85fr) 1.15fr;
+  gap: clamp(40px, 6vw, 96px);
+  align-items: start;
+}
+.careers-points {
+  list-style: none;
+  margin-top: clamp(28px, 3vw, 40px);
+  display: grid;
+  gap: 10px;
+}
+.careers-points li {
+  position: relative;
+  padding-left: 22px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--dim);
+}
+.careers-points li::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0.55em;
+  width: 10px; height: 1px;
+  background: var(--gold);
+}
+
+.careers-form {
+  display: grid;
+  gap: 22px;
+  padding: clamp(26px, 3.4vw, 44px);
+  background: var(--ink-2);
+  border: 1px solid var(--rule-light);
+  border-radius: 4px;
+}
+.field-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 22px;
+}
+.field { display: grid; gap: 9px; }
+.field-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+.field-label em {
+  font-style: normal;
+  letter-spacing: 0.12em;
+  color: var(--dimmer);
+  margin-left: 8px;
+}
+.field input[type="text"],
+.field input[type="email"],
+.field input[type="tel"],
+.field textarea {
+  width: 100%;
+  padding: 14px 16px;
+  background: var(--ink);
+  border: 1px solid var(--rule-light);
+  border-radius: 3px;
+  color: var(--cream);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.4;
+  transition: border-color 240ms ease, box-shadow 240ms ease;
+}
+.field textarea { resize: vertical; min-height: 116px; }
+.field input::placeholder, .field textarea::placeholder { color: var(--dimmer); }
+.field input:focus, .field textarea:focus {
+  outline: none;
+  border-color: var(--gold);
+  box-shadow: 0 0 0 3px var(--gold-haze);
+}
+.field input:user-invalid, .field textarea:user-invalid { border-color: var(--tri-red); }
+
+/* File picker — native input stays for keyboard/screen readers, sits invisibly on top */
+.file-pick {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 10px 10px 10px 12px;
+  background: var(--ink);
+  border: 1px dashed var(--rule-light);
+  border-radius: 3px;
+  cursor: pointer;
+  transition: border-color 240ms ease;
+}
+.file-pick:hover, .file-pick:focus-within { border-color: var(--gold); }
+.file-pick input {
+  position: absolute;
+  inset: 0;
+  width: 100%; height: 100%;
+  opacity: 0;
+  cursor: pointer;
+}
+.file-btn {
+  flex: none;
+  padding: 9px 16px;
+  border: 1px solid var(--rule-gold);
+  border-radius: 999px;
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+.file-name {
+  font-size: 14px;
+  color: var(--dim);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.file-name.has-file { color: var(--cream); }
+
+.hp { position: absolute; left: -9999px; top: auto; width: 1px; height: 1px; overflow: hidden; }
+
+.careers-actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 18px;
+  margin-top: 6px;
+}
+.careers-form .btn[disabled] { opacity: 0.6; cursor: wait; transform: none; }
+.careers-status {
+  font-size: 14px;
+  color: var(--dim);
+  min-height: 1.4em;
+}
+.careers-status.ok { color: var(--gold-soft); }
+.careers-status.err { color: #e07b7b; }
+.careers-form.sent .field-row,
+.careers-form.sent > .field,
+.careers-form.sent .careers-fine,
+.careers-form.sent .btn { display: none; }
+.careers-form.sent .careers-status {
+  font-family: var(--font-display);
+  font-size: clamp(22px, 2.4vw, 30px);
+  line-height: 1.25;
+  color: var(--cream);
+}
+.careers-fine {
+  font-size: 12.5px;
+  color: var(--dimmer);
+  line-height: 1.5;
+}
+
 /* Footer
    ========================================================================== */
 .footer {
@@ -1785,6 +1942,7 @@ h1, h2, h3, h4 {
   .order-stage { position: relative; top: 0; }
   .visit-grid { grid-template-columns: 1fr; }
   .visit-map { position: relative; top: 0; }
+  .careers-grid { grid-template-columns: 1fr; }
   .rail { grid-template-columns: 1fr 1fr; }
   .rail-card:nth-child(2n) { border-right: none; }
 }
@@ -1818,6 +1976,7 @@ h1, h2, h3, h4 {
 .mobile-signin { display: none; }
 
 @media (max-width: 760px) {
+  .field-row { grid-template-columns: 1fr; }
   body { font-size: 16px; }
 
   .nav-cta, .nav-status { display: none; }
