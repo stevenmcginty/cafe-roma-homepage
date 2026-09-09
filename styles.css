@@ -142,7 +142,11 @@ h1, h2, h3, h4 {
 }
 .eyebrow.solo::before, .eyebrow.solo::after { display: none; }
 
-.serif-italic { font-style: italic; }
+/* Italic is reserved for the hero. Everywhere else the highlighted word
+   stays upright and gold — Bodoni's italic hairlines are hard to read at
+   phone sizes. */
+.serif-italic { font-style: normal; }
+.hero .serif-italic { font-style: italic; }
 .text-gold { color: var(--gold); }
 .text-gold-deep { color: var(--gold-deep); }
 .text-cream { color: var(--cream); }
@@ -263,9 +267,9 @@ h1, h2, h3, h4 {
 .sec-lead {
   font-size: clamp(16px, 1.35vw, 19px);
   line-height: 1.65;
-  color: var(--dim);
+  color: rgba(232, 228, 221, 0.74);
   max-width: 54ch;
-  font-weight: 300;
+  font-weight: 400;
 }
 
 /* Paper inset — cream card laid on the dark table */
@@ -1488,7 +1492,6 @@ h1, h2, h3, h4 {
 .quote blockquote {
   font-family: var(--font-display);
   font-weight: var(--w-lead);
-  font-style: italic;
   font-size: clamp(20px, 1.9vw, 26px);
   line-height: 1.35;
   color: var(--cream);
