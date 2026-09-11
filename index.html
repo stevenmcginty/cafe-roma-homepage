@@ -704,12 +704,7 @@
           </ul>
         </div>
 
-        <form class="careers-form reveal delay-1" id="careersForm" action="https://formsubmit.co/stalbanscaferoma@gmail.com" method="post" enctype="multipart/form-data" novalidate>
-          <!-- FormSubmit settings: emails the form straight to the address above -->
-          <input type="hidden" name="_subject" value="Job application — Cafe Roma" />
-          <input type="hidden" name="_template" value="table" />
-          <input type="hidden" name="_captcha" value="false" />
-          <input type="hidden" name="_next" value="https://caferoma.app/?applied=1#careers" />
+        <form class="careers-form reveal delay-1" id="careersForm" action="/api/apply" method="post" enctype="multipart/form-data" novalidate>
           <div class="field-row">
             <label class="field">
               <span class="field-label">Full name</span>
@@ -735,7 +730,7 @@
             <textarea name="note" rows="4" maxlength="4000" placeholder="A few lines about you, what you're looking for, and when you can start."></textarea>
           </label>
           <div class="field">
-            <span class="field-label">CV <em>PDF or Word, up to 5 MB</em></span>
+            <span class="field-label">CV <em>PDF or Word, up to 4 MB</em></span>
             <label class="file-pick" for="careersCv">
               <input type="file" name="cv" id="careersCv" accept=".pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document" />
               <span class="file-btn">Choose file</span>
@@ -744,7 +739,7 @@
           </div>
 
           <!-- Honeypot: hidden from people, filled by bots -->
-          <div class="hp" aria-hidden="true"><label>Website<input type="text" name="_honey" tabindex="-1" autocomplete="off" /></label></div>
+          <div class="hp" aria-hidden="true"><label>Website<input type="text" name="website" tabindex="-1" autocomplete="off" /></label></div>
 
           <div class="careers-actions">
             <button type="submit" class="btn btn-primary" id="careersSubmit">
