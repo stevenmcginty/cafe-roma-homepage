@@ -33,11 +33,9 @@ const clean = (v, max) => String(v || '').replace(/\s+/g, ' ').trim().slice(0, m
 const escapeHtml = s =>
   s.replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 
-export default async function handler(request) {
-  if (request.method !== 'POST') {
-    return json(405, { ok: false, error: 'Method not allowed' });
-  }
-
+// Named HTTP-method export: this is what makes Vercel's Node runtime hand us
+// a Web-standard Request (with formData()) instead of (req, res).
+export async function POST(request) {
   const user = process.env.GMAIL_USER;
   const pass = process.env.GMAIL_APP_PASSWORD;
   const to = process.env.CAREERS_TO || user;
