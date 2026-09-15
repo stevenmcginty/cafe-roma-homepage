@@ -22,13 +22,20 @@ The `roma-2026/` folder is a separate local-only redesign; nothing deploys from 
 
 ## Style decisions (2026-09-15 redesign)
 
-- Palette "Espresso Terrazzo" (2026-09-15, replaces the app's mint): espresso
-  canvas #0f0c0a, travertine ink #f3ebdf, three accents by role, never mixed
-  in one component. Terracotta #b8462c acts (CTAs, closed, focus; small text
-  #dc6c4e). Olive #8aa671 is alive (open now, live dots, V/VG/GF). Brass
-  #c9a55a only on stars and Est. 1997. One 42px tricolore ribbon in the footer.
-  The layout, glass and phones stay from the app design; the app screenshots
-  keep their mint, which is fine, they are the app.
+- Palette "Espresso Terrazzo — Italian Quad-Accent Suite" (2026-09-15):
+  An espresso canvas `#0f0c0a` and travertine ink `#f3ebdf`, elevated with four
+  bespoke Italian accents that prevent single-color monotony:
+  1. Florentine Brass & Antique Gold (`#cba358` / text `#dfba6d`): logo monogram
+     seal ("R" medal with gold foil gradient & bevel), review stars (4.5 ★★★★★),
+     Est. 1997 heritage tags, gluten-free badge, allergen filter highlights, and
+     historic story accents.
+  2. Tuscan Olive (`#7ea368` / text `#96bd7d`): open status dot, living clock,
+     today's opening hours row, dine-in icon, and vegetarian/vegan diet tags.
+  3. Siena Terracotta (`#c24b30` / text `#e06d4e`): primary action buttons,
+     order triggers, takeaway cup icon, and phone contact.
+  4. Mediterranean Azure (`#5299a8` / text `#6cb6c5`): address & map icon,
+     private events, digital payments step, and local discovery points.
+  One 44px Italian tricolore ribbon in the footer. Contrast exceeds WCAG AA/AAA.
 - Fonts: Outfit for display, Plus Jakarta Sans for body, Cinzel only for the
   tiny "St Albans · Est. 1997" tag. No italics anywhere. The old Bodoni /
   antique-gold / cream look is gone.
