@@ -22,9 +22,13 @@ The `roma-2026/` folder is a separate local-only redesign; nothing deploys from 
 
 ## Style decisions (2026-09-15 redesign)
 
-- The site now uses the customer app's design language ("Midnight Counter"):
-  background #050811, glass panels, mint #00E6CC as the only accent. Coral is
-  for the closed state only; gold only for review stars.
+- Palette "Espresso Terrazzo" (2026-09-15, replaces the app's mint): espresso
+  canvas #0f0c0a, travertine ink #f3ebdf, three accents by role, never mixed
+  in one component. Terracotta #b8462c acts (CTAs, closed, focus; small text
+  #dc6c4e). Olive #8aa671 is alive (open now, live dots, V/VG/GF). Brass
+  #c9a55a only on stars and Est. 1997. One 42px tricolore ribbon in the footer.
+  The layout, glass and phones stay from the app design; the app screenshots
+  keep their mint, which is fine, they are the app.
 - Fonts: Outfit for display, Plus Jakarta Sans for body, Cinzel only for the
   tiny "St Albans · Est. 1997" tag. No italics anywhere. The old Bodoni /
   antique-gold / cream look is gone.
