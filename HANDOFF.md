@@ -20,11 +20,19 @@ The `roma-2026/` folder is a separate local-only redesign; nothing deploys from 
   script) and FormSubmit (needs an "Activate Form" click that never happened;
   one real application on 2026-09-11 13:17 was lost that way).
 
-## Style decisions
+## Style decisions (2026-09-15 redesign)
 
-- Italic is hero-only. Section titles keep the gold word but upright: Bodoni
-  italic hairlines were unreadable on phones.
-- Section lead copy is weight 400 at 74% opacity for the same reason.
+- The site now uses the customer app's design language ("Midnight Counter"):
+  background #050811, glass panels, mint #00E6CC as the only accent. Coral is
+  for the closed state only; gold only for review stars.
+- Fonts: Outfit for display, Plus Jakarta Sans for body, Cinzel only for the
+  tiny "St Albans · Est. 1997" tag. No italics anywhere. The old Bodoni /
+  antique-gold / cream look is gone.
+- All styles live in `styles.css` (menu page included, no inline CSS). Phone
+  frames are CSS-only and show `images/app-home.png`, `app-menu.png`,
+  `app-rewards.png` (393x852 @3x captures of the updated app).
+- Menu page: one row per item (name + price), allergens as a quiet text line
+  limited to the UK-declared allergens, tap to expand ingredients.
 
 ## Next / open
 

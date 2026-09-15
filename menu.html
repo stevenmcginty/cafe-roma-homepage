@@ -2,10 +2,10 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>Menu — Cafe Roma · St Albans</title>
   <meta name="description" content="The Cafe Roma menu — coffee, breakfast, lunch, cakes. Fresh every day on St Peter's Street, St Albans. Prices shown; subject to change." />
-  <meta name="theme-color" content="#0b1426" />
+  <meta name="theme-color" content="#050811" />
 
   <meta property="og:title" content="Menu — Cafe Roma, St Albans" />
   <meta property="og:description" content="Fresh coffee, homemade food. Our full menu, updated in real time." />
@@ -14,826 +14,31 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..700;1,6..96,400..700&family=Inter+Tight:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Outfit:wght@500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
   <script>document.documentElement.classList.add('js');</script>
-  <style>
-    /* ==============================================================
-       Public menu — page-specific styles
-       Extends the marketing-site design system. No new tokens.
-       ============================================================== */
-
-    body { background: var(--cream); }
-
-    /* ---- Menu hero (compact, not full-bleed) ---- */
-    .menu-hero {
-      position: relative;
-      background: var(--ink);
-      color: var(--off-white);
-      padding: clamp(120px, 14vw, 160px) 0 clamp(56px, 7vw, 80px);
-      overflow: hidden;
-      border-bottom: 1px solid var(--rule-light);
-    }
-    .menu-hero::before {
-      content: '';
-      position: absolute; inset: 0;
-      background:
-        linear-gradient(180deg, rgba(11,20,38,0.65) 0%, rgba(11,20,38,0.85) 70%, var(--ink) 100%),
-        url('images/coffee.jpg') center/cover no-repeat;
-      opacity: 0.55;
-      z-index: 0;
-    }
-    .menu-hero-inner {
-      position: relative;
-      z-index: 1;
-      max-width: var(--max-w);
-      margin: 0 auto;
-      padding: 0 var(--pad);
-      text-align: center;
-    }
-    .menu-hero .eyebrow {
-      color: var(--gold);
-      justify-content: center;
-      margin-bottom: 20px;
-    }
-    .menu-hero .eyebrow::before,
-    .menu-hero .eyebrow::after { background: rgba(201, 165, 90, 0.5); }
-    .menu-hero h1 {
-      font-family: var(--font-display);
-      font-weight: 500;
-      font-size: clamp(44px, 7vw, 92px);
-      line-height: 1.0;
-      letter-spacing: -0.02em;
-      margin-bottom: 22px;
-    }
-    .menu-hero h1 .serif-italic {
-      font-style: italic;
-      font-weight: 400;
-      color: var(--gold-soft);
-    }
-    .menu-hero .sub {
-      font-size: clamp(15px, 1.3vw, 17px);
-      line-height: 1.65;
-      color: rgba(232, 228, 221, 0.78);
-      max-width: 560px;
-      margin: 0 auto 32px;
-      font-weight: 300;
-    }
-    .menu-hero .meta-row {
-      display: inline-flex;
-      align-items: center;
-      gap: 24px;
-      padding: 12px 22px;
-      border: 1px solid rgba(201, 165, 90, 0.35);
-      border-radius: 999px;
-      font-size: 11px;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: rgba(232, 228, 221, 0.72);
-      flex-wrap: wrap;
-      justify-content: center;
-    }
-    .menu-hero .meta-row .sep {
-      width: 1px; height: 10px;
-      background: rgba(232, 228, 221, 0.2);
-    }
-    .menu-hero .meta-row .live-dot {
-      width: 6px; height: 6px;
-      border-radius: 50%;
-      background: var(--gold);
-      box-shadow: 0 0 10px rgba(201, 165, 90, 0.7);
-      animation: todPulse 2.4s ease-in-out infinite;
-      display: inline-block;
-      margin-right: 8px;
-      vertical-align: middle;
-    }
-
-    /* ---- Category nav (sticky) ---- */
-    .cat-nav {
-      position: sticky;
-      top: 68px;
-      z-index: 50;
-      background: var(--cream);
-      border-bottom: 1px solid var(--rule);
-      transition: box-shadow 220ms ease;
-    }
-    .cat-nav.stuck { box-shadow: 0 4px 12px -8px rgba(11, 20, 38, 0.15); }
-    .cat-nav-inner {
-      max-width: var(--max-w);
-      margin: 0 auto;
-      padding: 14px var(--pad);
-      display: flex;
-      gap: 8px;
-      overflow-x: auto;
-      scrollbar-width: none;
-      -ms-overflow-style: none;
-    }
-    .cat-nav-inner::-webkit-scrollbar { display: none; }
-    .cat-chip {
-      flex-shrink: 0;
-      padding: 9px 18px;
-      border: 1px solid var(--rule);
-      border-radius: 999px;
-      font-family: var(--font-body);
-      font-size: 12px;
-      font-weight: 500;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--muted);
-      background: transparent;
-      cursor: pointer;
-      transition: all 220ms var(--ease);
-      white-space: nowrap;
-    }
-    .cat-chip:hover {
-      color: var(--ink);
-      border-color: rgba(11, 20, 38, 0.25);
-    }
-    .cat-chip.active {
-      background: var(--ink);
-      color: var(--off-white);
-      border-color: var(--ink);
-    }
-
-    /* ---- Menu body ---- */
-    .menu-body {
-      padding: clamp(56px, 8vw, 96px) 0 clamp(80px, 10vw, 120px);
-    }
-    .menu-container {
-      max-width: 960px;
-      margin: 0 auto;
-      padding: 0 var(--pad);
-    }
-
-    /* ---- Category section ---- */
-    .cat {
-      padding-top: 8px;
-      margin-bottom: clamp(56px, 7vw, 88px);
-      scroll-margin-top: 140px;
-    }
-    .cat:last-child { margin-bottom: 0; }
-
-    .cat-header {
-      display: flex;
-      align-items: baseline;
-      justify-content: space-between;
-      gap: 24px;
-      padding-bottom: 22px;
-      margin-bottom: 28px;
-      border-bottom: 1px solid var(--rule);
-    }
-    .cat-header h2 {
-      font-family: var(--font-display);
-      font-weight: 600;
-      font-size: clamp(32px, 4vw, 44px);
-      line-height: 1;
-      letter-spacing: -0.01em;
-      color: var(--ink);
-      margin: 0;
-    }
-    .cat-header h2 .serif-italic {
-      font-style: italic;
-      font-weight: 500;
-      color: var(--gold-deep);
-    }
-    .cat-header .cat-note {
-      font-family: var(--font-body);
-      font-size: 12px;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--muted-2);
-      white-space: nowrap;
-    }
-
-    /* ---- Items list ---- */
-    .items {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 28px 56px;
-    }
-
-    .item {
-      display: grid;
-      grid-template-columns: 1fr auto;
-      gap: 4px 16px;
-      align-items: baseline;
-      padding-bottom: 22px;
-      border-bottom: 1px dashed var(--rule);
-    }
-    .item-name {
-      font-family: var(--font-display);
-      font-size: 20px;
-      font-weight: 600;
-      color: var(--ink);
-      letter-spacing: -0.005em;
-      line-height: 1.25;
-    }
-    .item-name .diet {
-      display: inline-block;
-      margin-left: 8px;
-      padding: 2px 7px;
-      font-family: var(--font-body);
-      font-size: 9.5px;
-      font-weight: 600;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      border: 1px solid var(--rule);
-      border-radius: 3px;
-      color: var(--muted);
-      vertical-align: middle;
-      line-height: 1.4;
-    }
-    .item-name .diet.v  { color: #3f5a2b; border-color: rgba(63, 90, 43, 0.35); }
-    .item-name .diet.vg { color: #2e6b4a; border-color: rgba(46, 107, 74, 0.35); }
-    .item-name .diet.gf { color: #8b5e3c; border-color: rgba(139, 94, 60, 0.35); }
-
-    /* Allergen chips — match the in-app KoraOS customer menu UX exactly:
-       a row of emoji circles per detected allergen (gluten, dairy, nuts,
-       eggs, etc.) with "Contains allergens" label, tap to expand the
-       full ingredient list. */
-    .allergen-chips {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      gap: 6px;
-      margin-top: 8px;
-      padding: 0;
-      background: none;
-      border: none;
-      cursor: pointer;
-      text-align: left;
-      font-family: inherit;
-    }
-    .allergen-chips .a-chip {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 24px; height: 24px;
-      border-radius: 999px;
-      background: rgba(201, 165, 90, 0.18);
-      border: 1px solid rgba(201, 165, 90, 0.35);
-      font-size: 13px;
-      line-height: 1;
-    }
-    .allergen-chips .a-more {
-      font-family: var(--font-body);
-      font-size: 10px;
-      font-weight: 700;
-      color: var(--muted);
-      letter-spacing: 0.04em;
-    }
-    .allergen-chips .a-label {
-      font-family: var(--font-body);
-      font-size: 10.5px;
-      font-weight: 600;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--muted);
-      margin-left: 6px;
-    }
-    .allergen-chips:hover .a-label { color: var(--ink); }
-
-    /* Expandable ingredients panel — what KoraOS shows in
-       ProductIngredientsModal, inlined here for the public page. */
-    .item-ingredients {
-      margin-top: 14px;
-      padding: 14px 16px;
-      background: rgba(201, 165, 90, 0.07);
-      border: 1px solid rgba(201, 165, 90, 0.3);
-      border-radius: 14px;
-      animation: aFade 220ms var(--ease);
-    }
-    .item-ingredients[hidden] { display: none; }
-    .item-ingredients-head {
-      font-family: var(--font-body);
-      font-size: 9.5px;
-      font-weight: 700;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: var(--gold-deep);
-      margin-bottom: 8px;
-    }
-    .item-ingredients-allergens {
-      font-family: var(--font-display);
-      font-style: italic;
-      font-size: 13.5px;
-      color: var(--ink);
-      margin-bottom: 12px;
-      line-height: 1.55;
-    }
-    .item-ingredients-list {
-      font-family: var(--font-body);
-      font-size: 12.5px;
-      color: var(--muted);
-      line-height: 1.6;
-    }
-    .item-ingredients-list b,
-    .item-ingredients-list strong {
-      color: var(--ink);
-      font-weight: 700;
-    }
-    .item-ingredients-note {
-      margin-top: 10px;
-      font-family: var(--font-display);
-      font-style: italic;
-      font-size: 11.5px;
-      color: var(--muted-2);
-    }
-
-    .item-price {
-      font-family: var(--font-display);
-      font-style: italic;
-      font-size: 19px;
-      font-weight: 500;
-      color: var(--gold-deep);
-      white-space: nowrap;
-    }
-    .item-desc {
-      grid-column: 1 / -1;
-      font-family: var(--font-body);
-      font-size: 14px;
-      line-height: 1.6;
-      color: var(--muted);
-      margin-top: 2px;
-    }
-
-    /* ---- Double-price variants (e.g. sm / lg) ---- */
-    .item-price.variants {
-      font-size: 16px;
-      display: inline-flex;
-      gap: 14px;
-      align-items: baseline;
-    }
-    .item-price.variants .v-size {
-      font-family: var(--font-body);
-      font-style: normal;
-      font-size: 10px;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--muted-2);
-      margin-right: 4px;
-    }
-
-    /* ---- Loading / error states ---- */
-    .status-card {
-      max-width: 560px;
-      margin: 40px auto;
-      padding: 28px 32px;
-      border: 1px solid var(--rule);
-      background: var(--cream);
-      text-align: center;
-    }
-    .status-card h3 {
-      font-family: var(--font-display);
-      font-size: 22px;
-      color: var(--ink);
-      margin-bottom: 8px;
-    }
-    .status-card p {
-      font-size: 14px;
-      color: var(--muted);
-      margin: 0;
-    }
-
-    /* ---- CTA block ---- */
-    .menu-cta-block {
-      margin-top: clamp(56px, 7vw, 88px);
-      padding: clamp(36px, 5vw, 56px) clamp(28px, 4vw, 56px);
-      background: var(--ink);
-      color: var(--off-white);
-      border-radius: 2px;
-      text-align: center;
-      position: relative;
-      overflow: hidden;
-    }
-    .menu-cta-block::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(ellipse at 50% 0%, rgba(201, 165, 90, 0.12) 0%, transparent 60%);
-      pointer-events: none;
-    }
-    .menu-cta-block .eyebrow {
-      color: var(--gold);
-      justify-content: center;
-      margin-bottom: 16px;
-    }
-    .menu-cta-block .eyebrow::before,
-    .menu-cta-block .eyebrow::after { background: rgba(201, 165, 90, 0.5); }
-    .menu-cta-block h2 {
-      font-family: var(--font-display);
-      font-weight: 600;
-      font-size: clamp(28px, 3.4vw, 40px);
-      line-height: 1.15;
-      letter-spacing: -0.01em;
-      color: var(--off-white);
-      max-width: 540px;
-      margin: 0 auto 14px;
-    }
-    .menu-cta-block h2 .serif-italic {
-      font-style: italic;
-      font-weight: 400;
-      color: var(--gold-soft);
-    }
-    .menu-cta-block p {
-      font-size: 15px;
-      color: rgba(232, 228, 221, 0.72);
-      max-width: 440px;
-      margin: 0 auto 28px;
-    }
-    .menu-cta-block .cta-row {
-      display: inline-flex;
-      gap: 12px;
-      flex-wrap: wrap;
-      justify-content: center;
-      position: relative;
-      z-index: 1;
-    }
-
-    /* ---- Diet-legend ---- */
-    .diet-legend {
-      margin-top: 36px;
-      display: flex;
-      gap: 24px;
-      flex-wrap: wrap;
-      justify-content: center;
-      font-size: 11px;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--muted);
-    }
-    .diet-legend .k {
-      display: inline-block;
-      margin-right: 6px;
-      padding: 2px 7px;
-      border: 1px solid var(--rule);
-      border-radius: 3px;
-      font-weight: 600;
-    }
-    .diet-legend .k.v  { color: #3f5a2b; border-color: rgba(63, 90, 43, 0.35); }
-    .diet-legend .k.vg { color: #2e6b4a; border-color: rgba(46, 107, 74, 0.35); }
-    .diet-legend .k.gf { color: #8b5e3c; border-color: rgba(139, 94, 60, 0.35); }
-
-    .menu-note {
-      margin-top: 24px;
-      text-align: center;
-      font-size: 12px;
-      letter-spacing: 0.06em;
-      color: var(--muted-2);
-      font-style: italic;
-    }
-
-    /* ---- Allergen filter strip (sits above category pills) ---- */
-    .allergen-strip {
-      background: var(--cream);
-      border-bottom: 1px solid var(--rule);
-    }
-    .allergen-inner {
-      max-width: var(--max-w);
-      margin: 0 auto;
-      padding: 18px var(--pad);
-    }
-    .allergen-toggle {
-      appearance: none;
-      width: 100%;
-      background: transparent;
-      border: 1px solid var(--rule);
-      border-radius: 999px;
-      padding: 11px 18px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      cursor: pointer;
-      font-family: var(--font-body);
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: var(--muted);
-      transition: all 200ms var(--ease);
-    }
-    .allergen-toggle:hover {
-      color: var(--ink);
-      border-color: rgba(11, 20, 38, 0.25);
-    }
-    .allergen-toggle .dot {
-      width: 6px; height: 6px; border-radius: 999px;
-      background: var(--gold);
-      display: none;
-    }
-    .allergen-toggle.is-active .dot { display: inline-block; }
-    .allergen-toggle.is-active { color: var(--ink); border-color: rgba(11, 20, 38, 0.3); }
-    .allergen-toggle .chev {
-      width: 12px; height: 12px; opacity: 0.6;
-    }
-
-    .allergen-panel {
-      margin-top: 14px;
-      background: #fffaf0;
-      border: 1px solid rgba(201, 165, 90, 0.35);
-      border-radius: 18px;
-      padding: 18px 20px 20px;
-      animation: aFade 220ms var(--ease);
-    }
-    @keyframes aFade {
-      from { opacity: 0; transform: translateY(-4px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-    .allergen-panel-head {
-      display: flex; align-items: baseline; justify-content: space-between; gap: 12px;
-      margin-bottom: 12px;
-    }
-    .allergen-panel-head .eyebrow {
-      color: var(--gold-deep);
-      font-family: var(--font-body);
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-    }
-    .allergen-panel-head .byline {
-      font-family: var(--font-display);
-      font-style: italic;
-      font-size: 14px;
-      color: var(--muted);
-    }
-    .allergen-input {
-      width: 100%;
-      background: transparent;
-      border: none;
-      border-bottom: 1px solid rgba(201, 165, 90, 0.5);
-      outline: none;
-      padding: 8px 2px;
-      font-family: var(--font-body);
-      font-size: 15px;
-      color: var(--ink);
-      transition: border-color 160ms var(--ease);
-    }
-    .allergen-input:focus { border-bottom-color: var(--gold-deep); }
-    .allergen-input::placeholder { color: rgba(11, 20, 38, 0.35); font-style: italic; }
-
-    .allergen-quick {
-      display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px;
-    }
-    .allergen-chip {
-      appearance: none; cursor: pointer;
-      padding: 7px 14px;
-      border-radius: 999px;
-      background: transparent;
-      border: 1px solid var(--rule);
-      color: var(--muted);
-      font-family: var(--font-body);
-      font-size: 12px;
-      font-weight: 500;
-      letter-spacing: 0.06em;
-      transition: all 160ms var(--ease);
-      display: inline-flex; align-items: center; gap: 6px;
-    }
-    .allergen-chip:hover { color: var(--ink); border-color: rgba(11, 20, 38, 0.25); }
-    .allergen-chip.is-on {
-      background: var(--ink); color: var(--off-white); border-color: var(--ink);
-    }
-
-    .allergen-terms { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
-    .allergen-term {
-      display: inline-flex; align-items: center; gap: 6px;
-      padding: 4px 4px 4px 12px;
-      border-radius: 999px;
-      background: rgba(201, 165, 90, 0.15);
-      border: 1px solid rgba(201, 165, 90, 0.45);
-      color: var(--ink);
-      font-family: var(--font-body);
-      font-size: 12px;
-      font-weight: 500;
-    }
-    .allergen-term button {
-      appearance: none; border: none; cursor: pointer;
-      width: 18px; height: 18px; border-radius: 999px;
-      background: rgba(11, 20, 38, 0.08);
-      color: var(--muted);
-      font-size: 13px; line-height: 1; padding: 0;
-      display: inline-flex; align-items: center; justify-content: center;
-    }
-
-    .allergen-status {
-      margin-top: 16px;
-      padding-top: 14px;
-      border-top: 1px solid rgba(201, 165, 90, 0.3);
-      display: flex; align-items: center; justify-content: space-between; gap: 12px;
-    }
-    .allergen-status .count {
-      font-family: var(--font-body);
-      font-size: 12.5px;
-      color: var(--muted);
-    }
-    .allergen-status .count strong { color: var(--ink); font-weight: 600; }
-    .allergen-status button.clear {
-      appearance: none; border: none; background: transparent; cursor: pointer;
-      font-family: var(--font-body);
-      font-size: 12px; font-weight: 600;
-      color: var(--gold-deep);
-      text-decoration: underline;
-      padding: 4px;
-    }
-
-    /* When a category has zero matching items it collapses; status card surfaces */
-    .cat.is-empty { display: none; }
-    .allergen-empty {
-      margin: 24px auto;
-      max-width: 480px;
-      text-align: center;
-      padding: 28px 24px;
-      border: 1px dashed var(--rule);
-      border-radius: 18px;
-    }
-    .allergen-empty h3 {
-      font-family: var(--font-display);
-      font-size: 22px;
-      margin-bottom: 8px;
-    }
-    .allergen-empty p {
-      font-family: var(--font-body);
-      font-size: 13px;
-      color: var(--muted);
-      line-height: 1.6;
-    }
-
-    .allergen-disclaimer {
-      margin-top: 12px;
-      font-family: var(--font-body);
-      font-size: 11px;
-      font-style: italic;
-      color: var(--muted-2);
-      text-align: center;
-      letter-spacing: 0.04em;
-    }
-
-    /* ---- Responsive ---- */
-    @media (max-width: 760px) {
-      .items { grid-template-columns: 1fr; gap: 22px; }
-      .cat-nav { top: 56px; }
-      .cat-header { flex-direction: column; align-items: flex-start; gap: 6px; }
-      .cat-header .cat-note { font-size: 10.5px; }
-      .menu-hero .meta-row { font-size: 10px; gap: 14px; padding: 10px 16px; }
-      .allergen-quick { gap: 6px; }
-      .allergen-chip { font-size: 11px; padding: 6px 12px; }
-    }
-
-    /* ==============================================================
-       "Blue Hour Trattoria" overrides
-       The menu stays cream on purpose — it is the paper card laid on
-       the dark table. These rules bring it onto the new type stack.
-       Bodoni Moda is variable 400–700; --w-display (600) is the
-       display voice. Its opsz axis thickens the hairlines at small
-       sizes on its own, which is what keeps item names legible.
-       ============================================================== */
-    .menu-hero h1,
-    .cat-header h2,
-    .cat-header h2 .serif-italic,
-    .item-name,
-    .menu-cta-block h2,
-    .menu-cta-block h2 .serif-italic,
-    .status-card h3,
-    .allergen-empty h3 { font-weight: var(--w-display); }
-
-    .item-price,
-    .allergen-panel-head .byline,
-    .item-ingredients-allergens,
-    .item-ingredients-note { font-weight: var(--w-lead); }
-
-    .item-name, .item-price, .cat-header h2 { font-optical-sizing: auto; }
-
-    /* ---- Hero: left-aligned, cinematic, matches the homepage ---- */
-    .menu-hero {
-      padding: clamp(126px, 15vw, 172px) 0 clamp(52px, 7vw, 76px);
-      background: var(--void);
-    }
-    .menu-hero::before {
-      background:
-        linear-gradient(180deg, rgba(4,8,15,0.55) 0%, rgba(4,8,15,0.82) 62%, var(--void) 100%),
-        linear-gradient(100deg, rgba(4,8,15,0.7) 0%, rgba(4,8,15,0.25) 52%, transparent 80%),
-        url('images/coffee.jpg') center/cover no-repeat;
-      opacity: 0.85;
-    }
-    .menu-hero-inner { text-align: left; }
-    .menu-hero .eyebrow {
-      justify-content: flex-start;
-      font-family: var(--font-mono);
-      margin-bottom: 18px;
-    }
-    .menu-hero .eyebrow::before { display: none; }
-    .menu-hero h1 {
-      font-size: clamp(48px, 9vw, 116px);
-      line-height: 0.9;
-      letter-spacing: -0.035em;
-      color: var(--cream);
-      margin-bottom: 20px;
-    }
-    .menu-hero .sub {
-      margin: 0 0 30px;
-      max-width: 46ch;
-      font-size: clamp(15px, 1.3vw, 18px);
-    }
-    .menu-hero .meta-row {
-      justify-content: flex-start;
-      font-family: var(--font-mono);
-      font-size: 10px;
-      letter-spacing: 0.18em;
-      gap: 20px;
-    }
-
-    /* ---- Category chips: mono, to match the site's data type ---- */
-    .cat-nav { top: var(--nav-h); }
-    .cat-chip {
-      font-family: var(--font-mono);
-      font-size: 10.5px;
-      font-weight: 400;
-      letter-spacing: 0.16em;
-    }
-
-    /* ---- Category headings ---- */
-    .cat-header h2 { font-size: clamp(34px, 4.6vw, 52px); letter-spacing: -0.025em; }
-    .cat-header .cat-note {
-      font-family: var(--font-mono);
-      font-size: 10px;
-      letter-spacing: 0.2em;
-    }
-
-    /* ---- Items ---- */
-    .item-name { font-size: 21px; letter-spacing: -0.015em; }
-    .item-name .diet,
-    .allergen-chips .a-label,
-    .allergen-chips .a-more,
-    .diet-legend,
-    .item-ingredients-head {
-      font-family: var(--font-mono);
-    }
-    .item-price { font-size: 20px; letter-spacing: -0.01em; }
-    .item-price.variants .v-size { font-family: var(--font-mono); }
-
-    /* ---- Allergen filter: mono labels ---- */
-    .allergen-toggle,
-    .allergen-panel-head .eyebrow,
-    .allergen-chip { font-family: var(--font-mono); }
-    .allergen-toggle { font-weight: 400; letter-spacing: 0.18em; }
-    .allergen-chip { font-size: 11px; letter-spacing: 0.1em; font-weight: 400; }
-
-    /* ---- CTA block ---- */
-    .menu-cta-block {
-      background: var(--void);
-      border: 1px solid var(--rule-gold);
-      border-radius: 4px;
-    }
-    .menu-cta-block h2 { font-size: clamp(30px, 3.8vw, 46px); letter-spacing: -0.025em; color: var(--cream); }
-    .menu-cta-block .eyebrow { font-family: var(--font-mono); }
-
-    /* ---- Clear the mobile action dock ---- */
-    @media (max-width: 760px) {
-      .menu-body { padding-bottom: clamp(110px, 16vw, 150px); }
-      .cat-nav { top: 54px; }
-      .cat { scroll-margin-top: 132px; }
-    }
-    @media (max-width: 560px) {
-      /* The hairline separators strand themselves at line-ends once the
-         pill wraps — drop them and let the gap do the work. */
-      .menu-hero .meta-row .sep { display: none; }
-      .menu-hero .meta-row { gap: 6px 16px; padding: 11px 18px; }
-    }
-  </style>
 </head>
 <body>
 
-  <div class="grain" aria-hidden="true"></div>
   <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
 
   <!-- =========================================================
-       Navigation — same component as the marketing site
+       Navigation — same component as the homepage
        ========================================================= -->
   <header class="nav scrolled" id="nav">
     <div class="nav-inner">
       <a href="index.html" class="wordmark" aria-label="Cafe Roma home">
-        <span class="wordmark-text">Cafe Roma</span>
-        <svg class="wordmark-flourish" viewBox="0 0 200 10" preserveAspectRatio="none" aria-hidden="true">
-          <defs>
-            <linearGradient id="triNav" x1="0" y1="0" x2="1" y2="0">
-              <stop offset="0%" stop-color="#007042"/>
-              <stop offset="50%" stop-color="#f1f2f1"/>
-              <stop offset="100%" stop-color="#bc2a2a"/>
-            </linearGradient>
-          </defs>
-          <path d="M2 5 C 40 1, 80 9, 120 5 S 180 1, 198 5" fill="none" stroke="url(#triNav)" stroke-width="1.4" stroke-linecap="round"/>
-        </svg>
+        <span class="mark" aria-hidden="true">R</span>
+        <span>Cafe Roma</span>
       </a>
       <nav class="nav-links" id="navLinks" aria-label="Primary">
-        <a class="nav-link" href="index.html#about">Our Story</a>
         <a class="nav-link active" href="menu.html">Menu</a>
-        <a class="nav-link" href="index.html#order">Order</a>
-        <a class="nav-link" href="index.html#app">Loyalty</a>
-        <a class="nav-link" href="index.html#contact">Visit</a>
-        <a href="https://koraos.co.uk/cafe-roma" target="_blank" rel="noopener" class="btn btn-primary mobile-signin">
-          <span>Order Online</span>
-          <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+        <a class="nav-link" href="index.html#app">App</a>
+        <a class="nav-link" href="index.html#visit">Visit</a>
+        <a class="nav-link" href="index.html#careers">Careers</a>
+        <a href="https://koraos.co.uk/cafe-roma" target="_blank" rel="noopener" class="btn btn-primary mobile-cta">
+          <span>Open the app</span>
+          <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
         </a>
       </nav>
       <div class="nav-right">
@@ -841,9 +46,9 @@
           <span class="dot" aria-hidden="true"></span>
           <span class="nav-status-text">Checking…</span>
         </span>
-        <a href="https://koraos.co.uk/cafe-roma" target="_blank" rel="noopener" class="btn btn-primary nav-cta">
-          <span>Order Online</span>
-          <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+        <a href="https://koraos.co.uk/cafe-roma" target="_blank" rel="noopener" class="btn btn-primary btn-sm nav-cta">
+          <span>Open the app</span>
+          <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
         </a>
         <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
           <span></span><span></span><span></span>
@@ -852,48 +57,51 @@
     </div>
   </header>
 
+  <main>
+
   <!-- =========================================================
-       Menu hero
+       Menu header
        ========================================================= -->
   <section class="menu-hero">
-    <div class="menu-hero-inner">
-      <span class="eyebrow">Menu · Updated Live</span>
-      <h1>Fresh every <span class="serif-italic">day</span></h1>
-      <p class="sub">Everything we're serving today, straight from the kitchen. No sign-in needed — just a look.</p>
-      <div class="meta-row">
-        <span><span class="live-dot" aria-hidden="true"></span>Live from the counter</span>
-        <span class="sep" aria-hidden="true"></span>
+    <div class="container">
+      <span class="eyebrow">Menu</span>
+      <h1 class="display">Today at Roma</h1>
+      <p class="lede">Everything we are serving today, straight from the counter. No sign-in needed.</p>
+      <div class="menu-meta">
+        <span><span class="live-dot" style="background:var(--mint);box-shadow:0 0 0 3px var(--mint-soft)" aria-hidden="true"></span>Live from the counter</span>
         <span id="lastUpdated">Updated moments ago</span>
-        <span class="sep" aria-hidden="true"></span>
         <span>Prices in £</span>
       </div>
     </div>
   </section>
 
   <!-- =========================================================
-       Allergen filter — reverse search, "tell us what to avoid".
-       Same UX as the customer app (KoraOS), styled to the cream
-       trattoria palette.
+       Tools: category tabs + allergen filter (sticky together)
        ========================================================= -->
-  <div class="allergen-strip">
-    <div class="allergen-inner">
+  <div class="menu-tools" id="menuTools">
+    <div class="menu-tools-inner">
+      <div class="cat-nav" id="catNavInner" aria-label="Menu categories">
+        <!-- populated by renderMenu() -->
+      </div>
       <button type="button" class="allergen-toggle" id="allergenToggle" aria-expanded="false" aria-controls="allergenPanel">
         <span class="dot" aria-hidden="true"></span>
-        <span id="allergenToggleLabel">·  Allergens — tap to set  ·</span>
-        <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+        <span id="allergenToggleLabel">Allergens</span>
+        <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
       </button>
+    </div>
 
-      <div class="allergen-panel" id="allergenPanel" hidden>
+    <div class="allergen-panel" id="allergenPanel" hidden>
+      <div class="allergen-panel-inner glass">
         <div class="allergen-panel-head">
-          <span class="eyebrow">Eat Safely</span>
-          <span class="byline">tell us what to avoid</span>
+          <span class="eyebrow">Eat safely</span>
+          <span class="byline">Tell us what to avoid and we hide anything that contains it.</span>
         </div>
 
         <input
           type="text"
           class="allergen-input"
           id="allergenInput"
-          placeholder="peanuts, sesame, garlic, alcohol…"
+          placeholder="Type an ingredient, e.g. peanuts, sesame, garlic…"
           autocomplete="off"
           autocapitalize="off"
           spellcheck="false"
@@ -911,27 +119,18 @@
         </div>
 
         <p class="allergen-disclaimer">
-          Filter is based on item descriptions — please confirm with our team at the counter if you have a serious allergy.
+          The filter reads item descriptions. If you have a serious allergy, please confirm with our team at the counter.
         </p>
       </div>
     </div>
   </div>
 
   <!-- =========================================================
-       Sticky category pills
-       ========================================================= -->
-  <div class="cat-nav" id="catNav">
-    <div class="cat-nav-inner" id="catNavInner">
-      <!-- populated by renderMenu() -->
-    </div>
-  </div>
-
-  <!-- =========================================================
        Menu body (populated by renderMenu)
        ========================================================= -->
-  <main class="menu-body">
+  <div class="menu-body">
     <div class="menu-container" id="menuRoot">
-      <div class="status-card" id="loadingCard">
+      <div class="status-card glass" id="loadingCard">
         <h3>Loading today's menu…</h3>
         <p>Pulling fresh prices from the counter.</p>
       </div>
@@ -940,65 +139,56 @@
     <div class="menu-container">
       <!-- Diet legend -->
       <div class="diet-legend" id="dietLegend" style="display:none;">
-        <span><span class="k v">V</span>Vegetarian</span>
-        <span><span class="k vg">VG</span>Vegan</span>
-        <span><span class="k gf">GF</span>Gluten-free</span>
+        <span><span class="diet">V</span>Vegetarian</span>
+        <span><span class="diet">VG</span>Vegan</span>
+        <span><span class="diet">GF</span>Gluten-free</span>
       </div>
 
       <!-- CTA block -->
-      <section class="menu-cta-block" id="ctaBlock" style="display:none;">
-        <span class="eyebrow">Order &amp; Earn</span>
-        <h2>Ready to <span class="serif-italic">order?</span></h2>
-        <p>Sign in to earn loyalty points on every coffee, or scan the QR on your table to order from your seat.</p>
+      <section class="menu-cta-block glass" id="ctaBlock" style="display:none;">
+        <span class="eyebrow">Order &amp; earn</span>
+        <h2>Ready to order?</h2>
+        <p>Open the app to earn points on every coffee, or scan the code on your table to order from your seat.</p>
         <div class="cta-row">
           <a href="https://koraos.co.uk/cafe-roma" target="_blank" rel="noopener" class="btn btn-primary">
-            <span>Sign In to Order</span>
-            <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+            <span>Open the app</span>
+            <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
           </a>
-          <a href="index.html#contact" class="btn btn-outline">
-            <span>Find Us</span>
+          <a href="index.html#visit" class="btn btn-ghost">
+            <span>Find us</span>
           </a>
         </div>
       </section>
 
       <p class="menu-note" id="priceNote" style="display:none;">
-        Prices &amp; availability change with the seasons — final price confirmed at the counter.
+        Prices and availability change with the seasons. The final price is confirmed at the counter.
       </p>
     </div>
+  </div>
+
   </main>
 
   <!-- =========================================================
-       Footer — same as marketing site
+       Footer — same as the homepage
        ========================================================= -->
   <footer class="footer">
     <div class="footer-inner">
       <div class="footer-brand">
-        <span class="wordmark">
-          <span class="wordmark-text">Cafe Roma</span>
-          <svg class="wordmark-flourish" viewBox="0 0 200 10" preserveAspectRatio="none" aria-hidden="true">
-            <defs>
-              <linearGradient id="triFooter" x1="0" y1="0" x2="1" y2="0">
-                <stop offset="0%" stop-color="#007042"/>
-                <stop offset="50%" stop-color="#f1f2f1"/>
-                <stop offset="100%" stop-color="#bc2a2a"/>
-              </linearGradient>
-            </defs>
-            <path d="M2 5 C 40 1, 80 9, 120 5 S 180 1, 198 5" fill="none" stroke="url(#triFooter)" stroke-width="1.4" stroke-linecap="round"/>
-          </svg>
-        </span>
-        <span>Your home from home on historic St Peter's Street.</span>
+        <span class="wordmark"><span class="mark" aria-hidden="true">R</span><span>Cafe Roma</span></span>
+        <span class="tag-serif">St Peter's Street · St Albans · Est. 1997</span>
+        <p>Your home from home on historic St Peter's Street.</p>
       </div>
       <nav class="footer-links" aria-label="Footer">
-        <a href="index.html#about">Our Story</a>
         <a href="menu.html">Menu</a>
-        <a href="index.html#order">Order</a>
-        <a href="index.html#app">Loyalty</a>
-        <a href="index.html#contact">Visit</a>
+        <a href="index.html#app">App</a>
+        <a href="index.html#about">Our story</a>
+        <a href="index.html#visit">Visit</a>
+        <a href="index.html#careers">Careers</a>
       </nav>
     </div>
     <div class="footer-bottom">
       <span>&copy; 2026 Cafe Roma, St Albans</span>
-      <span class="powered">Powered by <span class="text-gold">KoraOS</span></span>
+      <span class="powered">Powered by <a href="https://koraos.co.uk" target="_blank" rel="noopener">KoraOS</a></span>
     </div>
   </footer>
 
@@ -1018,8 +208,7 @@
            {
              id: "coffee",
              name: "Coffee",
-             italicWord: "Coffee",      // optional: the word to italicise
-             note: "Espresso, filter",  // optional: caption under title
+             note: "Espresso, filter",  // optional: caption under title (shown in place of the item count)
              items: [
                { name, desc?, price (number) | prices: [{size, price}], diet?: "V"|"VG"|"GF" }
              ]
@@ -1061,6 +250,8 @@
     { id: 'citrus',     label: 'Citrus',         emoji: '🍋', keywords: ['citrus','lemon','lime','orange','grapefruit','mandarin','tangerine','clementine','yuzu','bergamot','lemon zest','orange zest'] },
   ];
   const QUICK_CATEGORY_IDS = ['gluten','dairy','eggs','nuts','soy'];
+  // The allergens UK food businesses must declare (peanuts sit under 'nuts').
+  const UK_ALLERGEN_IDS = new Set(['gluten','dairy','eggs','nuts','soy','fish','crustaceans','molluscs','sesame','celery','mustard','sulphites','lupin']);
 
   const COMPOUND_DEFLECTORS = {
     milk:   ['soy','soya','almond','oat','coconut','rice','cashew','hazelnut','hemp','pea','plant'],
@@ -1235,7 +426,6 @@
       {
         id: 'coffee',
         name: 'Coffee',
-        italicWord: 'Coffee',
         note: 'Freshly ground · Proper espresso',
         items: [
           { name: 'Espresso',            desc: 'Single or double shot.',                                          prices: [{ size: 'Single', price: 2.50 }, { size: 'Double', price: 2.90 }] },
@@ -1251,7 +441,6 @@
       {
         id: 'tea',
         name: 'Tea & Infusions',
-        italicWord: 'Infusions',
         note: 'Loose-leaf · Cafetière',
         items: [
           { name: 'English Breakfast', desc: 'Loose leaf.',                  price: 2.80 },
@@ -1265,7 +454,6 @@
       {
         id: 'breakfast',
         name: 'Breakfast',
-        italicWord: 'Breakfast',
         note: 'Served until 11:30am',
         items: [
           { name: 'Roma Breakfast',    desc: 'Two eggs, bacon, sausage, mushroom, tomato, beans, toast.',       price: 9.50 },
@@ -1279,7 +467,6 @@
       {
         id: 'lunch',
         name: 'Lunch & Sandwiches',
-        italicWord: 'Sandwiches',
         note: 'Made fresh · From 11:30am',
         items: [
           { name: 'Italian Ham & Mozzarella', desc: 'Ciabatta, Parma ham, buffalo mozzarella, rocket, basil oil.',    price: 8.50 },
@@ -1293,7 +480,6 @@
       {
         id: 'cakes',
         name: 'Cakes & Pastries',
-        italicWord: 'Pastries',
         note: 'Baked in-house',
         items: [
           { name: 'Butter Croissant',  desc: 'All-butter, flaky, warm.',                     price: 2.80, diet: 'V' },
@@ -1309,7 +495,6 @@
       {
         id: 'cold',
         name: 'Cold Drinks',
-        italicWord: 'Cold',
         note: 'Iced · Juiced · Still',
         items: [
           { name: 'Iced Latte',         desc: 'Double shot over ice, cold milk.',             prices: [{ size: 'Reg', price: 3.60 }, { size: 'Lg', price: 4.00 }] },
@@ -1488,18 +673,12 @@
       const header = document.createElement('div');
       header.className = 'cat-header';
       const h2 = document.createElement('h2');
-      if (cat.italicWord && cat.name.includes(cat.italicWord)) {
-        h2.innerHTML = cat.name.replace(cat.italicWord, `<span class="serif-italic">${cat.italicWord}</span>`);
-      } else {
-        h2.textContent = cat.name;
-      }
+      h2.textContent = cat.name;
       header.appendChild(h2);
-      if (cat.note) {
-        const note = document.createElement('span');
-        note.className = 'cat-note';
-        note.textContent = cat.note;
-        header.appendChild(note);
-      }
+      const count = document.createElement('span');
+      count.className = 'cat-count';
+      count.textContent = cat.note || (cat.items.length + (cat.items.length === 1 ? ' item' : ' items'));
+      header.appendChild(count);
       section.appendChild(header);
 
       // Items grid
@@ -1542,32 +721,27 @@
         // Allergen chips — match KoraOS in-app menu UX exactly: row of
         // emoji circles, "Contains allergens" label, tap to expand the
         // full ingredient list (with allergen keywords in BOLD).
-        const detected = detectAllergens(item);
+        // Only the UK-recognised allergens are shown per item; the wider
+        // taxonomy (caffeine, pork, alliums, ...) still drives the filter above.
+        const detected = detectAllergens(item).filter(c => UK_ALLERGEN_IDS.has(c.id));
         if (detected.length > 0) {
           const chipsBtn = document.createElement('button');
           chipsBtn.type = 'button';
           chipsBtn.className = 'allergen-chips';
           chipsBtn.setAttribute('aria-label',
-            `${detected.length} allergen${detected.length === 1 ? '' : 's'} — tap for ingredients`);
+            `Contains ${detected.map(c => c.label).join(', ')} — tap for ingredients`);
           chipsBtn.setAttribute('aria-expanded', 'false');
 
-          detected.slice(0, 4).forEach(cat => {
-            const chip = document.createElement('span');
-            chip.className = 'a-chip';
-            chip.title = cat.label;
-            chip.textContent = cat.emoji;
-            chipsBtn.appendChild(chip);
-          });
+          const line = document.createElement('span');
+          line.className = 'a-line';
+          line.textContent = detected.slice(0, 4).map(c => c.label).join(' · ');
+          chipsBtn.appendChild(line);
           if (detected.length > 4) {
             const more = document.createElement('span');
             more.className = 'a-more';
             more.textContent = `+${detected.length - 4}`;
             chipsBtn.appendChild(more);
           }
-          const lbl = document.createElement('span');
-          lbl.className = 'a-label';
-          lbl.textContent = 'Contains allergens';
-          chipsBtn.appendChild(lbl);
 
           el.appendChild(chipsBtn);
 
@@ -1615,8 +789,9 @@
       root.appendChild(section);
     });
 
-    // Reveal legend + CTA + note
-    dietLegend.style.display = '';
+    // Reveal legend (only when any item carries a diet flag) + CTA + note
+    const hasDiet = data.categories.some(c => c.items.some(i => i.diet));
+    dietLegend.style.display = hasDiet ? '' : 'none';
     ctaBlock.style.display = '';
     priceNote.style.display = '';
 
@@ -1666,17 +841,17 @@
     const active = allergenState.terms.length + allergenState.categoryIds.length > 0;
     toggle.classList.toggle('is-active', active);
     if (!active) {
-      label.textContent = '·  Allergens — tap to set  ·';
+      label.textContent = 'Allergens';
       return;
     }
     const parts = [];
     for (const id of allergenState.categoryIds) {
       const cat = ALLERGEN_CATEGORIES.find(c => c.id === id);
-      if (cat) parts.push(cat.label.toUpperCase());
+      if (cat) parts.push(cat.label);
     }
-    for (const t of allergenState.terms) parts.push(t.toUpperCase());
+    for (const t of allergenState.terms) parts.push(t);
     const shown = parts.slice(0, 3).join(', ') + (parts.length > 3 ? '…' : '');
-    label.textContent = `·  Filtering: ${shown}  ·`;
+    label.textContent = `Avoiding ${shown}`;
   }
 
   function updateAllergenStatus(safe, total) {
@@ -1801,12 +976,12 @@
   document.addEventListener('DOMContentLoaded', async () => {
     bindAllergenUI();
 
-    // Sticky category bar shadow
-    const catNav = document.getElementById('catNav');
+    // Sticky tools bar — hairline once it is pinned under the nav
+    const catNav = document.getElementById('menuTools');
     if (catNav) {
       let t = false;
       const onScroll = () => {
-        catNav.classList.toggle('stuck', catNav.getBoundingClientRect().top <= 70);
+        catNav.classList.toggle('stuck', window.scrollY > 40);
         t = false;
       };
       window.addEventListener('scroll', () => {
@@ -1820,7 +995,6 @@
     renderMenu(data);
   });
   </script>
-
   <!-- =========================================================
        Mobile action dock — same component as the homepage
        ========================================================= -->
@@ -1853,8 +1027,8 @@
         analytics cookies, or decline and we'll only keep anonymous page counts.
       </p>
       <div class="cookie-actions">
-        <button type="button" class="btn btn-outline cookie-decline" id="cookieDecline">Decline</button>
-        <button type="button" class="btn btn-primary cookie-accept" id="cookieAccept">Accept</button>
+        <button type="button" class="btn btn-ghost btn-sm cookie-decline" id="cookieDecline">Decline</button>
+        <button type="button" class="btn btn-primary btn-sm cookie-accept" id="cookieAccept">Accept</button>
       </div>
     </div>
   </div>

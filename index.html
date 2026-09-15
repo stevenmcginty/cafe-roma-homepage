@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>Cafe Roma — St Albans · Est. 1997</title>
   <meta name="description" content="A much-loved cafe on historic St Peter's Street, St Albans. Fresh coffee, homemade food, and familiar faces since 1997. Order from your table or sign in to earn loyalty rewards." />
-  <meta name="theme-color" content="#04080f" />
+  <meta name="theme-color" content="#050811" />
 
   <meta property="og:title" content="Cafe Roma — St Albans" />
   <meta property="og:description" content="A much-loved cafe on historic St Peter's Street, St Albans. Fresh coffee, homemade food, familiar faces. Est. 1997." />
@@ -15,7 +15,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..700;1,6..96,400..700&family=Inter+Tight:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Outfit:wght@500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
 
   <!-- Marks that JS is available. Everything that "animates in" is gated on
@@ -57,8 +57,6 @@
 </head>
 <body>
 
-  <div class="grain" aria-hidden="true"></div>
-  <div class="vignette" aria-hidden="true"></div>
   <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
 
   <!-- =========================================================
@@ -67,29 +65,18 @@
   <header class="nav" id="nav">
     <div class="nav-inner">
       <a href="#top" class="wordmark" aria-label="Cafe Roma home">
-        <span class="wordmark-text">Cafe Roma</span>
-        <svg class="wordmark-flourish" viewBox="0 0 200 10" preserveAspectRatio="none" aria-hidden="true">
-          <defs>
-            <linearGradient id="triNav" x1="0" y1="0" x2="1" y2="0">
-              <stop offset="0%" stop-color="#007042"/>
-              <stop offset="50%" stop-color="#f1f2f1"/>
-              <stop offset="100%" stop-color="#bc2a2a"/>
-            </linearGradient>
-          </defs>
-          <path d="M2 5 C 40 1, 80 9, 120 5 S 180 1, 198 5" fill="none" stroke="url(#triNav)" stroke-width="1.4" stroke-linecap="round"/>
-        </svg>
+        <span class="mark" aria-hidden="true">R</span>
+        <span>Cafe Roma</span>
       </a>
 
       <nav class="nav-links" id="navLinks" aria-label="Primary">
-        <a class="nav-link" href="#about">Our Story</a>
         <a class="nav-link" href="menu.html">Menu</a>
-        <a class="nav-link" href="#order">Order</a>
-        <a class="nav-link" href="#app">Loyalty</a>
-        <a class="nav-link" href="#contact">Visit</a>
+        <a class="nav-link" href="#app">App</a>
+        <a class="nav-link" href="#visit">Visit</a>
         <a class="nav-link" href="#careers">Careers</a>
-        <a href="https://koraos.co.uk/cafe-roma" target="_blank" rel="noopener" class="btn btn-primary mobile-signin">
-          <span>Sign In to Loyalty</span>
-          <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+        <a href="https://koraos.co.uk/cafe-roma" target="_blank" rel="noopener" class="btn btn-primary mobile-cta">
+          <span>Open the app</span>
+          <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
         </a>
       </nav>
 
@@ -98,9 +85,9 @@
           <span class="dot" aria-hidden="true"></span>
           <span class="nav-status-text">Checking…</span>
         </span>
-        <a href="https://koraos.co.uk/cafe-roma" target="_blank" rel="noopener" class="btn btn-primary nav-cta">
-          <span>Sign In</span>
-          <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+        <a href="https://koraos.co.uk/cafe-roma" target="_blank" rel="noopener" class="btn btn-primary btn-sm nav-cta">
+          <span>Open the app</span>
+          <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
         </a>
         <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
           <span></span><span></span><span></span>
@@ -109,160 +96,180 @@
     </div>
   </header>
 
+  <main id="top">
+
   <!-- =========================================================
        Hero
        ========================================================= -->
-  <section class="hero" id="top">
-    <div class="hero-bg" aria-hidden="true"></div>
-
-    <div class="hero-content">
-      <div class="hero-top">
-        <span class="eyebrow">St Albans</span>
-        <span class="tod-pill" id="todPill">
-          <span class="dot" aria-hidden="true"></span>
-          <span class="tod-label">Morning</span>
-        </span>
-      </div>
-
-      <span class="hero-kicker">Est. 1997 · St Peter's Street</span>
-
-      <h1 class="hero-title">
-        <span class="rise" data-rise><i>Cafe</i></span>
-        <span class="l2"><span class="rise" data-rise><i class="serif-italic">Roma</i></span></span>
-      </h1>
-
-      <p class="hero-lead reveal delay-2">
-        Fresh coffee, homemade food, and a warm welcome — a much-loved mainstay of
-        St Peter's Street for nearly thirty years.
-      </p>
-
-      <div class="hero-cta reveal delay-3">
-        <a href="https://koraos.co.uk/cafe-roma" target="_blank" rel="noopener" class="btn btn-primary" data-magnetic>
-          <span>Sign In to Loyalty</span>
-          <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
-        </a>
-        <a href="menu.html" class="btn btn-outline" data-magnetic>
-          <span>View the Menu</span>
-        </a>
-      </div>
+  <section class="hero">
+    <div class="hero-bg" aria-hidden="true">
+      <img src="images/exterior.jpg" alt="" width="1200" height="904" fetchpriority="high" />
     </div>
 
-    <!-- Live status rail -->
-    <div class="hero-rail">
-      <div class="hero-rail-inner">
-        <div class="rail-cell" id="statusCell">
-          <span class="rail-k">Right now</span>
-          <span class="rail-v"><span class="live-dot" aria-hidden="true"></span><span id="openState">Checking hours…</span></span>
-          <span class="rail-s" id="openDetail">&nbsp;</span>
+    <div class="container">
+      <div class="hero-grid">
+        <div class="hero-copy">
+          <span class="tag-serif hero-tag rise" data-rise>St Albans · Est. 1997</span>
+          <h1 class="display rise" data-rise>Fresh coffee. Homemade food. Familiar faces.</h1>
+          <p class="lede rise" data-rise>
+            A much-loved cafe on St Peter's Street for nearly thirty years. Order from your table,
+            pay from your phone and earn rewards with every cup in the Cafe Roma app.
+          </p>
+          <div class="hero-cta rise" data-rise>
+            <a href="https://koraos.co.uk/cafe-roma" target="_blank" rel="noopener" class="btn btn-primary">
+              <span>Open the app</span>
+              <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+            </a>
+            <a href="menu.html" class="btn btn-ghost">
+              <span>See the menu</span>
+            </a>
+          </div>
         </div>
-        <div class="rail-cell">
-          <span class="rail-k">Rated</span>
-          <span class="rail-v"><span class="stars" aria-hidden="true">★★★★★</span> 4.5</span>
-          <span class="rail-s">398 Google reviews</span>
-        </div>
-        <div class="rail-cell">
-          <span class="rail-k">Find us</span>
-          <span class="rail-v">79A St Peter's Street</span>
-          <span class="rail-s">St Albans · AL1 3EG</span>
-        </div>
-        <div class="rail-cell rail-scroll" aria-hidden="true">
-          <span class="scroll-cue">
-            <span class="track"></span>
-            Scroll
-          </span>
-        </div>
+
+        <aside class="hero-card glass rise" data-rise aria-label="Right now at Cafe Roma">
+          <div class="row" id="statusCell">
+            <span class="k">Right now</span>
+            <span class="v-col">
+              <span class="v"><span class="live-dot" aria-hidden="true"></span><span id="openState">Checking hours…</span></span>
+              <span class="s" id="openDetail">&nbsp;</span>
+            </span>
+          </div>
+          <div class="row">
+            <span class="k">Rated</span>
+            <span class="v-col">
+              <span class="v"><span class="stars" aria-hidden="true">★★★★★</span> 4.5</span>
+              <span class="s">398 Google reviews</span>
+            </span>
+          </div>
+          <div class="row">
+            <span class="k">Find us</span>
+            <span class="v-col">
+              <span class="v">79A St Peter's Street</span>
+              <span class="s">St Albans · AL1 3EG</span>
+            </span>
+          </div>
+        </aside>
       </div>
     </div>
   </section>
 
   <!-- =========================================================
-       Ticker
+       The app — the feature
        ========================================================= -->
-  <div class="ticker" aria-hidden="true">
-    <div class="ticker-track" id="tickerTrack">
-      <span>Est. 1997</span><span>79A St Peter's Street</span><span>Walk-ins only</span>
-      <span>Homemade daily</span><span>Proper espresso</span><span>51.75°N · 0.34°W</span>
-      <span>Order from your table</span><span>4.5 ★ · 398 reviews</span>
-      <span>Est. 1997</span><span>79A St Peter's Street</span><span>Walk-ins only</span>
-      <span>Homemade daily</span><span>Proper espresso</span><span>51.75°N · 0.34°W</span>
-      <span>Order from your table</span><span>4.5 ★ · 398 reviews</span>
-    </div>
-  </div>
-
-  <!-- =========================================================
-       01 — Our Story
-       ========================================================= -->
-  <section class="sec no-rule" id="about">
+  <section class="sec app-sec" id="app">
     <div class="container">
       <div class="sec-head">
-        <span class="sec-mark reveal"><span class="num">01</span><span class="line"></span>Our Story</span>
-        <h2 class="sec-title reveal delay-1">A warm corner of St&nbsp;Albans, <span class="serif-italic">since 1997</span>.</h2>
+        <span class="eyebrow reveal">The Cafe Roma app</span>
+        <h2 class="sec-title reveal delay-1">Order from your table.<br />Earn with every cup.</h2>
+        <p class="lede reveal delay-2">
+          Scan the code on your table, order and pay from your phone, and collect points and
+          stamps automatically. It runs in your browser, so there is nothing to download.
+        </p>
+        <div class="hero-cta reveal delay-2">
+          <a href="https://koraos.co.uk/cafe-roma" target="_blank" rel="noopener" class="btn btn-primary">
+            <span>Open the app</span>
+            <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+          </a>
+        </div>
+        <span class="app-note reveal delay-3">Free to use · No download · Works on any phone</span>
       </div>
+    </div>
 
-      <div class="story-grid">
-        <div class="story-body reveal">
-          <p class="lede">A fresh chapter for a much-loved cafe — under new ownership <span class="serif-italic">since 2024</span>.</p>
-          <p class="dropcap">Cafe Roma has been part of St Peter's Street since 1997, serving the St Albans community for nearly three decades. In 2024, Velina took over — bringing a decade of experience as a store manager at Costa, and a genuine passion for great coffee and warm hospitality.</p>
-          <p>Under her care, the cafe has a cosy atmosphere, genuinely warm service, and proper espresso — with fresh energy and small touches that make every visit feel considered. Whether you're stopping in on your walk to work or settling in for the afternoon, you're welcome to stay a while.</p>
-
-          <div class="story-marks">
-            <div class="story-mark">
-              <span class="n">01</span>
-              <div>
-                <h4>Artisan Coffee</h4>
-                <p>Freshly ground, expertly brewed.</p>
-              </div>
-            </div>
-            <div class="story-mark">
-              <span class="n">02</span>
-              <div>
-                <h4>Homemade Food</h4>
-                <p>Made fresh in-house, daily.</p>
-              </div>
-            </div>
-            <div class="story-mark">
-              <span class="n">03</span>
-              <div>
-                <h4>Quality Always</h4>
-                <p>Locally sourced, carefully made.</p>
-              </div>
-            </div>
-            <div class="story-mark">
-              <span class="n">04</span>
-              <div>
-                <h4>Community First</h4>
-                <p>The heart of St Peter's Street.</p>
-              </div>
-            </div>
+    <div class="devices" aria-label="Screens from the Cafe Roma app">
+      <div class="device device-side left reveal">
+        <span class="device-label">Menu</span>
+        <div class="phone">
+          <span class="buttons" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+          <div class="phone-screen">
+            <img src="images/app-menu.png" alt="Cafe Roma app — the menu screen with search and category tabs" loading="lazy" width="393" height="852" />
           </div>
+        </div>
+      </div>
+      <div class="device device-main reveal">
+        <span class="device-label">Home</span>
+        <div class="phone">
+          <span class="buttons" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+          <div class="phone-screen">
+            <img src="images/app-home.png" alt="Cafe Roma app — home screen with your digital pass, points and stamp progress" loading="lazy" width="393" height="852" />
+          </div>
+        </div>
+      </div>
+      <div class="device device-side right reveal">
+        <span class="device-label">Rewards</span>
+        <div class="phone">
+          <span class="buttons" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+          <div class="phone-screen">
+            <img src="images/app-rewards.png" alt="Cafe Roma app — rewards screen with your tier, points and stamp card" loading="lazy" width="393" height="852" />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container steps-wrap">
+      <ol class="steps">
+        <li class="step glass reveal" data-step>
+          <span class="n">01</span>
+          <h3>Scan the code on your table</h3>
+          <p>Every table has a card with a QR code. Point your phone at it. No app to download, no sign-up needed to order.</p>
+        </li>
+        <li class="step glass reveal delay-1" data-step>
+          <span class="n">02</span>
+          <h3>Browse and order</h3>
+          <p>Tap through the full menu, add to your basket and send it straight to the kitchen. Your favourites are saved for next time.</p>
+        </li>
+        <li class="step glass reveal delay-2" data-step>
+          <span class="n">03</span>
+          <h3>Sit anywhere</h3>
+          <p>Inside, by the window or at the pavement tables. Your table number goes with the order, so we will find you.</p>
+        </li>
+        <li class="step glass reveal delay-3" data-step>
+          <span class="n">04</span>
+          <h3>Pay when you are ready</h3>
+          <p>Settle up from your phone or request the bill in the app. Points and stamps are added automatically. Your 10th coffee is on us.</p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- =========================================================
+       Our story
+       ========================================================= -->
+  <section class="sec" id="about">
+    <div class="container">
+      <div class="story-grid">
+        <div class="story-body">
+          <div class="sec-head">
+            <span class="eyebrow reveal">Our story</span>
+            <h2 class="sec-title reveal delay-1">A warm corner of St Albans since 1997</h2>
+          </div>
+          <p class="first reveal delay-1">A fresh chapter for a much-loved cafe, under new ownership since 2024.</p>
+          <p class="reveal delay-2">Cafe Roma has been part of St Peter's Street since 1997, serving the St Albans community for nearly three decades. In 2024 Velina took over, bringing a decade of experience as a store manager at Costa and a genuine passion for great coffee and warm hospitality.</p>
+          <p class="reveal delay-2">Under her care the cafe has a cosy atmosphere, genuinely warm service and proper espresso, with fresh energy and small touches that make every visit feel considered. Whether you are stopping in on the walk to work or settling in for the afternoon, you are welcome to stay a while.</p>
         </div>
 
         <figure class="story-figure reveal delay-1">
-          <div class="tri" aria-hidden="true"><i></i><i></i><i></i></div>
-          <div class="frame">
-            <img src="images/interior.jpg" alt="Inside Cafe Roma — cosy interior with warm lighting and the counter at the far end" loading="lazy" width="1200" height="900" />
-          </div>
-          <figcaption class="est-chip">
-            <span class="label">Est.</span>
-            <span class="year">1997</span>
+          <img src="images/interior.jpg" alt="Inside Cafe Roma — cosy interior with warm lighting and the counter at the far end" loading="lazy" width="1200" height="900" />
+          <figcaption>
+            <span class="cap">Inside · room to stay a while</span>
+            <span class="est"><span class="tag-serif">Est.</span><span class="yr">1997</span></span>
           </figcaption>
         </figure>
       </div>
 
-      <div class="stats reveal" style="margin-top: clamp(48px, 6vw, 84px);">
-        <div class="stat">
+      <div class="stats">
+        <div class="stat glass reveal">
           <span class="v" data-count="30" data-suffix="">0</span>
           <span class="k">Years on the street</span>
         </div>
-        <div class="stat">
+        <div class="stat glass reveal delay-1">
           <span class="v" data-count="398">0</span>
           <span class="k">Google reviews</span>
         </div>
-        <div class="stat">
+        <div class="stat glass reveal delay-2">
           <span class="v" data-count="4.5" data-decimals="1">0</span>
           <span class="k">Average rating</span>
         </div>
-        <div class="stat">
+        <div class="stat glass reveal delay-3">
           <span class="v">06:30</span>
           <span class="k">First coffee, weekdays</span>
         </div>
@@ -271,302 +278,120 @@
   </section>
 
   <!-- =========================================================
-       02 — The Counter
+       At the counter
        ========================================================= -->
-  <section class="sec sec-ink" id="experience">
+  <section class="sec" id="counter">
     <div class="container">
       <div class="sec-head">
-        <span class="sec-mark reveal"><span class="num">02</span><span class="line"></span>At the Counter</span>
-        <h2 class="sec-title reveal delay-1">More than coffee — a <span class="serif-italic">feeling</span> that fits your day.</h2>
+        <span class="eyebrow reveal">At the counter</span>
+        <h2 class="sec-title reveal delay-1">More than coffee</h2>
+        <p class="lede reveal delay-2">Proper espresso, food made fresh in-house every day, and a menu that moves with the seasons.</p>
       </div>
 
-      <div class="rail">
-        <article class="rail-card reveal">
-          <span class="n">01</span>
-          <div class="ic" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v12a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      <div class="counter-grid">
+        <figure class="tile tall reveal">
+          <img src="images/coffee.jpg" alt="A flat white with latte art on the counter at Cafe Roma" loading="lazy" width="1200" height="900" />
+          <figcaption class="cap">
+            <h3>Artisan coffee</h3>
+            <p>Freshly ground, expertly brewed. Latte art, every time.</p>
+          </figcaption>
+        </figure>
+        <figure class="tile reveal delay-1">
+          <img src="images/pastries.jpg" alt="A plate of fresh croissants, pains au chocolat and muffins" loading="lazy" width="1200" height="900" />
+          <figcaption class="cap">
+            <h3>Homemade food</h3>
+            <p>Baked and made fresh in-house, daily.</p>
+          </figcaption>
+        </figure>
+        <div class="points reveal delay-2" style="margin-top:0">
+          <div class="point glass">
+            <span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v12a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M9 22V12h6v10"/></svg></span>
+            <div><h3>Dine in</h3><p>Settle in with a coffee and something delicious. Stay as long as you like.</p></div>
           </div>
-          <h3>Dine In</h3>
-          <p>Settle into our cosy space with a coffee and something delicious. Stay as long as you like.</p>
-        </article>
-
-        <article class="rail-card reveal delay-1">
-          <span class="n">02</span>
-          <div class="ic" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+          <div class="point glass">
+            <span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg></span>
+            <div><h3>Takeaway</h3><p>In a rush? Your usual brew and a bite, sorted in no time.</p></div>
           </div>
-          <h3>Takeaway</h3>
-          <p>In a rush? Grab your favourite brew and a bite on the go. Sorted in no time.</p>
-        </article>
-
-        <article class="rail-card reveal delay-2">
-          <span class="n">03</span>
-          <div class="ic" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="9" y1="13" x2="15" y2="13"/><line x1="9" y1="17" x2="15" y2="17"/></svg>
+          <div class="point glass">
+            <span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M9 13h6M9 17h6"/></svg></span>
+            <div><h3>Seasonal menu</h3><p>Classics you love alongside fresh ideas as the seasons change.</p></div>
           </div>
-          <h3>Seasonal Menu</h3>
-          <p>A menu that changes with the seasons — classics you love alongside fresh ideas.</p>
-        </article>
-
-        <article class="rail-card reveal delay-3">
-          <span class="n">04</span>
-          <div class="ic" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          <div class="point glass">
+            <span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></span>
+            <div><h3>Private events</h3><p>Planning a small gathering? Get in touch and we will make it feel special.</p></div>
           </div>
-          <h3>Private Events</h3>
-          <p>Planning a small gathering? Get in touch — we'll make it feel special.</p>
-        </article>
+        </div>
       </div>
     </div>
   </section>
 
   <!-- =========================================================
-       Gallery marquee
+       A day at Roma — the slot matching the St Albans clock lights up
        ========================================================= -->
-  <section class="gallery" aria-label="Gallery">
-    <div class="gallery-track">
-      <figure class="gallery-item"><img src="images/exterior.jpg" alt="Cafe Roma storefront on St Peter's Street" loading="lazy" /><figcaption>The blue front · St Peter's Street</figcaption></figure>
-      <figure class="gallery-item"><img src="images/coffee.jpg" alt="Cafe Roma latte art" loading="lazy" /><figcaption>Latte art, every time</figcaption></figure>
-      <figure class="gallery-item"><img src="images/interior.jpg" alt="Cafe Roma cosy interior" loading="lazy" /><figcaption>Inside · room to stay a while</figcaption></figure>
-      <figure class="gallery-item"><img src="images/pastries.jpg" alt="Cafe Roma fresh pastries" loading="lazy" /><figcaption>Baked fresh, daily</figcaption></figure>
-      <figure class="gallery-item" aria-hidden="true"><img src="images/exterior.jpg" alt="" loading="lazy" /><figcaption>The blue front · St Peter's Street</figcaption></figure>
-      <figure class="gallery-item" aria-hidden="true"><img src="images/coffee.jpg" alt="" loading="lazy" /><figcaption>Latte art, every time</figcaption></figure>
-      <figure class="gallery-item" aria-hidden="true"><img src="images/interior.jpg" alt="" loading="lazy" /><figcaption>Inside · room to stay a while</figcaption></figure>
-      <figure class="gallery-item" aria-hidden="true"><img src="images/pastries.jpg" alt="" loading="lazy" /><figcaption>Baked fresh, daily</figcaption></figure>
-    </div>
-  </section>
-
-  <!-- =========================================================
-       03 — A Day at Roma
-       Live timeline: the slot matching the current St Albans clock
-       lights up. Every item named here is on the real menu.
-       ========================================================= -->
-  <section class="sec day no-rule" id="day">
+  <section class="sec" id="day">
     <div class="container">
-      <div class="sec-head">
-        <span class="sec-mark reveal"><span class="num">03</span><span class="line"></span>A day at Roma</span>
-        <h2 class="sec-title reveal delay-1">From the first americano to <span class="serif-italic">last&nbsp;orders</span></h2>
-        <p class="sec-lead reveal delay-2">
-          Weekdays we're open 06:30 to 17:30. Here's roughly how a day goes — and the
-          marker below tracks the real clock in St Albans, so you can see where we're up to.
-        </p>
+      <div class="day-head">
+        <div class="sec-head" style="margin-bottom:0">
+          <span class="eyebrow reveal">A day at Roma</span>
+          <h2 class="sec-title reveal delay-1">From the first americano to last orders</h2>
+          <p class="lede reveal delay-2">Weekdays we open at 06:30 and close at 17:30. The marker follows the real clock in St Albans.</p>
+        </div>
         <span class="day-now reveal delay-2" id="dayNow">
           <span class="live-dot" aria-hidden="true"></span>
           <span id="dayNowText">Checking the clock…</span>
         </span>
       </div>
-    </div>
 
-    <div class="day-wrap reveal delay-2">
-      <div class="day-rail" id="dayRail">
-
-        <article class="day-slot" data-from="390" data-to="480">
+      <div class="day-rail reveal delay-2" id="dayRail">
+        <article class="day-slot glass" data-from="390" data-to="480">
           <span class="day-dot" aria-hidden="true"></span>
           <span class="day-time">06:30</span>
           <h3>Doors open</h3>
-          <p>Grinder on, shutters up, first americano of the day. The papers are still folded.</p>
+          <p>Grinder on, shutters up, first americano of the day.</p>
         </article>
-
-        <article class="day-slot" data-from="480" data-to="630">
+        <article class="day-slot glass" data-from="480" data-to="630">
           <span class="day-dot" aria-hidden="true"></span>
           <span class="day-time">08:00</span>
           <h3>The morning run</h3>
-          <p>Bacon baps and almond croissants, mostly heading straight out of the door.</p>
+          <p>Bacon baps and almond croissants, mostly heading out of the door.</p>
         </article>
-
-        <article class="day-slot" data-from="630" data-to="720">
+        <article class="day-slot glass" data-from="630" data-to="720">
           <span class="day-dot" aria-hidden="true"></span>
           <span class="day-time">10:30</span>
           <h3>Mid-morning</h3>
           <p>Avocado toast, beans on toast, a second coffee and a seat by the window.</p>
         </article>
-
-        <article class="day-slot" data-from="720" data-to="870">
+        <article class="day-slot glass" data-from="720" data-to="870">
           <span class="day-dot" aria-hidden="true"></span>
           <span class="day-time">12:00</span>
           <h3>Lunch</h3>
-          <p>Jacket potatoes, BLTs and fresh sandwiches, made to order. The street fills up.</p>
+          <p>Jacket potatoes, BLTs and fresh sandwiches, made to order.</p>
         </article>
-
-        <article class="day-slot" data-from="870" data-to="990">
+        <article class="day-slot glass" data-from="870" data-to="990">
           <span class="day-dot" aria-hidden="true"></span>
           <span class="day-time">14:30</span>
           <h3>Cake o'clock</h3>
-          <p>Cannoli, carrot cake and Eccles cake, with a pot of Earl Grey to go with it.</p>
+          <p>Cannoli, carrot cake and Eccles cake, with a pot of Earl Grey.</p>
         </article>
-
-        <article class="day-slot" data-from="990" data-to="1050">
+        <article class="day-slot glass" data-from="990" data-to="1050">
           <span class="day-dot" aria-hidden="true"></span>
           <span class="day-time">16:30</span>
           <h3>Last orders</h3>
-          <p>Milkshakes, gelato and the last of the pastries. Beans by the bag if you want to take Roma home.</p>
+          <p>Milkshakes, gelato and the last of the pastries. Beans by the bag to take Roma home.</p>
         </article>
-
-      </div>
-      <span class="day-hint" aria-hidden="true">Swipe →</span>
-    </div>
-
-    <!-- Keeps the St Albans neighbourhood content the old map carried -->
-    <div class="container">
-      <div class="hood reveal">
-        <span class="hood-mark">While you're on the street</span>
-        <div class="hood-grid">
-          <div class="hood-item">
-            <h4>St Albans Cathedral</h4>
-            <p>Britain's oldest site of continuous Christian worship. A short walk south from the door.</p>
-          </div>
-          <div class="hood-item">
-            <h4>The Clock Tower</h4>
-            <p>The only remaining medieval town belfry in England, built around 1405.</p>
-          </div>
-          <div class="hood-item">
-            <h4>Verulamium Park</h4>
-            <p>Once Verulamium — Britain's third-largest Roman city. Green lawns over ancient mosaics.</p>
-          </div>
-        </div>
       </div>
     </div>
   </section>
 
   <!-- =========================================================
-       04 — Order from your table
+       Reviews
        ========================================================= -->
-  <section class="sec sec-ink" id="order">
-    <div class="container">
-      <div class="sec-head">
-        <span class="sec-mark reveal"><span class="num">04</span><span class="line"></span>How it works</span>
-        <h2 class="sec-title reveal delay-1">Order from <span class="serif-italic">your table</span></h2>
-        <p class="sec-lead reveal delay-2">Scan, order, relax — pay whenever you're ready, even from the seat outside.</p>
-      </div>
-
-      <div class="order-grid">
-        <div class="order-stage reveal">
-          <div class="order-glow" aria-hidden="true"></div>
-          <div class="phone">
-            <div class="phone-screen">
-              <img src="images/app-home.png" alt="Cafe Roma customer app — scan a QR code, earn points, reorder your favourites" loading="lazy" width="460" height="1024" />
-            </div>
-          </div>
-          <span class="qr-badge">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <rect x="3" y="3" width="7" height="7" rx="1"/>
-              <rect x="14" y="3" width="7" height="7" rx="1"/>
-              <rect x="3" y="14" width="7" height="7" rx="1"/>
-              <path d="M14 14h3v3h-3zM20 14v3M14 20h3M20 20h1"/>
-            </svg>
-            Scan · Order · Relax
-          </span>
-        </div>
-
-        <ol class="steps">
-          <li class="step reveal" data-step>
-            <span class="n">01</span>
-            <div>
-              <h3>Scan the QR on your table</h3>
-              <p>Every table has a tent card with a QR code. Point your phone — no app to download, no sign-up required.</p>
-            </div>
-          </li>
-          <li class="step reveal delay-1" data-step>
-            <span class="n">02</span>
-            <div>
-              <h3>Browse the menu &amp; order</h3>
-              <p>Tap through the full menu, add to your cart, and send it straight to the kitchen. Your favourites save for next time.</p>
-            </div>
-          </li>
-          <li class="step reveal delay-2" data-step>
-            <span class="n">03</span>
-            <div>
-              <h3>Sit anywhere — we'll bring it</h3>
-              <p>Inside, by the window, or the pavement tables out front. Your table number goes with the order, so we'll find you.</p>
-            </div>
-          </li>
-          <li class="step reveal delay-3" data-step>
-            <span class="n">04</span>
-            <div>
-              <h3>Pay &amp; request the bill in-app</h3>
-              <p>Settle up from your phone whenever you're ready, or tap <em>Request Bill</em> and we'll come over. Points added automatically.</p>
-            </div>
-          </li>
-        </ol>
-      </div>
-    </div>
-  </section>
-
-  <!-- =========================================================
-       05 — Loyalty (paper inset)
-       ========================================================= -->
-  <section class="sec" id="app">
-    <div class="container">
-      <div class="loyalty-panel reveal">
-        <div class="loyalty-content">
-          <span class="sec-mark"><span class="num">05</span><span class="line"></span>Order &amp; Earn</span>
-          <h2 class="sec-title" style="margin-top: 18px;">The Cafe Roma <span class="serif-italic">App</span></h2>
-          <p class="loyalty-lead">Skip the queue, earn rewards, and enjoy your coffee your way — right from your browser.</p>
-
-          <div class="loyalty-feats">
-            <div class="loyalty-feat">
-              <span class="n">01</span>
-              <div>
-                <h4>Mobile Ordering</h4>
-                <p>Order ahead and collect when it's ready — no waiting around.</p>
-              </div>
-            </div>
-            <div class="loyalty-feat">
-              <span class="n">02</span>
-              <div>
-                <h4>Loyalty Rewards</h4>
-                <p>Earn points with every visit. Your 10th coffee? It's on us.</p>
-              </div>
-            </div>
-            <div class="loyalty-feat">
-              <span class="n">03</span>
-              <div>
-                <h4>Exclusive Offers</h4>
-                <p>Members get first dibs on seasonal specials and surprise treats.</p>
-              </div>
-            </div>
-            <div class="loyalty-feat">
-              <span class="n">04</span>
-              <div>
-                <h4>Collection Service</h4>
-                <p>Order, pay, collect. That simple.</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="loyalty-cta">
-            <a href="https://koraos.co.uk/cafe-roma" target="_blank" rel="noopener" class="btn btn-ink" data-magnetic>
-              <span>Sign In</span>
-              <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
-            </a>
-            <a href="menu.html" class="btn btn-ghost-dark" data-magnetic>
-              <span>View the Menu</span>
-            </a>
-          </div>
-          <span class="loyalty-note">No download needed — works in your browser</span>
-        </div>
-
-        <div class="loyalty-visual">
-          <div class="phone-glow" aria-hidden="true"></div>
-          <div class="phone">
-            <div class="phone-screen">
-              <img src="images/app-screenshot.jpg" alt="Cafe Roma app — VIP Gold Member loyalty dashboard" loading="lazy" width="575" height="1280" />
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- =========================================================
-       06 — Reviews
-       ========================================================= -->
-  <section class="sec sec-ink" id="reviews">
+  <section class="sec" id="reviews">
     <div class="container">
       <div class="reviews-head">
-        <div class="sec-head" style="margin-bottom: 0;">
-          <span class="sec-mark reveal"><span class="num">06</span><span class="line"></span>What people say</span>
-          <h2 class="sec-title reveal delay-1">Our <span class="serif-italic">community</span></h2>
+        <div class="sec-head" style="margin-bottom:0">
+          <span class="eyebrow reveal">What people say</span>
+          <h2 class="sec-title reveal delay-1">Our community</h2>
         </div>
         <span class="google-badge reveal delay-2">
           <span class="stars" aria-hidden="true">★★★★★</span>
@@ -574,53 +399,49 @@
         </span>
       </div>
 
-      <div class="quotes reveal delay-1" id="quotes">
-        <article class="quote">
+      <div class="quotes" id="quotes">
+        <article class="quote glass reveal">
           <span class="stars" aria-hidden="true">★★★★★</span>
           <blockquote>"Small and cosy cafe with good coffee and a great selection of cakes and sandwiches."</blockquote>
-          <span class="by">Google Review</span>
+          <span class="by">Google review</span>
         </article>
-        <article class="quote">
+        <article class="quote glass reveal delay-1">
           <span class="stars" aria-hidden="true">★★★★★</span>
           <blockquote>"Cute hot-drinks art, lovely staff, and great quality food and drinks. A regular stop now."</blockquote>
-          <span class="by">Google Review</span>
+          <span class="by">Google review</span>
         </article>
-        <article class="quote">
+        <article class="quote glass reveal delay-2">
           <span class="stars" aria-hidden="true">★★★★★</span>
           <blockquote>"Amazing — and the friendliest service I've ever received from any place."</blockquote>
-          <span class="by">Google Review</span>
+          <span class="by">Google review</span>
         </article>
       </div>
     </div>
   </section>
 
   <!-- =========================================================
-       07 — Visit
+       Visit
        ========================================================= -->
-  <section class="sec" id="contact">
+  <section class="sec" id="visit">
     <div class="container">
       <div class="sec-head">
-        <span class="sec-mark reveal"><span class="num">07</span><span class="line"></span>Visit</span>
-        <h2 class="sec-title reveal delay-1">Find <span class="serif-italic">us</span></h2>
-        <p class="sec-lead reveal delay-2">We'd love to see you on St Peter's Street. Walk-ins only — no reservations needed.</p>
+        <span class="eyebrow reveal">Visit</span>
+        <h2 class="sec-title reveal delay-1">Find us on St Peter's Street</h2>
+        <p class="lede reveal delay-2">Walk-ins only, no reservations needed.</p>
       </div>
 
       <div class="visit-grid">
-        <div class="visit-list reveal">
+        <div class="visit-card glass reveal">
           <div class="visit-item">
-            <div class="ic" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-            </div>
+            <span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></span>
             <div>
               <h4>Address</h4>
-              <p>79A St Peter's Street<br/>St Albans, AL1 3EG</p>
+              <p>79A St Peter's Street<br />St Albans, AL1 3EG</p>
             </div>
           </div>
 
           <div class="visit-item">
-            <div class="ic" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-            </div>
+            <span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg></span>
             <div>
               <h4>Telephone</h4>
               <p><a href="tel:07938311828">07938 311828</a></p>
@@ -628,36 +449,32 @@
           </div>
 
           <div class="visit-item">
-            <div class="ic" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-            </div>
+            <span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></span>
             <div>
-              <h4>Opening Hours</h4>
+              <h4>Opening hours</h4>
               <div class="hours" id="hoursTable">
-                <div class="hours-row" data-day="1"><span class="d">Mon</span><span>06:30 — 17:30</span></div>
-                <div class="hours-row" data-day="2"><span class="d">Tue</span><span>06:30 — 17:30</span></div>
-                <div class="hours-row" data-day="3"><span class="d">Wed</span><span>06:30 — 17:30</span></div>
-                <div class="hours-row" data-day="4"><span class="d">Thu</span><span>06:30 — 17:30</span></div>
-                <div class="hours-row" data-day="5"><span class="d">Fri</span><span>06:30 — 17:30</span></div>
-                <div class="hours-row" data-day="6"><span class="d">Sat</span><span>07:00 — 17:30</span></div>
-                <div class="hours-row" data-day="0"><span class="d">Sun</span><span>07:30 — 16:30</span></div>
+                <div class="hours-row" data-day="1"><span class="d">Mon</span><span>06:30 – 17:30</span></div>
+                <div class="hours-row" data-day="2"><span class="d">Tue</span><span>06:30 – 17:30</span></div>
+                <div class="hours-row" data-day="3"><span class="d">Wed</span><span>06:30 – 17:30</span></div>
+                <div class="hours-row" data-day="4"><span class="d">Thu</span><span>06:30 – 17:30</span></div>
+                <div class="hours-row" data-day="5"><span class="d">Fri</span><span>06:30 – 17:30</span></div>
+                <div class="hours-row" data-day="6"><span class="d">Sat</span><span>07:00 – 17:30</span></div>
+                <div class="hours-row" data-day="0"><span class="d">Sun</span><span>07:30 – 16:30</span></div>
               </div>
-              <p class="hours-note">Walk-ins only — we don't take reservations.</p>
+              <p class="hours-note">Walk-ins only. We do not take reservations.</p>
             </div>
           </div>
 
           <div class="visit-item">
-            <div class="ic" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
-            </div>
+            <span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></span>
             <div>
-              <h4>Follow Us</h4>
+              <h4>Follow us</h4>
               <div class="social">
                 <a href="https://www.instagram.com/caferoma_stalbans/" target="_blank" rel="noopener" aria-label="Instagram">
-                  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><path d="M17.5 6.5h.01"/></svg>
                 </a>
                 <a href="https://www.facebook.com/" target="_blank" rel="noopener" aria-label="Facebook">
-                  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385h-3.047v-3.47h3.047v-2.642c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953h-1.513c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385c5.738-.9 10.125-5.864 10.125-11.854z"/></svg>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
                 </a>
                 <a href="https://www.tiktok.com/" target="_blank" rel="noopener" aria-label="TikTok">
                   <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg>
@@ -670,32 +487,49 @@
         <div class="visit-map reveal delay-1">
           <iframe
             src="https://www.google.com/maps?q=79A+St+Peters+Street,+St+Albans+AL1+3EG&output=embed"
-            width="100%" height="460"
             loading="lazy" referrerpolicy="no-referrer-when-downgrade"
             title="Cafe Roma location map">
           </iframe>
           <a class="btn btn-primary directions"
              href="https://www.google.com/maps/dir/?api=1&destination=79A+St+Peters+Street%2C+St+Albans+AL1+3EG"
              target="_blank" rel="noopener">
-            <span>Get Directions</span>
-            <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+            <span>Get directions</span>
+            <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
           </a>
+        </div>
+      </div>
+
+      <div class="hood glass reveal">
+        <span class="eyebrow muted">While you're on the street</span>
+        <div class="hood-grid">
+          <div class="hood-item">
+            <h4>St Albans Cathedral</h4>
+            <p>Britain's oldest site of continuous Christian worship. A short walk south from the door.</p>
+          </div>
+          <div class="hood-item">
+            <h4>The Clock Tower</h4>
+            <p>The only remaining medieval town belfry in England, built around 1405.</p>
+          </div>
+          <div class="hood-item">
+            <h4>Verulamium Park</h4>
+            <p>Once Verulamium, Britain's third-largest Roman city. Green lawns over ancient mosaics.</p>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
   <!-- =========================================================
-       08 — Careers
+       Careers
        ========================================================= -->
-  <section class="sec sec-ink" id="careers">
+  <section class="sec" id="careers">
     <div class="container">
       <div class="careers-grid">
         <div class="careers-intro">
-          <div class="sec-head" style="margin-bottom: 0;">
-            <span class="sec-mark reveal"><span class="num">08</span><span class="line"></span>Careers</span>
-            <h2 class="sec-title reveal delay-1">Work <span class="serif-italic">with us</span></h2>
-            <p class="sec-lead reveal delay-2">We're a small, friendly team on St Peter's Street and we're always happy to hear from good people — baristas, kitchen, front of house. Send us your CV or a short note and we'll be in touch.</p>
+          <div class="sec-head">
+            <span class="eyebrow reveal">Careers</span>
+            <h2 class="sec-title reveal delay-1">Work with us</h2>
+            <p class="lede reveal delay-2">We are a small, friendly team on St Peter's Street and we are always happy to hear from good people: baristas, kitchen, front of house. Send us your CV or a short note and we will be in touch.</p>
           </div>
           <ul class="careers-points reveal delay-2">
             <li>Full and part-time hours</li>
@@ -704,7 +538,7 @@
           </ul>
         </div>
 
-        <form class="careers-form reveal delay-1" id="careersForm" action="/api/apply" method="post" enctype="multipart/form-data" novalidate>
+        <form class="careers-form glass reveal delay-1" id="careersForm" action="/api/apply" method="post" enctype="multipart/form-data" novalidate>
           <div class="field-row">
             <label class="field">
               <span class="field-label">Full name</span>
@@ -744,7 +578,7 @@
           <div class="careers-actions">
             <button type="submit" class="btn btn-primary" id="careersSubmit">
               <span>Send application</span>
-              <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+              <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
             </button>
             <p class="careers-status" id="careersStatus" role="status" aria-live="polite"></p>
           </div>
@@ -754,40 +588,29 @@
     </div>
   </section>
 
+  </main>
+
   <!-- =========================================================
        Footer
        ========================================================= -->
   <footer class="footer">
-    <span class="footer-watermark" aria-hidden="true">Cafe Roma</span>
     <div class="footer-inner">
       <div class="footer-brand">
-        <span class="wordmark">
-          <span class="wordmark-text">Cafe Roma</span>
-          <svg class="wordmark-flourish" viewBox="0 0 200 10" preserveAspectRatio="none" aria-hidden="true">
-            <defs>
-              <linearGradient id="triFooter" x1="0" y1="0" x2="1" y2="0">
-                <stop offset="0%" stop-color="#007042"/>
-                <stop offset="50%" stop-color="#f1f2f1"/>
-                <stop offset="100%" stop-color="#bc2a2a"/>
-              </linearGradient>
-            </defs>
-            <path d="M2 5 C 40 1, 80 9, 120 5 S 180 1, 198 5" fill="none" stroke="url(#triFooter)" stroke-width="1.4" stroke-linecap="round"/>
-          </svg>
-        </span>
-        <span>Your home from home on historic St Peter's Street.</span>
+        <span class="wordmark"><span class="mark" aria-hidden="true">R</span><span>Cafe Roma</span></span>
+        <span class="tag-serif">St Peter's Street · St Albans · Est. 1997</span>
+        <p>Your home from home on historic St Peter's Street.</p>
       </div>
       <nav class="footer-links" aria-label="Footer">
-        <a href="#about">Our Story</a>
         <a href="menu.html">Menu</a>
-        <a href="#order">Order</a>
-        <a href="#app">Loyalty</a>
-        <a href="#contact">Visit</a>
+        <a href="#app">App</a>
+        <a href="#about">Our story</a>
+        <a href="#visit">Visit</a>
         <a href="#careers">Careers</a>
       </nav>
     </div>
     <div class="footer-bottom">
       <span>&copy; 2026 Cafe Roma, St Albans</span>
-      <span class="powered">Powered by <span class="text-gold">KoraOS</span></span>
+      <span class="powered">Powered by <a href="https://koraos.co.uk" target="_blank" rel="noopener">KoraOS</a></span>
     </div>
   </footer>
 
@@ -796,11 +619,11 @@
        ========================================================= -->
   <nav class="dock" id="dock" aria-label="Quick actions">
     <a class="dock-item" href="menu.html" data-dock="menu">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="9" y1="13" x2="15" y2="13"/><line x1="9" y1="17" x2="15" y2="17"/></svg>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M9 13h6M9 17h6"/></svg>
       Menu
     </a>
     <a class="dock-item accent" href="https://koraos.co.uk/cafe-roma" target="_blank" rel="noopener" data-dock="order">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 8h1a4 4 0 0 1 0 8h-1"/><path d="M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4z"/><line x1="6" y1="2" x2="6" y2="4"/><line x1="10" y1="2" x2="10" y2="4"/><line x1="14" y1="2" x2="14" y2="4"/></svg>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 8h1a4 4 0 0 1 0 8h-1"/><path d="M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4z"/><path d="M6 2v2M10 2v2M14 2v2"/></svg>
       Order
     </a>
     <a class="dock-item" href="tel:07938311828" data-dock="call">
@@ -819,12 +642,12 @@
   <div class="cookie-banner" id="cookieBanner" role="dialog" aria-live="polite" aria-label="Cookie consent" hidden>
     <div class="cookie-banner-inner">
       <p>
-        We count visits so we know what's useful — no ads, no selling data. Accept to allow
-        analytics cookies, or decline and we'll only keep anonymous page counts.
+        We count visits so we know what's useful. No ads, no selling data. Accept to allow
+        analytics cookies, or decline and we only keep anonymous page counts.
       </p>
       <div class="cookie-actions">
-        <button type="button" class="btn btn-outline cookie-decline" id="cookieDecline">Decline</button>
-        <button type="button" class="btn btn-primary cookie-accept" id="cookieAccept">Accept</button>
+        <button type="button" class="btn btn-ghost btn-sm cookie-decline" id="cookieDecline">Decline</button>
+        <button type="button" class="btn btn-primary btn-sm cookie-accept" id="cookieAccept">Accept</button>
       </div>
     </div>
   </div>
