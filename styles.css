@@ -323,9 +323,9 @@ strong, b { font-weight: 700; }
      page, which hid the wordmark and the Menu button. Pad by the safe area. */
   height: calc(var(--nav-h) + env(safe-area-inset-top, 0px));
   padding-top: env(safe-area-inset-top, 0px);
-  /* iOS paints a fixed bar under later stacking contexts unless it owns a
-     layer. Promote it, and pin the hero to the base layer below it. */
-  transform: translateZ(0);
+  /* No transform here: it would make the nav the containing block for the
+     fixed .nav-links sheet and clip the mobile menu to the bar. The hero is
+     pinned to z-index 0 instead, which is what kept it off the nav. */
   transition: background-color 0.4s, border-color 0.4s, color 0.4s;
   border-bottom: 1px solid transparent;
   color: var(--text);
@@ -1895,7 +1895,8 @@ strong, b { font-weight: 700; }
   display: block;
   width: 44px; height: 3px;
   border-radius: 2px;
-  background: linear-gradient(90deg, #2e9a5a 0 33.3%, #f6f1e7 33.3% 66.6%, #d64550 66.6% 100%);
+  background: linear-gradient(90deg, #2e9a5a 0 33.3%, #ffffff 33.3% 66.6%, #d64550 66.6% 100%);
+  box-shadow: inset 0 0 0 1px rgba(14, 42, 49, 0.14);
   opacity: 0.95;
 }
 .footer-links { display: flex; flex-wrap: wrap; gap: 4px 6px; justify-content: flex-end; }
