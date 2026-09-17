@@ -347,19 +347,102 @@
     })();
 
     /* ================================================================
-       Order steps — light the one nearest the middle of the viewport
+       App showcase — the live phone walks through the four steps.
+       The step cards are the controls: hover holds a beat, click or
+       Enter jumps to it. Plays only while on screen; never under
+       prefers-reduced-motion (each beat then shows its finished frame).
        ================================================================ */
-    if ('IntersectionObserver' in window && !reduced) {
-      const steps = $$('[data-step]');
-      if (steps.length) {
-        const stepObs = new IntersectionObserver(function (entries) {
-          entries.forEach(function (entry) {
-            entry.target.classList.toggle('lit', entry.isIntersecting);
-          });
-        }, { rootMargin: '-42% 0px -42% 0px' });
-        steps.forEach(s => stepObs.observe(s));
+    (function showcase() {
+      const stage = $('#appShow');
+      if (!stage) return;
+
+      const shots   = $$('.shot', stage);
+      const steps   = $$('[data-step]');
+      const caption = $('#showCaption');
+      const toggle  = $('#showToggle');
+      if (!shots.length || shots.length !== steps.length) return;
+
+      let beat = 0, elapsed = 0, lastTick = 0, raf = 0;
+      let visible = false, holding = false, paused = reduced, running = false;
+
+      function bar(k) { return $('.step-bar b', steps[k]); }
+
+      function go(n) {
+        beat = ((n % shots.length) + shots.length) % shots.length;
+        elapsed = 0;
+        shots.forEach((s, k) => s.classList.toggle('on', k === beat));
+        steps.forEach(function (s, k) {
+          const on = k === beat;
+          s.classList.toggle('lit', on);
+          const btn = $('.step-btn', s);
+          if (btn) btn.setAttribute('aria-pressed', String(on));
+          const b = bar(k);
+          if (b) b.style.transform = 'scaleX(0)';
+        });
+        stage.dataset.beat = String(beat + 1);
+        if (caption) {
+          const title = $('.step-btn', steps[beat]);
+          if (title) caption.textContent = title.textContent;
+        }
       }
-    }
+
+      function frame(now) {
+        if (!running) return;
+        const dt = Math.min(64, now - lastTick);
+        lastTick = now;
+        if (visible && !paused && !holding && !document.hidden) {
+          elapsed += dt;
+          const dur = Number(shots[beat].dataset.dur) || 4500;
+          const b = bar(beat);
+          if (b) b.style.transform = 'scaleX(' + Math.min(1, elapsed / dur).toFixed(3) + ')';
+          if (elapsed >= dur) go(beat + 1);
+        }
+        raf = requestAnimationFrame(frame);
+      }
+
+      function sync() {
+        const live = visible && !paused && !document.hidden;
+        // Under reduced motion the keyframes are already instant; freezing
+        // them would pin every beat at its first frame instead of its last.
+        stage.classList.toggle('is-paused', (!visible || document.hidden) && !reduced);
+        // Paused by the visitor: beats settle to their finished frame instead.
+        stage.classList.toggle('is-still', paused && !reduced);
+        if (live && !running) { running = true; lastTick = performance.now(); raf = requestAnimationFrame(frame); }
+        if (!live && running) { running = false; cancelAnimationFrame(raf); }
+      }
+
+      steps.forEach(function (s, k) {
+        const btn = $('.step-btn', s);
+        if (btn) btn.addEventListener('click', function () { go(k); });
+        if (finePointer) {
+          s.addEventListener('mouseenter', function () { if (k !== beat) go(k); holding = true; });
+          s.addEventListener('mouseleave', function () { holding = false; });
+        }
+      });
+
+      if (toggle) {
+        const text = $('.show-toggle-text', toggle);
+        toggle.addEventListener('click', function () {
+          paused = !paused;
+          toggle.setAttribute('aria-pressed', String(paused));
+          if (text) text.textContent = paused ? 'Play the demo' : 'Pause the demo';
+          sync();
+        });
+      }
+
+      if ('IntersectionObserver' in window) {
+        new IntersectionObserver(function (entries) {
+          visible = entries[0].isIntersecting;
+          sync();
+        }, { threshold: 0.2 }).observe(stage);
+      } else {
+        visible = true;
+      }
+      document.addEventListener('visibilitychange', sync);
+
+      go(0);
+      sync();
+    })();
 
     /* ================================================================
        Count-ups

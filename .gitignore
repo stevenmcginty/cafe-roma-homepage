@@ -6,3 +6,8 @@ node_modules
 images/google/
 images/graded/*.jpg
 .playwright-mcp/
+
+images/app/*-raw.png
+images/app/from-owner/
+images/app/01-home.png
+images/app/06-rewards.png

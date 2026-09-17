@@ -54,3 +54,24 @@ The `roma-2026/` folder is a separate local-only redesign; nothing deploys from 
 
 - Nothing blocked. If applications stop arriving, check Vercel function logs
   for `SMTP error` first.
+
+## App showcase (2026-09-17)
+
+- The `#app` section is an interactive walk-through of the customer app: four
+  beats (scan at the table, browse and order, choose collection or table, paid
+  with points and stamps). It auto-plays when the section is on screen, pauses
+  off screen, and steps 01-04 are real buttons. Under
+  `prefers-reduced-motion: reduce` it holds a complete static view. Logic is
+  `showcase()` in `script.js`.
+- Phone screens come from `images/app/`. The captures are from a signed-in
+  session, so `images/app/sanitise.py` paints out the owner's name and points
+  balance; it works from `*-raw.png` copies, which are gitignored along with
+  the unused captures and `images/app/from-owner/` (owner's own phone
+  screenshots, kept locally as reference only).
+- `images/app-rewards.png` (right-hand phone, pre-existing) still shows real
+  balances: 460 points, 64 visits, 7/10 stamps. No name. Replace it if that
+  matters.
+- The order sheet beat is drawn in CSS, not a screenshot. No real QR code and no
+  member code reaches the page.
+- Photos to swap when real food photos arrive: `images/coffee-graded.jpg` and
+  `images/pastries-graded.jpg`.

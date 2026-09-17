@@ -646,18 +646,22 @@ strong, b { font-weight: 700; }
   pointer-events: none;
 }
 .devices::after {
-  /* fade the bottom of the phones into the next block */
+  /* soft ground shadow: the phones stand on the page instead of being cut off */
   content: '';
   position: absolute;
-  left: 0; right: 0; bottom: 0;
-  height: 120px;
-  background: linear-gradient(180deg, rgba(251, 246, 236, 0) 0%, var(--paper) 100%);
-  z-index: 3;
+  left: 50%; bottom: 4px;
+  width: min(720px, 86%);
+  height: 46px;
+  transform: translateX(-50%);
+  background: radial-gradient(50% 50% at 50% 50%, rgba(14, 42, 49, 0.28) 0%, rgba(14, 42, 49, 0.12) 45%, transparent 75%);
+  filter: blur(14px);
+  z-index: -1;
   pointer-events: none;
 }
 
 /* CSS-only phone frame */
 .phone {
+  --pw: 300px; /* the CSS width; everything drawn on the screen is sized from it */
   position: relative;
   width: 300px;
   aspect-ratio: 393 / 852;
@@ -697,12 +701,29 @@ strong, b { font-weight: 700; }
 .phone .buttons i:nth-child(3) { left: -3px; top: 244px; height: 58px; }
 .phone .buttons i:nth-child(4) { right: -3px; top: 190px; height: 88px; }
 .phone-screen {
+  /* The app's own dark ground, sampled from the captures, so the drawn beats
+     sit seamlessly on the real screens. Scoped to the screen only. */
+  --app-bg:    #05070a;
+  --app-sheet: #0e1524;
+  --app-card:  #101a2c;
+  --app-line:  rgba(255, 255, 255, 0.09);
+  --app-text:  #f3f5f9;
+  --app-muted: rgba(243, 245, 249, 0.62);
+  --app-mint:  #00d1ba;
+  --app-gold:  #f2b84b;
+  position: relative;
   width: 100%; height: 100%;
   border-radius: 42px;
   overflow: hidden;
-  background: var(--teal-deeper);
+  background: var(--app-bg);
+  font-family: var(--font-body);
+  font-size: calc(var(--pw) / 30);
+  line-height: 1.25;
+  color: var(--app-text);
+  transform: translateZ(0);
 }
 .phone-screen img {
+  display: block;
   width: 100%; height: 100%;
   object-fit: cover;
   object-position: top center;
@@ -720,7 +741,7 @@ strong, b { font-weight: 700; }
 }
 .device-side.left  { transform: translate(34px, 56px) rotate(-6deg); }
 .device-side.right { transform: translate(-34px, 56px) rotate(6deg); }
-.device-side .phone { width: 100%; }
+.device-side .phone { width: 100%; --pw: 250px; }
 
 .js .device.reveal { opacity: 0; transform: translateY(70px); }
 .js .device.reveal.in { opacity: 1; transform: translateY(0); }
@@ -749,9 +770,13 @@ strong, b { font-weight: 700; }
   gap: 14px;
 }
 .step {
+  position: relative;
+  overflow: hidden;
   padding: 22px 22px 24px;
+  cursor: pointer;
   transition: border-color 0.4s, box-shadow 0.5s var(--ease), transform 0.5s var(--ease);
 }
+.step:hover { border-color: var(--gold-line); }
 .step .n {
   display: inline-grid;
   place-items: center;
@@ -776,6 +801,511 @@ strong, b { font-weight: 700; }
 }
 .step p { margin-top: 8px; font-size: 14px; line-height: 1.55; color: var(--muted); }
 .step.lit { border-color: var(--gold-line); box-shadow: 0 0 0 3px var(--gold-soft), var(--surface-shadow); transform: translateY(-2px); }
+
+/* The step title is the control. The stretched ::after makes the whole card
+   clickable while the focus ring stays on the text. */
+.step h3 { margin: 0; }
+.step-btn {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: 0;
+  padding: 0;
+  text-align: left;
+  cursor: pointer;
+  letter-spacing: inherit;
+}
+.step-btn::after { content: ''; position: absolute; inset: 0; }
+.step-btn:focus-visible { outline: 2px solid var(--focus); outline-offset: 4px; border-radius: 4px; }
+
+/* Progress hairline along the top of the lit card */
+.step-bar {
+  position: absolute;
+  left: 0; right: 0; top: 0;
+  height: 3px;
+  background: var(--hair);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.step.lit .step-bar { opacity: 1; }
+.step-bar b {
+  display: block;
+  height: 100%;
+  background: var(--gold);
+  transform-origin: left center;
+  transform: scaleX(0);
+}
+
+/* Pause / play for the demo */
+.show-ctl { display: flex; justify-content: center; margin: 0 0 clamp(22px, 3vw, 36px); }
+.show-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  min-height: 36px;
+  padding: 0 16px;
+  border-radius: 999px;
+  border: 1px solid var(--hair-2);
+  background: var(--surface);
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  cursor: pointer;
+  transition: border-color 0.3s, background 0.3s;
+}
+.show-toggle:hover { border-color: var(--gold-line); background: var(--gold-soft); }
+.show-toggle .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--leaf); box-shadow: 0 0 0 3px var(--leaf-soft); }
+.show-toggle[aria-pressed="true"] .dot { background: var(--gold); box-shadow: 0 0 0 3px var(--gold-soft); }
+
+/* --------------------------------------------------------------------------
+   The showcase — one live phone walks through the flow.
+   Real captures for the screens; the camera, the order-mode sheet and the
+   "paid" moment are drawn here so they stay sharp and carry no private data.
+   Only transform and opacity animate.
+   -------------------------------------------------------------------------- */
+.showcase .device-main .device-label { color: var(--gold-text); transition: opacity 0.3s; }
+.showcase .device-main .device-label.swap { opacity: 0; }
+
+/* Companion phones lean in when the story reaches their screen */
+.showcase[data-beat="2"] .device-side.left.reveal.in  { opacity: 1; transform: translate(34px, 40px) rotate(-6deg); }
+.showcase[data-beat="4"] .device-side.right.reveal.in { opacity: 1; transform: translate(-34px, 40px) rotate(6deg); }
+
+/* A drawn header covers the account strip on every capture */
+.shot-bar {
+  position: absolute;
+  left: 0; right: 0; top: 0;
+  height: 5%;
+  z-index: 3;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  grid-template-rows: auto auto;
+  align-content: center;
+  align-items: center;
+  column-gap: 0.7em;
+  padding: 0 1.5em;
+  background: var(--app-bg);
+  color: var(--app-text);
+}
+.shot-bar.bar-tall { height: 7.2%; }
+.shot-bar .av {
+  grid-row: 1 / 3;
+  display: grid;
+  place-items: center;
+  width: 2.3em; height: 2.3em;
+  border-radius: 50%;
+  border: 0.15em solid var(--app-gold);
+  color: var(--app-gold);
+  font-style: normal;
+  font-weight: 800;
+  font-size: 1em;
+}
+.shot-bar b { grid-column: 2; align-self: end; font-size: 1.15em; font-weight: 700; line-height: 1.1; }
+.shot-bar small { grid-column: 2; align-self: start; font-size: 0.85em; color: var(--app-muted); line-height: 1.2; }
+.shot-bar::after {
+  content: attr(data-pill);
+  grid-column: 3;
+  grid-row: 1 / 3;
+  padding: 0.5em 0.9em;
+  border-radius: 999px;
+  border: 1px solid var(--app-line);
+  background: rgba(255, 255, 255, 0.05);
+  font-size: 0.95em;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+/* The older captures carry a bright "settle your bill" band under the header;
+   cover it so each phone reads as one header. On the home beat the cover
+   becomes the table strip. */
+.band-cover {
+  position: absolute;
+  left: 0; right: 0; top: 7.1%;
+  height: 6%;
+  z-index: 3;
+  background: var(--app-bg);
+}
+.band-cover.strip {
+  display: flex;
+  align-items: center;
+  gap: 0.7em;
+  padding: 0 1.5em;
+  font-size: 0.95em;
+  font-weight: 700;
+  color: var(--app-mint);
+  background: linear-gradient(90deg, rgba(0, 209, 186, 0.18) 0%, rgba(0, 209, 186, 0.04) 100%), var(--app-bg);
+}
+.band-cover.strip i { flex: none; width: 0.7em; height: 0.7em; border-radius: 50%; background: var(--app-mint); box-shadow: 0 0 0 0.3em rgba(0, 209, 186, 0.22); }
+
+/* Home beat: neutral, generic stand-ins for the account lines on app-home.png */
+.patch-tab {
+  left: 4%; width: 92%;
+  top: 14.3%; height: 8%;
+  padding: 0 1.2em 0 1.1em;
+  gap: 0.9em;
+  border-radius: 1.4em;
+  background: #0c1323;
+  border: 1px solid rgba(143, 211, 224, 0.32);
+  box-shadow: 0 0 0 0.3em var(--app-bg);
+  color: var(--app-text);
+}
+.patch-tab .ico-t { flex: none; display: grid; place-items: center; width: 3.2em; height: 3.2em; border-radius: 1em; background: rgba(143, 211, 224, 0.14); color: #8fd3e0; font-style: normal; }
+.patch-tab .ico-t svg { width: 1.6em; height: 1.6em; }
+.patch-tab > span { display: flex; flex-direction: column; gap: 0.15em; min-width: 0; }
+.patch-tab b { font-size: 1.1em; font-weight: 800; }
+.patch-tab small { font-size: 0.85em; font-weight: 600; color: var(--app-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.patch-tab em { margin-left: auto; flex: none; padding: 0.55em 1em; border-radius: 999px; background: rgba(0, 209, 186, 0.16); color: var(--app-mint); font-style: normal; font-size: 0.95em; font-weight: 800; }
+.patch-pts {
+  left: 8.5%; width: 62%;
+  top: 34%; height: 8.4%;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: baseline;
+  align-content: center;
+  column-gap: 0.6em;
+  row-gap: 0.5em;
+  background: linear-gradient(180deg, #090f1d 0%, #0b1526 100%);
+  box-shadow: 0 0 0 0.45em #0a1322;
+  border-radius: 0.6em;
+}
+.patch-pts b { font-size: 2.6em; font-weight: 800; line-height: 0.9; letter-spacing: -0.03em; color: var(--app-text); }
+.patch-pts small { font-size: 0.85em; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: var(--app-gold); }
+.patch-pts em { grid-column: 1 / 3; justify-self: start; padding: 0.4em 0.9em; border-radius: 999px; border: 1px solid rgba(0, 209, 186, 0.45); background: rgba(0, 209, 186, 0.12); color: var(--app-mint); font-style: normal; font-size: 0.85em; font-weight: 800; }
+.patch-code {
+  left: 8.5%; width: 34%;
+  top: 53.3%; height: 2.6%;
+  background: #0d1929;
+  box-shadow: 0 0 0 0.35em #0d1929;
+  border-radius: 0.3em;
+  font-size: 0.8em;
+  font-weight: 600;
+  color: var(--app-muted);
+  white-space: nowrap;
+}
+
+/* Shots stack in the live phone; one is on at a time */
+.shot {
+  position: absolute;
+  inset: 0;
+  background: var(--app-bg);
+  opacity: 0;
+  visibility: hidden;
+  transform: scale(0.985);
+  transition: opacity 0.45s var(--ease), transform 0.6s var(--ease), visibility 0s linear 0.45s;
+}
+.shot.on { opacity: 1; visibility: visible; transform: none; transition-delay: 0s; z-index: 2; }
+.layer { position: absolute; inset: 0; }
+.layer.dim::after { content: ''; position: absolute; inset: 0; background: rgba(3, 5, 8, 0.74); }
+
+/* Tap ring */
+.tap { position: absolute; width: 2.8em; height: 2.8em; pointer-events: none; }
+.tap::before, .tap::after {
+  content: '';
+  position: absolute;
+  left: 50%; top: 50%;
+  width: 100%; height: 100%;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+}
+.tap::before { border: 0.2em solid var(--app-mint); }
+.tap::after { background: rgba(0, 209, 186, 0.35); }
+
+/* Chips and patches */
+.chip {
+  position: absolute;
+  left: 50%; bottom: 11%;
+  z-index: 4;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55em;
+  padding: 0.75em 1.15em;
+  border-radius: 999px;
+  background: var(--app-mint);
+  color: #03231f;
+  font-size: 1.05em;
+  font-weight: 800;
+  white-space: nowrap;
+  box-shadow: 0 1em 2.4em -0.8em rgba(0, 209, 186, 0.75);
+  opacity: 0;
+  transform: translate(-50%, 1.2em);
+}
+.chip svg { width: 1.2em; height: 1.2em; }
+.patch {
+  position: absolute;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+  border-radius: 0.9em;
+  color: var(--app-gold);
+  font-weight: 700;
+}
+.patch-item {
+  left: 11.2%; width: 77%;
+  top: 21.1%; height: 2.7%;
+  justify-content: center;
+  padding: 0 0.8em;
+  background: #1c1a15;
+  border: 1px solid rgba(242, 184, 75, 0.5);
+  box-shadow: 0 0 0 0.35em var(--app-sheet);
+  font-size: 0.82em;
+  white-space: nowrap;
+}
+.patch-item svg { width: 1.3em; height: 1.3em; flex: none; }
+.patch-basket {
+  left: 4.8%; width: 90.6%;
+  top: 27%; height: 5%;
+  padding: 0 1.4em;
+  background: #1c1a1b;
+  border: 1px solid rgba(242, 184, 75, 0.45);
+  box-shadow: 0 0 0 0.35em #040c1e;
+  gap: 0.9em;
+}
+.patch-basket .gift {
+  flex: none;
+  display: grid; place-items: center;
+  width: 2.8em; height: 2.8em;
+  border-radius: 0.8em;
+  background: rgba(242, 184, 75, 0.14);
+}
+.patch-basket .gift svg { width: 1.4em; height: 1.4em; }
+.patch-basket span { display: flex; flex-direction: column; gap: 0.15em; min-width: 0; }
+.patch-basket b { font-size: 1.05em; color: var(--app-text); }
+.patch-basket small { font-size: 0.82em; font-weight: 600; color: var(--app-gold); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+/* 01 · Scan */
+.cam {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background: radial-gradient(120% 80% at 50% 38%, #1b2631 0%, #05070a 72%);
+}
+.tcard {
+  width: 56%;
+  padding: 1.5em 1.2em 1.4em;
+  border-radius: 1.2em;
+  background: var(--paper);
+  border: 1px solid var(--gold-line);
+  box-shadow: 0 2.4em 4em -2em rgba(0, 0, 0, 0.85);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.45em;
+  color: var(--ink);
+  transform: rotate(-4deg) translateY(-8%);
+}
+.tc-brand { font-family: var(--font-serif); font-weight: 600; font-size: 0.85em; letter-spacing: 0.24em; text-transform: uppercase; color: var(--gold-text); }
+.tc-qr { width: 72%; margin: 0.35em 0; color: var(--ink); }
+.tc-table { font-family: var(--font-display); font-weight: 700; font-size: 1.8em; letter-spacing: -0.01em; line-height: 1; }
+.tc-hint { font-size: 0.85em; color: var(--muted); }
+.brackets {
+  position: absolute;
+  left: 50%; top: 42%;
+  width: 74%; height: 58%;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+}
+.brackets i { position: absolute; width: 2em; height: 2em; border: 0.28em solid var(--app-mint); }
+.brackets i:nth-child(1) { left: 0; top: 0; border-right: 0; border-bottom: 0; border-top-left-radius: 0.7em; }
+.brackets i:nth-child(2) { right: 0; top: 0; border-left: 0; border-bottom: 0; border-top-right-radius: 0.7em; }
+.brackets i:nth-child(3) { left: 0; bottom: 0; border-right: 0; border-top: 0; border-bottom-left-radius: 0.7em; }
+.brackets i:nth-child(4) { right: 0; bottom: 0; border-left: 0; border-top: 0; border-bottom-right-radius: 0.7em; }
+.scanline {
+  position: absolute;
+  left: 15%; right: 15%; top: 14%;
+  height: 0.25em;
+  border-radius: 1em;
+  background: linear-gradient(90deg, transparent 0%, var(--app-gold) 30%, var(--app-gold) 70%, transparent 100%);
+  box-shadow: 0 0 1.4em var(--gold-glow);
+  opacity: 0;
+}
+.shot-scan .layer.home { opacity: 0; }
+.shot-scan.on .brackets     { animation: showIn 0.55s var(--ease) 0.25s both; }
+.shot-scan.on .scanline     { animation: sweep 1.7s ease-in-out 0.55s both; }
+.shot-scan.on .found        { animation: chipIn 0.5s var(--ease) 2.3s both; }
+.shot-scan.on .layer.home   { animation: layerIn 0.7s var(--ease) 3.2s both; }
+
+/* 02 · Order */
+.shot-order .layer.item { opacity: 0; }
+.tap-add   { left: 84%; top: 60.5%; }
+.tap-order { left: 60%; top: 96.4%; }
+.shot-order.on .tap-add::before   { animation: tapRing 0.9s ease-out 1.1s both; }
+.shot-order.on .tap-add::after    { animation: tapDot 0.9s ease-out 1.1s both; }
+.shot-order.on .layer.item        { animation: riseIn 0.6s var(--ease) 1.75s both; }
+.shot-order.on .tap-order::before { animation: tapRing 0.9s ease-out 3.5s both; }
+.shot-order.on .tap-order::after  { animation: tapDot 0.9s ease-out 3.5s both; }
+.shot-order.on .added             { animation: chipIn 0.5s var(--ease) 4.1s both; }
+.shot-order .chip { bottom: 14%; }
+
+/* 03 · Sit anywhere — the order-mode sheet, drawn */
+.sheet {
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  z-index: 3;
+  padding: 1.1em 1.5em 1.8em;
+  border-radius: 2.2em 2.2em 0 0;
+  background: var(--app-sheet);
+  box-shadow: 0 -1em 3em rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  gap: 0.9em;
+  transform: translateY(105%);
+}
+.sheet .grab { align-self: center; width: 4em; height: 0.35em; border-radius: 1em; background: rgba(255, 255, 255, 0.18); margin-bottom: 0.4em; }
+.sh-title { font-size: 1.55em; font-weight: 800; letter-spacing: -0.01em; line-height: 1.1; }
+.sh-sub { font-size: 0.95em; color: var(--app-muted); margin: -0.4em 0 0.2em; }
+.opt {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 1em;
+  padding: 1em 1.1em;
+  border-radius: 1.4em;
+  border: 1px solid var(--app-line);
+  background: var(--app-card);
+}
+.opt-collect { background: rgba(242, 184, 75, 0.1); border-color: rgba(242, 184, 75, 0.32); }
+.opt .ico { flex: none; display: grid; place-items: center; width: 3.4em; height: 3.4em; border-radius: 1em; font-style: normal; }
+.opt .ico svg { width: 1.7em; height: 1.7em; }
+.ico-gold { background: rgba(242, 184, 75, 0.16); color: var(--app-gold); }
+.ico-teal { background: rgba(143, 211, 224, 0.14); color: #8fd3e0; }
+.opt-t { display: flex; flex-direction: column; gap: 0.2em; min-width: 0; }
+.opt-table .opt-t { padding-right: 5.5em; }
+.opt-t b { font-size: 1.1em; font-weight: 800; }
+.opt-t small { font-size: 0.85em; color: var(--app-muted); }
+.opt .chev { margin-left: auto; width: 0.7em; height: 0.7em; border-right: 0.2em solid var(--app-muted); border-top: 0.2em solid var(--app-muted); transform: rotate(45deg); flex: none; }
+.opt-table::after {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  border: 0.18em solid var(--app-mint);
+  box-shadow: 0 0 0 0.35em rgba(0, 209, 186, 0.14);
+  opacity: 0;
+  pointer-events: none;
+}
+.tnum {
+  position: absolute;
+  right: 1em; top: 50%;
+  display: flex;
+  align-items: baseline;
+  gap: 0.35em;
+  padding: 0.4em 0.8em;
+  border-radius: 0.8em;
+  background: rgba(0, 209, 186, 0.14);
+  color: var(--app-mint);
+  transform: translateY(-50%) scale(0.8);
+  opacity: 0;
+}
+.tnum small { font-size: 0.75em; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; }
+.tnum b { font-size: 1.6em; font-weight: 800; line-height: 1; }
+.cancel { text-align: center; padding: 0.9em; border-radius: 1.2em; border: 1px solid var(--app-line); color: var(--app-muted); font-weight: 700; font-size: 1em; }
+.tap-table { left: 50%; bottom: 14.5%; }
+.shot-table.on .sheet             { animation: sheetUp 0.75s var(--ease) 0.35s both; }
+.shot-table.on .tap-table::before { animation: tapRing 0.9s ease-out 1.7s both; }
+.shot-table.on .tap-table::after  { animation: tapDot 0.9s ease-out 1.7s both; }
+.shot-table.on .opt-table::after  { animation: fadeIn 0.35s ease 2.1s both; }
+.shot-table.on .opt-table .chev   { animation: fadeOut 0.3s ease 2.6s both; }
+.shot-table.on .tnum              { animation: popIn 0.5s var(--ease) 2.7s both; }
+.shot-table.on .bring             { animation: chipIn 0.5s var(--ease) 3.7s both; }
+.shot-table .chip { bottom: auto; top: 30%; }
+
+/* 04 · Pay — the basket, then the paid moment, drawn */
+.tap-pay { left: 50%; top: 69.4%; }
+.layer.paid {
+  z-index: 4;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5em;
+  padding: 2em 2em 3em;
+  text-align: center;
+  background: radial-gradient(90% 55% at 50% 28%, #0f2a2c 0%, var(--app-bg) 70%);
+  opacity: 0;
+}
+.paid-mark { width: 7em; height: 7em; color: var(--app-mint); margin-bottom: 0.6em; transform: scale(0.6); opacity: 0; }
+.paid-mark svg { width: 100%; height: 100%; }
+.paid-mark .ring { stroke: rgba(0, 209, 186, 0.35); }
+.paid-mark .tick { stroke-dasharray: 44; stroke-dashoffset: 44; }
+.paid-t { font-size: 2.1em; font-weight: 800; letter-spacing: -0.02em; line-height: 1; opacity: 0; }
+.paid-s { font-size: 1.05em; color: var(--app-muted); opacity: 0; }
+.pts {
+  margin-top: 0.7em;
+  padding: 0.55em 1.2em;
+  border-radius: 999px;
+  border: 1px solid rgba(242, 184, 75, 0.5);
+  background: rgba(242, 184, 75, 0.14);
+  color: var(--app-gold);
+  font-size: 1.3em;
+  font-weight: 800;
+  opacity: 0;
+  transform: scale(0.7);
+}
+.stamps {
+  width: 100%;
+  margin-top: 1.6em;
+  padding: 1.2em 1.3em 1.3em;
+  border-radius: 1.4em;
+  border: 1px solid var(--app-line);
+  background: var(--app-card);
+  display: flex;
+  flex-direction: column;
+  gap: 0.9em;
+  opacity: 0;
+}
+.st-head { display: flex; justify-content: space-between; align-items: center; }
+.st-head b { font-size: 0.85em; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; }
+.st-count { position: relative; display: inline-grid; grid-template-columns: auto auto; align-items: baseline; padding: 0.35em 0.8em; border-radius: 999px; border: 1px solid rgba(242, 184, 75, 0.45); color: var(--app-gold); font-size: 0.95em; font-weight: 800; }
+.st-count i { grid-area: 1 / 1; font-style: normal; }
+.st-count .c10 { opacity: 0; }
+.st-row { display: grid; grid-template-columns: repeat(5, 1fr); gap: 0.45em; }
+.st-row i {
+  position: relative;
+  height: 2.2em;
+  border-radius: 0.7em;
+  background: linear-gradient(180deg, #ffcf5c 0%, #f0ad2b 100%);
+  box-shadow: inset 0 0.1em 0 rgba(255, 255, 255, 0.45);
+}
+.st-row i.st-last { background: transparent; border: 0.15em dashed rgba(0, 209, 186, 0.7); box-shadow: none; }
+.st-row i.st-last::before { content: 'FREE'; position: absolute; inset: 0; display: grid; place-items: center; font-size: 0.7em; font-weight: 800; letter-spacing: 0.1em; color: var(--app-mint); }
+.st-row i.st-last::after { content: ''; position: absolute; inset: -0.15em; border-radius: 0.7em; background: linear-gradient(180deg, #ffcf5c 0%, #f0ad2b 100%); box-shadow: 0 0 1.6em var(--gold-glow); opacity: 0; transform: scale(0.6); }
+.st-free { font-size: 0.9em; font-weight: 700; color: var(--app-mint); opacity: 0; }
+.shot-pay.on .tap-pay::before  { animation: tapRing 0.9s ease-out 1.4s both; }
+.shot-pay.on .tap-pay::after   { animation: tapDot 0.9s ease-out 1.4s both; }
+.shot-pay.on .layer.paid       { animation: fadeIn 0.5s ease 2.1s both; }
+.shot-pay.on .paid-mark        { animation: popIn 0.6s var(--ease) 2.3s both; }
+.shot-pay.on .paid-mark .tick  { animation: draw 0.5s ease-out 2.7s both; }
+.shot-pay.on .paid-t           { animation: riseIn 0.5s var(--ease) 2.7s both; }
+.shot-pay.on .paid-s           { animation: riseIn 0.5s var(--ease) 2.85s both; }
+.shot-pay.on .pts              { animation: popIn 0.55s var(--ease) 3.15s both; }
+.shot-pay.on .stamps           { animation: riseIn 0.6s var(--ease) 3.5s both; }
+.shot-pay.on .st-last::after   { animation: popIn 0.5s var(--ease) 4.5s both; }
+.shot-pay.on .st-count .c9     { animation: fadeOut 0.25s ease 4.6s both; }
+.shot-pay.on .st-count .c10    { animation: fadeIn 0.25s ease 4.6s both; }
+.shot-pay.on .st-free          { animation: riseIn 0.5s var(--ease) 4.9s both; }
+
+/* Off screen: freeze the enactment. Paused by the visitor: every beat shows
+   its finished frame at once, so clicking through the cards reads complete. */
+.showcase.is-paused:not(.is-still) .shot *, .showcase.is-paused:not(.is-still) .shot *::before, .showcase.is-paused:not(.is-still) .shot *::after { animation-play-state: paused !important; }
+.showcase.is-still .shot *, .showcase.is-still .shot *::before, .showcase.is-still .shot *::after { animation-duration: 0.01ms !important; animation-delay: 0s !important; }
+
+@keyframes showIn  { from { opacity: 0; transform: translate(-50%, -50%) scale(1.08); } to { opacity: 1; transform: translate(-50%, -50%) scale(1); } }
+@keyframes sweep   { 0% { opacity: 0; transform: translateY(0); } 12% { opacity: 1; } 88% { opacity: 1; } 100% { opacity: 0; transform: translateY(36em); } }
+@keyframes chipIn  { from { opacity: 0; transform: translate(-50%, 1.2em) scale(0.92); } to { opacity: 1; transform: translate(-50%, 0) scale(1); } }
+@keyframes layerIn { from { opacity: 0; transform: scale(1.04); } to { opacity: 1; transform: none; } }
+@keyframes riseIn  { from { opacity: 0; transform: translateY(2.4em); } to { opacity: 1; transform: none; } }
+@keyframes popIn   { from { opacity: 0; transform: scale(0.6); } to { opacity: 1; transform: scale(1); } }
+@keyframes sheetUp { from { transform: translateY(105%); } to { transform: none; } }
+@keyframes fadeIn  { from { opacity: 0; } to { opacity: 1; } }
+@keyframes fadeOut { from { opacity: 1; } to { opacity: 0; } }
+@keyframes draw    { from { stroke-dashoffset: 44; } to { stroke-dashoffset: 0; } }
+@keyframes tapRing { 0% { opacity: 0; transform: translate(-50%, -50%) scale(0.4); } 30% { opacity: 1; } 100% { opacity: 0; transform: translate(-50%, -50%) scale(1.6); } }
+@keyframes tapDot  { 0%, 15% { opacity: 0; transform: translate(-50%, -50%) scale(0.5); } 35% { opacity: 1; transform: translate(-50%, -50%) scale(0.9); } 65% { opacity: 1; } 100% { opacity: 0; transform: translate(-50%, -50%) scale(0.9); } }
 
 /* --------------------------------------------------------------------------
    Story — teal band, the real room in an arched gold frame
@@ -1814,6 +2344,7 @@ strong, b { font-weight: 700; }
   .points { grid-template-columns: repeat(2, 1fr); }
   .quotes { grid-template-columns: repeat(2, 1fr); }
   .device-side { width: 220px; }
+  .device-side .phone { --pw: 220px; }
 }
 
 @media (max-width: 900px) {
@@ -1892,35 +2423,31 @@ strong, b { font-weight: 700; }
   .cookie-banner-inner { flex-direction: column; align-items: stretch; gap: 14px; }
   .cookie-actions { justify-content: flex-end; }
 
-  /* Devices: horizontal snap rail on phones */
+  /* Devices: one live phone on phones, no sideways rail. The ground shadow
+     stays put now, so it comes back. */
   .devices {
     display: flex;
-    justify-content: flex-start;
+    justify-content: center;
     align-items: flex-start;
-    gap: 18px;
-    padding: 24px var(--gutter) 0;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    scrollbar-width: none;
+    gap: 0;
+    padding: 20px var(--gutter) 26px;
     min-height: 0;
   }
-  .devices::-webkit-scrollbar { display: none; }
-  .devices::before { bottom: 30%; height: 50%; }
-  .devices::after { height: 90px; }
-  .device { scroll-snap-align: center; flex: none; }
-  .device-main { order: 0; }
-  .device-side.left { order: 1; }
-  .device-side.right { order: 2; }
-  .device-side { width: 240px; opacity: 1; }
-  .device-side.left, .device-side.right,
-  .js .device-side.left.reveal.in, .js .device-side.right.reveal.in { transform: none; opacity: 1; }
-  .phone { width: 240px; border-radius: 42px; padding: 9px; }
-  .phone::after, .phone-screen { border-radius: 34px; }
+  .devices::before { bottom: 10%; height: 62%; }
+  .devices::after { bottom: 6px; width: min(360px, 78%); height: 34px; }
+  .device { flex: none; }
+  .device-side { display: none; }
+  .phone { --pw: 250px; width: 250px; border-radius: 44px; padding: 9px; }
+  .phone::after, .phone-screen { border-radius: 36px; }
   .phone::after { inset: 9px; }
   .device-label { position: static; transform: none; margin: 0 0 12px; text-align: center; display: block; }
-  .device-main .device-label { display: block; }
 
-  .steps { grid-template-columns: 1fr; }
+  .show-ctl { margin-bottom: 18px; }
+  .steps { grid-template-columns: 1fr 1fr; gap: 10px; }
+  .step { padding: 16px 16px 18px; }
+  .step .n { width: 28px; height: 28px; margin-bottom: 12px; font-size: 13px; }
+  .step h3 { font-size: 1.02rem; }
+  .step p { font-size: 13px; line-height: 1.5; }
 
   .menu-hero-grid { grid-template-columns: 1fr; }
   .menu-hero-figure { justify-self: stretch; max-width: 560px; }
@@ -1959,8 +2486,13 @@ strong, b { font-weight: 700; }
   .tile:hover img, .story-inset:hover { transform: none; }
   .story-inset { transform: rotate(-4deg); }
   .dock { transition: none; }
-}
-@media (prefers-reduced-motion: reduce) and (max-width: 900px) {
-  .js .device-side.left.reveal, .js .device-side.right.reveal,
-  .js .device-side.left.reveal.in, .js .device-side.right.reveal.in { transform: none; opacity: 1; }
+
+  /* The app showcase does not play: each beat shows its finished frame,
+     the step cards still switch it, and there is nothing to pause. */
+  .show-ctl { display: none; }
+  .shot { transition: none; }
+  .showcase .shot *, .showcase .shot *::before, .showcase .shot *::after { animation-delay: 0s !important; }
+  .showcase .tap { display: none; }
+  .step-bar { display: none; }
+  .step, .step-bar b { transition: none; }
 }
