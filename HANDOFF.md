@@ -20,25 +20,30 @@ The `roma-2026/` folder is a separate local-only redesign; nothing deploys from 
   script) and FormSubmit (needs an "Activate Form" click that never happened;
   one real application on 2026-09-11 13:17 was lost that way).
 
-## Style decisions (2026-09-15 redesign)
+## Style decisions (2026-09-17 redesign, "Peacock & Marigold")
 
-- Palette "Espresso Terrazzo — Italian Quad-Accent Suite" (2026-09-15):
-  An espresso canvas `#0f0c0a` and travertine ink `#f3ebdf`, elevated with four
-  bespoke Italian accents that prevent single-color monotony:
-  1. Florentine Brass & Antique Gold (`#cba358` / text `#dfba6d`): logo monogram
-     seal ("R" medal with gold foil gradient & bevel), review stars (4.5 ★★★★★),
-     Est. 1997 heritage tags, gluten-free badge, allergen filter highlights, and
-     historic story accents.
-  2. Tuscan Olive (`#7ea368` / text `#96bd7d`): open status dot, living clock,
-     today's opening hours row, dine-in icon, and vegetarian/vegan diet tags.
-  3. Siena Terracotta (`#c24b30` / text `#e06d4e`): primary action buttons,
-     order triggers, takeaway cup icon, and phone contact.
-  4. Mediterranean Azure (`#5299a8` / text `#6cb6c5`): address & map icon,
-     private events, digital payments step, and local discovery points.
-  One 44px Italian tricolore ribbon in the footer. Contrast exceeds WCAG AA/AAA.
-- Fonts: Outfit for display, Plus Jakarta Sans for body, Cinzel only for the
-  tiny "St Albans · Est. 1997" tag. No italics anywhere. The old Bodoni /
-  antique-gold / cream look is gone.
+- Palette is taken from the real room and shopfront. Cream paper canvas
+  `#fbf6ec` with ink `#0e2a31`; deep peacock-teal bands `#0b3540` (story,
+  reviews) and `#072831` (hero base, footer); one accent, marigold gold
+  `#e8a93a` (buttons, stars, seal, "now" markers; as text on cream it is
+  `#8f5d10`, on teal `#f2b84b`). Leaf green `#1f7a48` only for "open now"
+  and diet tags; orchid pink `#c2418a` only as a small icon tint. No red or
+  terracotta anywhere except the 44px Italian tricolore in the footer.
+- Dark surfaces re-theme every component through CSS variables: `.hero`,
+  `.band`, `.footer` and the nav while it floats over the hero photo. A page
+  with no photo hero puts `nav-light` on the header (menu page does).
+- Fonts: Fraunces for display (italic gold for one phrase per heading), Plus
+  Jakarta Sans for body, Cinzel for the tiny "St Albans · Est. 1997" tag and
+  the R seal. Arched photo frames echo the cafe's gold mirrors.
+- Photos, all graded copies from `images/graded/` (see its NOTES.md):
+  `interior-graded.jpg` (real, story arch), `interior-counter-graded.jpg`
+  (real, story polaroid), `interior-mirrors-graded.jpg` (real, reviews tile),
+  `interior-lights-graded.jpg` (real, menu page hero), `exterior-front-graded.jpg`
+  (real, visit section). `images/exterior.jpg` is the hero, ungraded.
+- Stock photos: `coffee-graded.jpg` and `pastries-graded.jpg` sit together in
+  the "At the counter" block (`.counter-photos`, both 4:3). When real photos
+  arrive, replace those two files with 1200x900 crops and update the two alt
+  texts in `index.html`. Their captions never say they were taken at the cafe.
 - All styles live in `styles.css` (menu page included, no inline CSS). Phone
   frames are CSS-only and show `images/app-home.png`, `app-menu.png`,
   `app-rewards.png` (393x852 @3x captures of the updated app).

@@ -1,3 +1,8 @@
 .vercel
 node_modules
 .env*
+
+# Photo working files: Google-listing downloads (licence unclear) and grade outputs
+images/google/
+images/graded/*.jpg
+.playwright-mcp/

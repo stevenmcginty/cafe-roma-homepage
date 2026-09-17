@@ -5,16 +5,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>Menu — Cafe Roma · St Albans</title>
   <meta name="description" content="The Cafe Roma menu — coffee, breakfast, lunch, cakes. Fresh every day on St Peter's Street, St Albans. Prices shown; subject to change." />
-  <meta name="theme-color" content="#0f0c0a" />
+  <meta name="theme-color" content="#0b3540" />
 
   <meta property="og:title" content="Menu — Cafe Roma, St Albans" />
   <meta property="og:description" content="Fresh coffee, homemade food. Our full menu, updated in real time." />
   <meta property="og:type" content="website" />
-  <meta property="og:image" content="images/coffee.jpg" />
+  <meta property="og:image" content="images/exterior.jpg" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Outfit:wght@500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Fraunces:ital,opsz,wght@0,9..144,500..900;1,9..144,500..900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
   <script>document.documentElement.classList.add('js');</script>
 </head>
@@ -25,11 +25,14 @@
   <!-- =========================================================
        Navigation — same component as the homepage
        ========================================================= -->
-  <header class="nav scrolled" id="nav">
+  <header class="nav nav-light scrolled" id="nav">
     <div class="nav-inner">
       <a href="index.html" class="wordmark" aria-label="Cafe Roma home">
         <span class="mark" aria-hidden="true">R</span>
-        <span>Cafe Roma</span>
+        <span class="wordmark-text">
+          <span>Cafe Roma</span>
+          <span class="tricolore tricolore-nav" aria-hidden="true"></span>
+        </span>
       </a>
       <nav class="nav-links" id="navLinks" aria-label="Primary">
         <a class="nav-link active" href="menu.html">Menu</a>
@@ -63,15 +66,21 @@
        Menu header
        ========================================================= -->
   <section class="menu-hero">
-    <div class="container">
-      <span class="eyebrow">Menu</span>
-      <h1 class="display">Today at Roma</h1>
-      <p class="lede">Everything we are serving today, straight from the counter. No sign-in needed.</p>
-      <div class="menu-meta">
-        <span><span class="live-dot is-open-dot" aria-hidden="true"></span>Live from the counter</span>
-        <span id="lastUpdated">Updated moments ago</span>
-        <span>Prices in £</span>
+    <div class="container menu-hero-grid">
+      <div class="menu-hero-copy">
+        <span class="eyebrow">Menu</span>
+        <h1 class="display">Today <em>at Roma</em></h1>
+        <p class="lede">Everything we are serving today, straight from the counter. No sign-in needed.</p>
+        <div class="menu-meta">
+          <span><span class="live-dot is-open-dot" aria-hidden="true"></span>Live from the counter</span>
+          <span id="lastUpdated">Updated moments ago</span>
+          <span>Prices in £</span>
+        </div>
       </div>
+      <figure class="menu-hero-figure">
+        <img src="images/interior-lights-graded.jpg" alt="Pendant bulbs, an autumn garland and the blackboard coffee list inside Cafe Roma" width="580" height="310" fetchpriority="high" />
+        <figcaption>The blackboard, above the counter</figcaption>
+      </figure>
     </div>
   </section>
 

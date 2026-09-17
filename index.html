@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>Cafe Roma — St Albans · Est. 1997</title>
   <meta name="description" content="A much-loved cafe on historic St Peter's Street, St Albans. Fresh coffee, homemade food, and familiar faces since 1997. Order from your table or sign in to earn loyalty rewards." />
-  <meta name="theme-color" content="#0f0c0a" />
+  <meta name="theme-color" content="#0b3540" />
 
   <meta property="og:title" content="Cafe Roma — St Albans" />
   <meta property="og:description" content="A much-loved cafe on historic St Peter's Street, St Albans. Fresh coffee, homemade food, familiar faces. Est. 1997." />
@@ -15,7 +15,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Outfit:wght@500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Fraunces:ital,opsz,wght@0,9..144,500..900;1,9..144,500..900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
 
   <!-- Marks that JS is available. Everything that "animates in" is gated on
@@ -66,7 +66,10 @@
     <div class="nav-inner">
       <a href="#top" class="wordmark" aria-label="Cafe Roma home">
         <span class="mark" aria-hidden="true">R</span>
-        <span>Cafe Roma</span>
+        <span class="wordmark-text">
+          <span>Cafe Roma</span>
+          <span class="tricolore tricolore-nav" aria-hidden="true"></span>
+        </span>
       </a>
 
       <nav class="nav-links" id="navLinks" aria-label="Primary">
@@ -81,6 +84,7 @@
       </nav>
 
       <div class="nav-right">
+        <a class="nav-menu-mini" href="menu.html">Menu</a>
         <span class="nav-status" id="navStatus" aria-live="polite">
           <span class="dot" aria-hidden="true"></span>
           <span class="nav-status-text">Checking…</span>
@@ -110,7 +114,7 @@
       <div class="hero-grid">
         <div class="hero-copy">
           <span class="tag-serif hero-tag rise" data-rise>St Albans · Est. 1997</span>
-          <h1 class="display rise" data-rise>Fresh coffee. Homemade food. Familiar faces.</h1>
+          <h1 class="display rise" data-rise>Fresh coffee. Homemade food. <em>Familiar faces.</em></h1>
           <p class="lede rise" data-rise>
             A much-loved cafe on St Peter's Street for nearly thirty years. Order from your table,
             pay from your phone and earn rewards with every cup in the Cafe Roma app.
@@ -234,7 +238,7 @@
   <!-- =========================================================
        Our story
        ========================================================= -->
-  <section class="sec" id="about">
+  <section class="sec band" id="about">
     <div class="container">
       <div class="story-grid">
         <div class="story-body">
@@ -247,13 +251,19 @@
           <p class="reveal delay-2">Under her care the cafe has a cosy atmosphere, genuinely warm service and proper espresso, with fresh energy and small touches that make every visit feel considered. Whether you are stopping in on the walk to work or settling in for the afternoon, you are welcome to stay a while.</p>
         </div>
 
-        <figure class="story-figure reveal delay-1">
-          <img src="images/interior.jpg" alt="Inside Cafe Roma — cosy interior with warm lighting and the counter at the far end" loading="lazy" width="1200" height="900" />
-          <figcaption>
-            <span class="cap">Inside · room to stay a while</span>
-            <span class="est"><span class="tag-serif">Est.</span><span class="yr">1997</span></span>
-          </figcaption>
-        </figure>
+        <div class="story-visual reveal delay-1">
+          <figure class="story-figure">
+            <img src="images/interior-graded.jpg" alt="Inside Cafe Roma — teal walls, arched gold mirrors, honey wood floor and the counter at the far end" loading="lazy" width="853" height="870" />
+            <figcaption>
+              <span class="cap">Inside · room to stay a while</span>
+              <span class="est"><span class="tag-serif">Est.</span><span class="yr">1997</span></span>
+            </figcaption>
+          </figure>
+          <figure class="story-inset">
+            <img src="images/interior-counter-graded.jpg" alt="The Cafe Roma counter — fresh flowers, pastries and the blackboard coffee list" loading="lazy" width="457" height="465" />
+            <figcaption>The counter</figcaption>
+          </figure>
+        </div>
       </div>
 
       <div class="stats">
@@ -288,38 +298,41 @@
         <p class="lede reveal delay-2">Proper espresso, food made fresh in-house every day, and a menu that moves with the seasons.</p>
       </div>
 
-      <div class="counter-grid">
-        <figure class="tile tall reveal">
-          <img src="images/coffee.jpg" alt="A flat white with latte art on the counter at Cafe Roma" loading="lazy" width="1200" height="900" />
+      <!-- Two stock photos at one ratio (4:3). To swap in real photos, replace
+           images/coffee-graded.jpg and images/pastries-graded.jpg with 1200x900
+           crops and update the alt text. Nothing else needs to change. -->
+      <div class="counter-photos">
+        <figure class="tile reveal">
+          <img src="images/coffee-graded.jpg" alt="A flat white with latte art in a white cup on a wooden counter" loading="lazy" width="1200" height="900" />
           <figcaption class="cap">
             <h3>Artisan coffee</h3>
             <p>Freshly ground, expertly brewed. Latte art, every time.</p>
           </figcaption>
         </figure>
         <figure class="tile reveal delay-1">
-          <img src="images/pastries.jpg" alt="A plate of fresh croissants, pains au chocolat and muffins" loading="lazy" width="1200" height="900" />
+          <img src="images/pastries-graded.jpg" alt="A plate of fresh croissants, pains au chocolat and muffins" loading="lazy" width="1200" height="900" />
           <figcaption class="cap">
             <h3>Homemade food</h3>
             <p>Baked and made fresh in-house, daily.</p>
           </figcaption>
         </figure>
-        <div class="points reveal delay-2" style="margin-top:0">
-          <div class="point glass">
-            <span class="ic ic-olive" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v12a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M9 22V12h6v10"/></svg></span>
-            <div><h3>Dine in</h3><p>Settle in with a coffee and something delicious. Stay as long as you like.</p></div>
-          </div>
-          <div class="point glass">
-            <span class="ic ic-terra" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg></span>
-            <div><h3>Takeaway</h3><p>In a rush? Your usual brew and a bite, sorted in no time.</p></div>
-          </div>
-          <div class="point glass">
-            <span class="ic ic-brass" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M9 13h6M9 17h6"/></svg></span>
-            <div><h3>Seasonal menu</h3><p>Classics you love alongside fresh ideas as the seasons change.</p></div>
-          </div>
-          <div class="point glass">
-            <span class="ic ic-azure" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></span>
-            <div><h3>Private events</h3><p>Planning a small gathering? Get in touch and we will make it feel special.</p></div>
-          </div>
+      </div>
+      <div class="points reveal delay-2">
+        <div class="point glass">
+          <span class="ic ic-teal" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v12a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M9 22V12h6v10"/></svg></span>
+          <div><h3>Dine in</h3><p>Settle in with a coffee and something delicious. Stay as long as you like.</p></div>
+        </div>
+        <div class="point glass">
+          <span class="ic ic-gold" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg></span>
+          <div><h3>Takeaway</h3><p>In a rush? Your usual brew and a bite, sorted in no time.</p></div>
+        </div>
+        <div class="point glass">
+          <span class="ic ic-leaf" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M9 13h6M9 17h6"/></svg></span>
+          <div><h3>Seasonal menu</h3><p>Classics you love alongside fresh ideas as the seasons change.</p></div>
+        </div>
+        <div class="point glass">
+          <span class="ic ic-orchid" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></span>
+          <div><h3>Private events</h3><p>Planning a small gathering? Get in touch and we will make it feel special.</p></div>
         </div>
       </div>
     </div>
@@ -386,7 +399,7 @@
   <!-- =========================================================
        Reviews
        ========================================================= -->
-  <section class="sec" id="reviews">
+  <section class="sec band" id="reviews">
     <div class="container">
       <div class="reviews-head">
         <div class="sec-head" style="margin-bottom:0">
@@ -400,6 +413,10 @@
       </div>
 
       <div class="quotes" id="quotes">
+        <figure class="quote-photo reveal">
+          <img src="images/interior-mirrors-graded.jpg" alt="Inside Cafe Roma — the teal wall, arched gold mirrors and pendant lights" loading="lazy" width="620" height="510" />
+          <figcaption>The room, from a corner table</figcaption>
+        </figure>
         <article class="quote glass reveal">
           <span class="stars" aria-hidden="true">★★★★★</span>
           <blockquote>"Small and cosy cafe with good coffee and a great selection of cakes and sandwiches."</blockquote>
@@ -433,7 +450,7 @@
       <div class="visit-grid">
         <div class="visit-card glass reveal">
           <div class="visit-item">
-            <span class="ic ic-azure" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></span>
+            <span class="ic ic-teal" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></span>
             <div>
               <h4>Address</h4>
               <p>79A St Peter's Street<br />St Albans, AL1 3EG</p>
@@ -441,7 +458,7 @@
           </div>
 
           <div class="visit-item">
-            <span class="ic ic-terra" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg></span>
+            <span class="ic ic-gold" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg></span>
             <div>
               <h4>Telephone</h4>
               <p><a href="tel:07938311828">07938 311828</a></p>
@@ -449,7 +466,7 @@
           </div>
 
           <div class="visit-item">
-            <span class="ic ic-olive" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></span>
+            <span class="ic ic-leaf" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></span>
             <div>
               <h4>Opening hours</h4>
               <div class="hours" id="hoursTable">
@@ -466,7 +483,7 @@
           </div>
 
           <div class="visit-item">
-            <span class="ic ic-brass" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></span>
+            <span class="ic ic-orchid" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></span>
             <div>
               <h4>Follow us</h4>
               <div class="social">
@@ -484,18 +501,24 @@
           </div>
         </div>
 
-        <div class="visit-map reveal delay-1">
-          <iframe
-            src="https://www.google.com/maps?q=79A+St+Peters+Street,+St+Albans+AL1+3EG&output=embed"
-            loading="lazy" referrerpolicy="no-referrer-when-downgrade"
-            title="Cafe Roma location map">
-          </iframe>
-          <a class="btn btn-primary directions"
-             href="https://www.google.com/maps/dir/?api=1&destination=79A+St+Peters+Street%2C+St+Albans+AL1+3EG"
-             target="_blank" rel="noopener">
-            <span>Get directions</span>
-            <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
-          </a>
+        <div class="visit-side reveal delay-1">
+          <figure class="visit-photo">
+            <img src="images/exterior-front-graded.jpg" alt="The blue shopfront of Cafe Roma on St Peter's Street, with gold lettering, pavement tables and lemon trees" loading="lazy" width="1300" height="1269" />
+            <figcaption>Look for the blue front</figcaption>
+          </figure>
+          <div class="visit-map">
+            <iframe
+              src="https://www.google.com/maps?q=79A+St+Peters+Street,+St+Albans+AL1+3EG&output=embed"
+              loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+              title="Cafe Roma location map">
+            </iframe>
+            <a class="btn btn-primary directions"
+               href="https://www.google.com/maps/dir/?api=1&destination=79A+St+Peters+Street%2C+St+Albans+AL1+3EG"
+               target="_blank" rel="noopener">
+              <span>Get directions</span>
+              <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+            </a>
+          </div>
         </div>
       </div>
 
