@@ -316,7 +316,10 @@ strong, b { font-weight: 700; }
   position: fixed;
   top: 0; left: 0; right: 0;
   z-index: 100;
-  height: var(--nav-h);
+  /* iOS: viewport-fit=cover lets the browser chrome sit over the top of the
+     page, which hid the wordmark and the Menu button. Pad by the safe area. */
+  height: calc(var(--nav-h) + env(safe-area-inset-top, 0px));
+  padding-top: env(safe-area-inset-top, 0px);
   transition: background-color 0.4s, border-color 0.4s, color 0.4s;
   border-bottom: 1px solid transparent;
   color: var(--text);
@@ -479,7 +482,7 @@ strong, b { font-weight: 700; }
   min-height: 100svh;
   display: flex;
   align-items: flex-end;
-  padding: calc(var(--nav-h) + 56px) 0 clamp(56px, 7vw, 104px);
+  padding: calc(var(--nav-h) + env(safe-area-inset-top, 0px) + 56px) 0 clamp(56px, 7vw, 104px);
   overflow: hidden;
   isolation: isolate;
   background: var(--teal-deeper);
@@ -1994,7 +1997,7 @@ strong, b { font-weight: 700; }
    -------------------------------------------------------------------------- */
 .menu-hero {
   position: relative;
-  padding: calc(var(--nav-h) + 48px) 0 36px;
+  padding: calc(var(--nav-h) + env(safe-area-inset-top, 0px) + 48px) 0 36px;
   overflow: hidden;
 }
 .menu-hero::before {
@@ -2058,7 +2061,7 @@ strong, b { font-weight: 700; }
 /* Tools row: allergen toggle + category tabs, sticky together */
 .menu-tools {
   position: sticky;
-  top: var(--nav-h);
+  top: calc(var(--nav-h) + env(safe-area-inset-top, 0px));
   z-index: 80;
   background: rgba(251, 246, 236, 0.88);
   backdrop-filter: blur(18px) saturate(1.2);
@@ -2352,7 +2355,7 @@ strong, b { font-weight: 700; }
 
   .nav-links {
     position: fixed;
-    inset: var(--nav-h) 0 0 0;
+    inset: calc(var(--nav-h) + env(safe-area-inset-top, 0px)) 0 0 0;
     flex-direction: column;
     align-items: stretch;
     gap: 4px;
