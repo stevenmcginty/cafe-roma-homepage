@@ -139,7 +139,10 @@ body {
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  /* clip where it is supported: overflow-x: hidden on the body makes iOS treat
+     position: fixed elements as if they scrolled away. */
   overflow-x: hidden;
+  overflow-x: clip;
 }
 
 /* Grain — so the cream reads as paper, not a screen. */
@@ -320,6 +323,9 @@ strong, b { font-weight: 700; }
      page, which hid the wordmark and the Menu button. Pad by the safe area. */
   height: calc(var(--nav-h) + env(safe-area-inset-top, 0px));
   padding-top: env(safe-area-inset-top, 0px);
+  /* iOS paints a fixed bar under later stacking contexts unless it owns a
+     layer. Promote it, and pin the hero to the base layer below it. */
+  transform: translateZ(0);
   transition: background-color 0.4s, border-color 0.4s, color 0.4s;
   border-bottom: 1px solid transparent;
   color: var(--text);
@@ -485,6 +491,7 @@ strong, b { font-weight: 700; }
   padding: calc(var(--nav-h) + env(safe-area-inset-top, 0px) + 56px) 0 clamp(56px, 7vw, 104px);
   overflow: hidden;
   isolation: isolate;
+  z-index: 0;
   background: var(--teal-deeper);
 }
 .hero-bg {
