@@ -1797,6 +1797,32 @@ strong, b { font-weight: 700; }
   box-shadow: 0 0 0 3px var(--gold-soft);
 }
 
+/* Hiring switch: #careers[data-hiring="closed"] shows the notice, "open" shows the form */
+#careers[data-hiring="closed"] .hiring-open-only,
+#careers:not([data-hiring="closed"]) .hiring-closed-only { display: none; }
+.careers-closed { padding: 32px 28px; display: grid; gap: 14px; justify-items: start; }
+.closed-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--gold-text);
+  background: var(--gold-soft);
+}
+.closed-pill::before {
+  content: '';
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: var(--gold);
+}
+.closed-title { font-family: var(--font-display); font-size: clamp(1.5rem, 2.4vw, 1.9rem); font-weight: 600; line-height: 1.15; }
+.careers-closed p { color: var(--muted); font-size: 15.5px; max-width: 46ch; }
+
 .careers-form { padding: 28px; display: grid; gap: 18px; }
 .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
 .field { display: grid; gap: 8px; }
@@ -2473,6 +2499,7 @@ strong, b { font-weight: 700; }
 @media (max-width: 560px) {
   .field-row { grid-template-columns: 1fr; }
   .careers-form { padding: 20px; }
+  .careers-closed { padding: 24px 20px; }
   .points { grid-template-columns: 1fr; gap: 10px; }
   .point { min-height: 0; padding: 16px 18px; flex-direction: row; align-items: flex-start; gap: 14px; }
   .stats { gap: 10px; }

@@ -15,6 +15,10 @@
 
 import nodemailer from 'nodemailer';
 
+// Hiring switch. While false, every application is turned away. Keep it in
+// step with data-hiring on the #careers section in index.html.
+const HIRING = false;
+
 const MAX_CV_BYTES = 4 * 1024 * 1024; // 4 MB — under Vercel's 4.5 MB request body limit
 const ALLOWED_CV = new Set([
   'application/pdf',
@@ -36,6 +40,10 @@ const escapeHtml = s =>
 // Named HTTP-method export: this is what makes Vercel's Node runtime hand us
 // a Web-standard Request (with formData()) instead of (req, res).
 export async function POST(request) {
+  if (!HIRING) {
+    return json(503, { ok: false, error: 'We are not taking applications right now. Thank you for thinking of us.' });
+  }
+
   const user = process.env.GMAIL_USER;
   const pass = process.env.GMAIL_APP_PASSWORD;
   const to = process.env.CAREERS_TO || user;

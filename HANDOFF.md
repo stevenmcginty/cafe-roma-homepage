@@ -20,6 +20,15 @@ The `roma-2026/` folder is a separate local-only redesign; nothing deploys from 
   script) and FormSubmit (needs an "Activate Form" click that never happened;
   one real application on 2026-09-11 13:17 was lost that way).
 
+## Careers paused (2026-09-30)
+
+- Hiring is closed: too many applications. `#careers` has
+  `data-hiring="closed"`, which shows an "Applications closed" notice and hides
+  the form and the perks list (CSS in `styles.css`, "Hiring switch").
+  `api/apply.mjs` has `const HIRING = false`, so any post returns 503.
+- To reopen: set `data-hiring="open"` in `index.html` and `HIRING = true` in
+  `api/apply.mjs`. The nav and footer "Careers" links stay either way.
+
 ## Style decisions (2026-09-17 redesign, "Peacock & Marigold")
 
 - Palette is taken from the real room and shopfront. Cream paper canvas
@@ -75,3 +84,27 @@ The `roma-2026/` folder is a separate local-only redesign; nothing deploys from 
   member code reaches the page.
 - Photos to swap when real food photos arrive: `images/coffee-graded.jpg` and
   `images/pastries-graded.jpg`.
+
+## iPhone fixes (2026-09-17)
+
+- The nav pads by `env(safe-area-inset-top)` (the meta viewport uses
+  `viewport-fit=cover`), and the mobile sheet, the `.menu-tools` sticky bar and
+  both hero tops offset by the same amount.
+- Never put `transform`, `filter` or `backdrop-filter` on `.nav` while the menu
+  is open: any of them makes the nav the containing block for the fixed
+  `.nav-links` sheet and clips the menu to a 60px strip (this shipped once in
+  9e391f1, fixed in ba9b1a4). The hero's `z-index: 0` keeps it under the nav.
+- The body uses `overflow-x: clip` (with `hidden` as the fallback), because
+  `hidden` on the body can make iOS drop fixed bars.
+- Test iPhone rendering locally with Playwright WebKit and
+  `devices['iPhone 14 Pro']` (`npm install --no-save playwright@1.48.0`).
+  It does not emulate safe-area insets.
+
+## Open
+
+- The owner's iPhone showed the site black. The site has no dark theme, and
+  WebKit in dark mode still renders it cream, so something on the phone forces
+  dark (a Safari extension such as Noir or Dark Reader, or an in-app browser).
+  Undecided: build a proper `prefers-color-scheme: dark` theme, or leave it.
+- `images/app-rewards.png` still shows real balances (no name).
+- Real food and coffee photos still to come; see the swap list above.

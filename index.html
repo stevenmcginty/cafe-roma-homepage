@@ -654,23 +654,32 @@
   <!-- =========================================================
        Careers
        ========================================================= -->
-  <section class="sec" id="careers">
+  <!-- Hiring switch: data-hiring="closed" shows the notice and hides the form.
+       To reopen, set it to "open" and set HIRING = true in api/apply.mjs. -->
+  <section class="sec" id="careers" data-hiring="closed">
     <div class="container">
       <div class="careers-grid">
         <div class="careers-intro">
           <div class="sec-head">
             <span class="eyebrow reveal">Careers</span>
             <h2 class="sec-title reveal delay-1">Work with us</h2>
-            <p class="lede reveal delay-2">We are a small, friendly team on St Peter's Street and we are always happy to hear from good people: baristas, kitchen, front of house. Send us your CV or a short note and we will be in touch.</p>
+            <p class="lede reveal delay-2 hiring-closed-only">We are a small, friendly team on St Peter's Street. Right now every place on the team is filled, so we are not taking applications.</p>
+          <p class="lede reveal delay-2 hiring-open-only">We are a small, friendly team on St Peter's Street and we are always happy to hear from good people: baristas, kitchen, front of house. Send us your CV or a short note and we will be in touch.</p>
           </div>
-          <ul class="careers-points reveal delay-2">
+          <ul class="careers-points reveal delay-2 hiring-open-only">
             <li>Full and part-time hours</li>
             <li>Early starts, evenings free</li>
             <li>Free coffee, obviously</li>
           </ul>
         </div>
 
-        <form class="careers-form glass reveal delay-1" id="careersForm" action="/api/apply" method="post" enctype="multipart/form-data" novalidate>
+        <div class="careers-closed glass reveal delay-1 hiring-closed-only" role="status">
+          <span class="closed-pill">Applications closed</span>
+          <h3 class="closed-title">We are not hiring right now</h3>
+          <p>Our team is full at the moment, so please do not send a CV. Thank you for thinking of us. When a place opens up, we will say so here.</p>
+        </div>
+
+        <form class="careers-form glass reveal delay-1 hiring-open-only" id="careersForm" action="/api/apply" method="post" enctype="multipart/form-data" novalidate>
           <div class="field-row">
             <label class="field">
               <span class="field-label">Full name</span>
