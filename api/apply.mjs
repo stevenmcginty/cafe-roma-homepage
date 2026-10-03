@@ -17,7 +17,7 @@ import nodemailer from 'nodemailer';
 
 // Hiring switch. While false, every application is turned away. Keep it in
 // step with data-hiring on the #careers section in index.html.
-const HIRING = false;
+const HIRING = true;
 
 const MAX_CV_BYTES = 4 * 1024 * 1024; // 4 MB — under Vercel's 4.5 MB request body limit
 const ALLOWED_CV = new Set([

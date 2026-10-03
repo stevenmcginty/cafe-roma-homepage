@@ -20,14 +20,15 @@ The `roma-2026/` folder is a separate local-only redesign; nothing deploys from 
   script) and FormSubmit (needs an "Activate Form" click that never happened;
   one real application on 2026-09-11 13:17 was lost that way).
 
-## Careers paused (2026-09-30)
+## Hiring switch (paused 2026-09-30, reopened 2026-10-03)
 
-- Hiring is closed: too many applications. `#careers` has
-  `data-hiring="closed"`, which shows an "Applications closed" notice and hides
-  the form and the perks list (CSS in `styles.css`, "Hiring switch").
-  `api/apply.mjs` has `const HIRING = false`, so any post returns 503.
-- To reopen: set `data-hiring="open"` in `index.html` and `HIRING = true` in
-  `api/apply.mjs`. The nav and footer "Careers" links stay either way.
+- Hiring is open again. `#careers` has `data-hiring="open"` and
+  `api/apply.mjs` has `const HIRING = true`, so the form and perks list show
+  and applications send as before.
+- To pause: set `data-hiring="closed"` in `index.html` and `HIRING = false` in
+  `api/apply.mjs`. Closed shows an "Applications closed" notice, hides the form
+  and perks (CSS in `styles.css`, "Hiring switch"), and any post returns 503.
+  The nav and footer "Careers" links stay either way.
 
 ## Style decisions (2026-09-17 redesign, "Peacock & Marigold")
 
