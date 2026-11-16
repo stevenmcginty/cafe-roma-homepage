@@ -3,7 +3,7 @@
 Live site: https://caferoma.app (Vercel project `cafe-roma-homepage`, DNS on Vercel).
 The `roma-2026/` folder is a separate local-only redesign; nothing deploys from it.
 
-## Sign in and order on our own address (2026-11-16) — branch `feat/sign-in-order-address`, NOT live yet
+## Sign in and order on our own address (2026-11-16) — LIVE f3d2ba3, 19:02 UK
 
 - The owner wants customers to sign in and order from this website, with the
   same login as the app. The customer app (KoraOS, repo `coffee-shop-claude`)
@@ -19,9 +19,15 @@ The `roma-2026/` folder is a separate local-only redesign; nothing deploys from 
   `koraos.co.uk/api/menu` call.
 - Checked with Playwright at 1280, 1000, 910 and 390 wide: no overlap, no
   sideways scroll, no page errors.
-- Waits for the owner's go-ahead. He was asked to do one paid order at
-  `order.caferoma.app` first, because a card payment is not yet tested there.
-  A customer who signed in at koraos.co.uk must sign in once more.
+- Live: the owner said go. Merged to `master` and pushed; a push to `master`
+  deploys this site by itself (live about 20 s later, no CLI deploy needed).
+  Checked on caferoma.app: 6 app links on the home page and 5 on the menu
+  page, none left on the old address, the three forwards answer 307, and
+  "Sign in" opens the app sign-in screen.
+- Still open: a card payment at `order.caferoma.app` is not tested yet (the
+  owner was asked to do one small paid order). A customer who signed in at
+  koraos.co.uk must sign in once more.
+- Undo: `git revert f3d2ba3` and push.
 
 ## Careers form (2026-09-11)
 
