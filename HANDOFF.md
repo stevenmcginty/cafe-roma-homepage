@@ -3,6 +3,26 @@
 Live site: https://caferoma.app (Vercel project `cafe-roma-homepage`, DNS on Vercel).
 The `roma-2026/` folder is a separate local-only redesign; nothing deploys from it.
 
+## Sign in and order on our own address (2026-11-16) — branch `feat/sign-in-order-address`, NOT live yet
+
+- The owner wants customers to sign in and order from this website, with the
+  same login as the app. The customer app (KoraOS, repo `coffee-shop-claude`)
+  now also answers at `https://order.caferoma.app` (live since 2026-11-16).
+  It is the same app and the same accounts as `koraos.co.uk/cafe-roma`.
+- This branch: every "Open the app" button and the dock "Order" item go to
+  `https://order.caferoma.app` in the same tab (they went to
+  `koraos.co.uk/cafe-roma` in a new tab). A new "Sign in" link sits in the top
+  bar and the mobile sheet, on both pages. `vercel.json` forwards `/order`,
+  `/signin` and `/login` to the app. `analytics.js` counts clicks on the new
+  address as it did the old one.
+- Left alone: "Powered by KoraOS" links and the menu page's
+  `koraos.co.uk/api/menu` call.
+- Checked with Playwright at 1280, 1000, 910 and 390 wide: no overlap, no
+  sideways scroll, no page errors.
+- Waits for the owner's go-ahead. He was asked to do one paid order at
+  `order.caferoma.app` first, because a card payment is not yet tested there.
+  A customer who signed in at koraos.co.uk must sign in once more.
+
 ## Careers form (2026-09-11)
 
 - Section `#careers` on the homepage. Fields: name, email, phone, mobile, cover

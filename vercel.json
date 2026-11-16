@@ -1,4 +1,9 @@
 {
   "cleanUrls": true,
-  "trailingSlash": false
+  "trailingSlash": false,
+  "redirects": [
+    { "source": "/order", "destination": "https://order.caferoma.app", "permanent": false },
+    { "source": "/signin", "destination": "https://order.caferoma.app", "permanent": false },
+    { "source": "/login", "destination": "https://order.caferoma.app", "permanent": false }
+  ]
 }

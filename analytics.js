@@ -128,7 +128,8 @@
       }
 
       // KoraOS — sign in / order online
-      const kora = t.closest('a[href*="koraos.co.uk"]');
+      // The app lives at order.caferoma.app (the KoraOS customer app on our own name).
+      const kora = t.closest('a[href*="order.caferoma.app"], a[href*="koraos.co.uk"]');
       if (kora) {
         const label = (kora.innerText || '').trim().toLowerCase();
         track(label.indexOf('order') !== -1 ? 'click_order_online' : 'click_sign_in', {
